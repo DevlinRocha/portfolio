@@ -1,11 +1,19 @@
 {
+    "exclude": ["node_modules"],
     "files": [],
-    "references": [
-        {
-            "path": "./tsconfig.app.json"
-        },
-        {
-            "path": "./tsconfig.node.json"
+    "compilerOptions": {
+        /** Linting */
+        "allowJs": false,
+        "forceConsistentCasingInFileNames": true,
+
+        /** Path Aliasing */
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"]
         }
+    },
+    "references": [
+        { "path": "./tsconfig.app.json" },
+        { "path": "./tsconfig.node.json" }
     ]
 }
