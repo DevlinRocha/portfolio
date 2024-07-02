@@ -1,4 +1,4 @@
-// prettier.config.js, .prettierrc.js, prettier.config.cjs, or .prettierrc.cjs
+/*global module*/
 
 /**
  * @see https://prettier.io/docs/en/configuration.html

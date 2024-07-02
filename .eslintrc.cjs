@@ -1,3 +1,6 @@
+/*global module*/
+
+/** @type {import('eslint').Linter.Config} */
 module.exports = {
     root: true,
     env: { browser: true, es2020: true },
@@ -6,7 +9,7 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:react-hooks/recommended',
     ],
-    ignorePatterns: ['dist', '.eslintrc.cjs'],
+    ignorePatterns: ['dist', '.eslintrc.cjs', '.prettierrc.cjs'],
     parser: '@typescript-eslint/parser',
     plugins: ['react-refresh'],
     rules: {
