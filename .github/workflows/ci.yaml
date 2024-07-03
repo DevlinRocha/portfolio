@@ -50,7 +50,7 @@ jobs:
             #   run: pnpm audit
 
             - name: Install dependencies
-              run: pnpm install
+              run: pnpm install --prod
 
             # - name: Prettier
             # run: pnpm prettier . --write
