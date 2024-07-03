@@ -59,6 +59,7 @@ jobs:
               run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
     cd:
         name: CD
+        needs: ci
         runs-on: ubuntu-latest
 
         strategy:
