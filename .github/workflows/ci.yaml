@@ -24,9 +24,9 @@ jobs:
         env:
             NODE_ENV: 'production'
 
-        # strategy:
-        #     matrix:
-        #         node-version: [18.14.2]
+        strategy:
+            matrix:
+                node-version: [20]
 
         steps:
             - name: Checkout repository
@@ -39,11 +39,11 @@ jobs:
               with:
                   version: 9
 
-            # - name: Use Node.js ${{ matrix.node-version }}
-            #   uses: actions/setup-node@v4
-            #   with:
-            #       node-version: ${{ matrix.node-version }}
-            #       cache: 'pnpm'
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'pnpm'
 
             # - name: pnpm audit
             #   run: pnpm audit
