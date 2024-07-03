@@ -20,14 +20,24 @@ concurrency:
 jobs:
     build:
         runs-on: ubuntu-latest
+
         env:
             NODE_ENV: 'production'
+
+        strategy:
+            matrix:
+                node-version: [18.14.2]
 
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
               with:
                   fetch-depth: 0
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
 
             - name: Install pnpm
               uses: pnpm/action-setup@v4
