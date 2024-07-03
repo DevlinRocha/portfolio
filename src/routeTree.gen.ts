@@ -17,6 +17,7 @@ import { Route as rootRoute } from './routes/__root'
 // Create Virtual Routes
 
 const VvordleLazyImport = createFileRoute('/vvordle')()
+const PokemonRouletteLazyImport = createFileRoute('/pokemon-roulette')()
 const BanterLazyImport = createFileRoute('/banter')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
@@ -27,6 +28,13 @@ const VvordleLazyRoute = VvordleLazyImport.update({
   path: '/vvordle',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/vvordle.lazy').then((d) => d.Route))
+
+const PokemonRouletteLazyRoute = PokemonRouletteLazyImport.update({
+  path: '/pokemon-roulette',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/pokemon-roulette.lazy').then((d) => d.Route),
+)
 
 const BanterLazyRoute = BanterLazyImport.update({
   path: '/banter',
@@ -68,6 +76,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BanterLazyImport
       parentRoute: typeof rootRoute
     }
+    '/pokemon-roulette': {
+      id: '/pokemon-roulette'
+      path: '/pokemon-roulette'
+      fullPath: '/pokemon-roulette'
+      preLoaderRoute: typeof PokemonRouletteLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/vvordle': {
       id: '/vvordle'
       path: '/vvordle'
@@ -84,6 +99,7 @@ export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
   AboutLazyRoute,
   BanterLazyRoute,
+  PokemonRouletteLazyRoute,
   VvordleLazyRoute,
 })
 
@@ -98,6 +114,7 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/about",
         "/banter",
+        "/pokemon-roulette",
         "/vvordle"
       ]
     },
@@ -109,6 +126,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/banter": {
       "filePath": "banter.lazy.tsx"
+    },
+    "/pokemon-roulette": {
+      "filePath": "pokemon-roulette.lazy.tsx"
     },
     "/vvordle": {
       "filePath": "vvordle.lazy.tsx"
