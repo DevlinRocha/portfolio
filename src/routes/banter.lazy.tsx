@@ -35,7 +35,7 @@ function banter() {
                 </p>
             </div>
 
-            <img src="banter.svg" />
+            <img src="banter.svg" className="rounded-lg drop-shadow-2xl" />
         </div>
     )
 }
