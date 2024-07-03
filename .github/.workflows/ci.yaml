@@ -1,0 +1,34 @@
+name: CICD
+
+on:
+    push:
+        branches: ['main']
+    pull_request:
+        branches: ['main']
+
+    workflow_dispatch: {}
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        env:
+            NODE_ENV: 'production'
+
+        steps:
+            - name: Checkout repository
+            - uses: actions/checkout@v4
+
+            - name: pnpm audit
+              run: pnpm audit
+
+            - name: pnpm install
+              run: pnpm install --prod
+
+            - name: Prettier
+              run: pnpm prettier --write .
+
+            - name: Typecheck
+              run: pnpm tsc --build --verbose
+
+            - name: Lint
+              run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
