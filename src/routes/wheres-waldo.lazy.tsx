@@ -12,14 +12,14 @@ function wheresWaldo() {
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 2xl:gap-16">
                 <img
                     src="wheres-waldo.png"
-                    className="rounded-lg drop-shadow-2xl"
+                    className="rounded-lg drop-shadow-lg"
                     width={1280}
                     height={720}
                 />
 
                 <img
                     src="wheres-waldo-guess.png"
-                    className="hidden rounded-lg drop-shadow-2xl sm:block"
+                    className="hidden rounded-lg drop-shadow-lg sm:block"
                     width={1280}
                     height={720}
                 />
@@ -39,14 +39,14 @@ function wheresWaldo() {
 
             <img
                 src="wheres-waldo-guess.png"
-                className="block rounded-lg drop-shadow-2xl sm:hidden"
+                className="block rounded-lg drop-shadow-lg sm:hidden"
                 width={1280}
                 height={720}
             />
 
             <img
                 src="wheres-waldo-bottom.png"
-                className="rounded-lg drop-shadow-2xl"
+                className="rounded-lg drop-shadow-lg"
                 width={1280}
                 height={720}
             />
