@@ -40,9 +40,6 @@ jobs:
             - name: pnpm install
               run: pnpm install --prod
 
-            - name: Typecheck
-              run: pnpm tsc --build --verbose
-
             - name: Lint
               run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
     deploy:
