@@ -17,7 +17,7 @@ function Project({ name }: ProjectProps) {
     return (
         <Link
             to={`/${formatString(name)}`}
-            className="flex flex-col items-center gap-2 drop-shadow-xl"
+            className="flex flex-col items-center gap-2 drop-shadow-lg"
         >
             <img
                 src={`/${formatString(name)}.png`}
