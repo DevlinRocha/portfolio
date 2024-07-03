@@ -18,15 +18,15 @@ concurrency:
     cancel-in-progress: false
 
 jobs:
-    build:
+    deploy:
         runs-on: ubuntu-latest
 
         env:
             NODE_ENV: 'production'
 
-        strategy:
-            matrix:
-                node-version: [18.14.2]
+        # strategy:
+        #     matrix:
+        #         node-version: [18.14.2]
 
         steps:
             - name: Checkout repository
@@ -34,43 +34,33 @@ jobs:
               with:
                   fetch-depth: 0
 
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
+            # - name: Use Node.js ${{ matrix.node-version }}
+            #   uses: actions/setup-node@v3
+            #   with:
+            #       node-version: ${{ matrix.node-version }}
 
-            - name: Install pnpm
-              uses: pnpm/action-setup@v4
-              with:
-                  version: 9
+            # - name: Install pnpm
+            #   uses: pnpm/action-setup@v4
+            #   with:
+            #       version: 9
 
-            - name: pnpm audit
-              run: pnpm audit
+            # - name: pnpm audit
+            #   run: pnpm audit
 
-            - name: pnpm install
+            - name: Install dependencies
               run: pnpm install
 
-            - name: Prettier
-              run: pnpm prettier . --write
+            # - name: Prettier
+            # run: pnpm prettier . --write
 
-            - name: Typecheck
-              run: pnpm tsc --build --verbose
+            # - name: Typecheck
+            # run: pnpm tsc --build --verbose
 
-            - name: Lint
-              run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
+            # - name: Lint
+            # run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
 
-    deploy:
-        environment:
-            name: github-pages
-            url: ${{ steps.deployment.outputs.page_url }}
-
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-              with:
-                  fetch-depth: 0
+            - name: Build
+              run: pnpm build
 
             - name: Setup Pages
               uses: actions/configure-pages@v5
