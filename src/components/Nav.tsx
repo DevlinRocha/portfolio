@@ -10,6 +10,13 @@ function Nav() {
                 <Link to="/about" className="[&.active]:font-bold">
                     about
                 </Link>
+                <a
+                    href="https://drive.google.com/file/d/1DTqIS7jxcQzt12IpAFkbrl4z3anU3q5l/view?usp=sharing"
+                    target="_blank"
+                    rel="noReferrer"
+                >
+                    résumé
+                </a>
             </div>
             <hr />
         </nav>
