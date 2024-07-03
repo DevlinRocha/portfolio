@@ -38,10 +38,17 @@ jobs:
               run: pnpm audit
 
             - name: pnpm install
-              run: pnpm install --prod
+              run: pnpm install
+
+            - name: Prettier
+              run: pnpm prettier . --write
+
+            - name: Typecheck
+              run: pnpm tsc --build --verbose
 
             - name: Lint
               run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
+
     deploy:
         environment:
             name: github-pages
