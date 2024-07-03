@@ -21,6 +21,8 @@ function Project({ name }: ProjectProps) {
                 src={`/${formatString(name)}.png`}
                 alt={''}
                 className="rounded-lg"
+                width={1280}
+                height={720}
             />
             <span>{name}</span>
         </Link>
