@@ -2,7 +2,7 @@ function Footer() {
     return (
         <footer>
             <hr />
-            <div className="flex flex-col-reverse items-center justify-between p-4 sm:flex-row">
+            <div className="flex flex-col-reverse items-center justify-between gap-1 p-4 sm:flex-row">
                 <span>designed and developed by Devlin Rocha</span>
                 <div className="flex gap-4">
                     <a
