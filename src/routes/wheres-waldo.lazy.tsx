@@ -13,11 +13,15 @@ function wheresWaldo() {
                 <img
                     src="wheres-waldo.png"
                     className="rounded-lg drop-shadow-2xl"
+                    width={1280}
+                    height={720}
                 />
 
                 <img
                     src="wheres-waldo-guess.png"
                     className="hidden rounded-lg drop-shadow-2xl sm:block"
+                    width={1280}
+                    height={720}
                 />
             </div>
 
@@ -36,11 +40,15 @@ function wheresWaldo() {
             <img
                 src="wheres-waldo-guess.png"
                 className="block rounded-lg drop-shadow-2xl sm:hidden"
+                width={1280}
+                height={720}
             />
 
             <img
                 src="wheres-waldo-bottom.png"
                 className="rounded-lg drop-shadow-2xl"
+                width={1280}
+                height={720}
             />
         </div>
     )

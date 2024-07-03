@@ -13,11 +13,15 @@ function pokemonRoulette() {
                 <img
                     src="pokemon-roulette.png"
                     className="rounded-lg drop-shadow-2xl"
+                    width={1280}
+                    height={720}
                 />
 
                 <img
                     src="pokemon-roulette-guess.png"
                     className="hidden rounded-lg drop-shadow-2xl sm:block"
+                    width={1280}
+                    height={720}
                 />
             </div>
 
@@ -35,11 +39,15 @@ function pokemonRoulette() {
             <img
                 src="pokemon-roulette-guess.png"
                 className="block rounded-lg drop-shadow-2xl sm:hidden"
+                width={1280}
+                height={720}
             />
 
             <img
                 src="pokemon-roulette-loss.png"
                 className="rounded-lg drop-shadow-2xl"
+                width={1280}
+                height={720}
             />
         </div>
     )

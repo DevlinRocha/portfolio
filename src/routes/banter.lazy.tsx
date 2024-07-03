@@ -10,11 +10,18 @@ function banter() {
             <h1 className="text-4xl">Banter</h1>
 
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 2xl:gap-16">
-                <img src="banter.png" className="rounded-lg drop-shadow-2xl" />
+                <img
+                    src="banter.png"
+                    className="rounded-lg drop-shadow-2xl"
+                    width={1280}
+                    height={720}
+                />
 
                 <img
                     src="banterLogin.png"
                     className="hidden rounded-lg drop-shadow-2xl sm:block"
+                    width={1280}
+                    height={720}
                 />
             </div>
 
@@ -35,9 +42,16 @@ function banter() {
             <img
                 src="banterLogin.png"
                 className="block rounded-lg drop-shadow-2xl sm:hidden"
+                width={1280}
+                height={720}
             />
 
-            <img src="banter.svg" className="rounded-lg drop-shadow-2xl" />
+            <img
+                src="banter.svg"
+                className="rounded-lg drop-shadow-2xl"
+                width={1280}
+                height={720}
+            />
         </div>
     )
 }

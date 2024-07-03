@@ -10,11 +10,18 @@ function vvordle() {
             <h1 className="text-4xl">VVordle</h1>
 
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 2xl:gap-16">
-                <img src="vvordle.png" className="rounded-lg drop-shadow-2xl" />
+                <img
+                    src="vvordle.png"
+                    className="rounded-lg drop-shadow-2xl"
+                    width={1280}
+                    height={720}
+                />
 
                 <img
                     src="vvordleWin.png"
                     className="hidden rounded-lg drop-shadow-2xl sm:block"
+                    width={1280}
+                    height={720}
                 />
             </div>
 
@@ -31,9 +38,16 @@ function vvordle() {
             <img
                 src="vvordleWin.png"
                 className="block rounded-lg drop-shadow-2xl sm:hidden"
+                width={1280}
+                height={720}
             />
 
-            <img src="vvordleHome.png" className="rounded-lg drop-shadow-2xl" />
+            <img
+                src="vvordleHome.png"
+                className="rounded-lg drop-shadow-2xl"
+                width={1280}
+                height={720}
+            />
         </div>
     )
 }
