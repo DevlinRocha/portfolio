@@ -16,7 +16,7 @@ function Index() {
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 2xl:gap-16">
                 <Project name="Banter" />
                 <Project name="VVordle" />
-                <Project name="Pokemon Roulette" />
+                <Project name="Pokémon Roulette" />
                 <Project name="Where's Waldo?" />
             </div>
         </div>
