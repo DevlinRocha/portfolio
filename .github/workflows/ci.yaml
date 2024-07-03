@@ -22,9 +22,6 @@ jobs:
         name: Deploy
         runs-on: ubuntu-latest
 
-        env:
-            NODE_ENV: 'production'
-
         strategy:
             matrix:
                 node-version: [20]
@@ -46,20 +43,8 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   cache: 'pnpm'
 
-            # - name: pnpm audit
-            #   run: pnpm audit
-
             - name: Install dependencies
-              run: pnpm install --prod
-
-            # - name: Prettier
-            # run: pnpm prettier . --write
-
-            # - name: Typecheck
-            # run: pnpm tsc --build --verbose
-
-            # - name: Lint
-            # run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
+              run: pnpm install
 
             - name: Build
               run: pnpm build
