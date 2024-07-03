@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import { createRootRoute, Outlet } from '@tanstack/react-router'
 import Nav from '../components/Nav'
-import Footer from '../components/Footer'
+import Footer from '@/components/Footer'
 
 const TanStackRouterDevtools =
     process.env.NODE_ENV === 'production'
