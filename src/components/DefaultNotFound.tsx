@@ -8,7 +8,7 @@ function DefaultNotFound() {
     }
 
     return (
-        <div className="flex h-full w-full flex-col p-16">
+        <div className="flex h-auto w-full flex-col p-16">
             <span>umm...</span>
             <span>what are you doing here?</span>
             <button onClick={goBack} className="w-fit">
