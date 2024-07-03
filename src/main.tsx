@@ -4,8 +4,12 @@ import './index.css'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 
 import { routeTree } from './routeTree.gen'
+import DefaultNotFound from './components/DefaultNotFound'
 
-const router = createRouter({ routeTree })
+const router = createRouter({
+    defaultNotFoundComponent: DefaultNotFound,
+    routeTree,
+})
 
 declare module '@tanstack/react-router' {
     interface Register {
