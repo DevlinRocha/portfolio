@@ -6,16 +6,7 @@ on:
     pull_request:
         branches: ['main']
 
-    workflow_dispatch: {}
-
-    permissions:
-        contents: read
-        pages: write
-        id-token: write
-
-    concurrency:
-        group: 'pages'
-        cancel-in-progress: false
+    workflow_dispatch:
 
 jobs:
     build:
@@ -25,7 +16,7 @@ jobs:
 
         steps:
             - name: Checkout repository
-            - uses: actions/checkout@v4
+              uses: actions/checkout@v4
 
             - name: pnpm audit
               run: pnpm audit
@@ -50,7 +41,6 @@ jobs:
 
         steps:
             - name: Checkout
-
               uses: actions/checkout@v4
 
             - name: Setup Pages
