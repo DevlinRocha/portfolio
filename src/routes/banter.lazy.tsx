@@ -19,6 +19,7 @@ function banter() {
                     <h1 className="text-4xl font-semibold md:text-5xl">
                         Banter
                     </h1>
+
                     <span>
                         {'{ '}
                         <a
