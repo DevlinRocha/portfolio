@@ -1,9 +1,7 @@
 function Footer() {
     return (
-        <footer>
-            <hr />
-            <div className="flex flex-col-reverse items-center justify-between gap-1 p-4 sm:flex-row">
-                <span>designed and developed by Devlin Rocha</span>
+        <footer className="h-64">
+            <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-4">
                 <div className="flex gap-4">
                     <a
                         href="https://twitter.com/DevlinRocha"
@@ -27,6 +25,8 @@ function Footer() {
                         LinkedIn
                     </a>
                 </div>
+
+                <span>designed and developed by Devlin Rocha</span>
             </div>
         </footer>
     )
