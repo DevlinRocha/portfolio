@@ -9,7 +9,7 @@ function banter() {
         <div className="flex h-auto w-full flex-col justify-center gap-8 sm:gap-16 lg:gap-24">
             <img
                 src="banter-hero.svg"
-                className="object-contain drop-shadow-lg"
+                className="drop-shadow-lg"
                 width={2560}
                 height={720}
             />
