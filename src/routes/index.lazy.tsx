@@ -7,13 +7,13 @@ export const Route = createLazyFileRoute('/')({
 
 function Index() {
     return (
-        <div className="flex h-auto w-full flex-col gap-8 p-8 lg:gap-8 lg:p-16">
+        <div className="3xl:mx-96 mx-8 flex flex-col gap-8 lg:mx-32 xl:mx-64 2xl:mx-80 2xl:gap-16">
             <div className="flex flex-col text-pretty text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-                <span>hey there! 👋 i&apos;m Devlin, </span>
+                <span>hey there! 👋 i&apos;m Devlin,</span>
                 <span>a software engineer in the San Francisco Bay Area</span>
             </div>
 
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 2xl:gap-16">
+            <div className="flex flex-col gap-8 2xl:gap-16">
                 <Project name="Banter" />
                 <Project name="VVordle" />
                 <Project name="Pokémon Roulette" />
