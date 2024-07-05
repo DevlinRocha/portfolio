@@ -9,9 +9,10 @@ function wheresWaldo() {
         <div className="flex flex-col justify-center gap-8 sm:gap-16 lg:gap-24">
             <img
                 src="wheres-waldo-hero.svg"
-                className="drop-shadow-lg"
+                alt="Where's Waldo? hero image"
                 width={1920}
                 height={720}
+                className="drop-shadow-lg"
             />
 
             <main className="mx-8 flex flex-col gap-8 lg:mx-32 xl:mx-64 2xl:mx-80 2xl:gap-16">
@@ -56,30 +57,34 @@ function wheresWaldo() {
                 <div className="flex flex-col gap-8 2xl:gap-16">
                     <img
                         src="wheres-waldo.png"
-                        className="rounded-lg drop-shadow-lg"
+                        alt="Where's Waldo? home screenshot"
                         width={1920}
                         height={1080}
+                        className="rounded-lg drop-shadow-lg"
                     />
 
                     <img
                         src="wheres-waldo-guess.png"
-                        className="rounded-lg drop-shadow-lg"
+                        alt="Where's Waldo? game screenshot"
                         width={1920}
                         height={1080}
+                        className="rounded-lg drop-shadow-lg"
                     />
 
                     <img
                         src="wheres-waldo-scores.png"
-                        className="rounded-lg drop-shadow-lg"
+                        alt="Where's Waldo? high scores leaderboard screenshot"
                         width={1920}
                         height={1080}
+                        className="rounded-lg drop-shadow-lg"
                     />
 
                     <img
                         src="wheres-waldo-bottom.png"
-                        className="rounded-lg drop-shadow-lg"
+                        alt="Where's Waldo? characters screenshot"
                         width={1920}
                         height={1080}
+                        className="rounded-lg drop-shadow-lg"
                     />
                 </div>
             </main>

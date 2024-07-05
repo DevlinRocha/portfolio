@@ -21,10 +21,10 @@ function Project({ name }: ProjectProps) {
         >
             <img
                 src={`/${formatString(name)}-banner.svg`}
-                alt={''}
-                className="rounded-lg"
+                alt={`${name} banner image`}
                 width={1920}
                 height={720}
+                className="rounded-lg"
             />
         </Link>
     )

@@ -29,6 +29,7 @@ function About() {
             <div className="flex w-full flex-col items-center gap-8 2xl:gap-16">
                 <img
                     src="about.png"
+                    alt="me sitting with my laptop"
                     width={1920}
                     height={1080}
                     className="h-[1080px] w-auto rounded-2xl object-contain"

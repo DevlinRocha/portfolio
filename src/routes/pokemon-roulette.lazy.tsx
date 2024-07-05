@@ -9,9 +9,10 @@ function pokemonRoulette() {
         <div className="flex flex-col justify-center gap-8 sm:gap-16 lg:gap-24">
             <img
                 src="pokemon-roulette-hero.svg"
-                className="drop-shadow-lg"
+                alt="Pokémon Roulette hero image"
                 width={1920}
                 height={720}
+                className="drop-shadow-lg"
             />
 
             <main className="mx-8 flex flex-col gap-8 lg:mx-32 xl:mx-64 2xl:mx-80 2xl:gap-16">
@@ -58,30 +59,34 @@ function pokemonRoulette() {
                 <div className="flex flex-col gap-8 2xl:gap-16">
                     <img
                         src="pokemon-roulette.png"
-                        className="rounded-lg drop-shadow-lg"
+                        alt="Pokémon Roulette correct answer Lugia screenshot"
                         width={1920}
                         height={1080}
+                        className="rounded-lg drop-shadow-lg"
                     />
 
                     <img
                         src="pokemon-roulette-loss.png"
-                        className="rounded-lg drop-shadow-lg"
+                        alt="Pokémon Roulette wrong answer Groudon screenshot"
                         width={1920}
                         height={1080}
+                        className="rounded-lg drop-shadow-lg"
                     />
 
                     <img
                         src="pokemon-roulette-guess.png"
-                        className="rounded-lg drop-shadow-lg"
+                        alt="Pokémon Roulette game screenshot"
                         width={1920}
                         height={1080}
+                        className="rounded-lg drop-shadow-lg"
                     />
 
                     <img
                         src="pokemon-roulette-win.png"
-                        className="rounded-lg drop-shadow-lg"
+                        alt="Pokémon Roulette correct answer Squirtle screenshot"
                         width={1920}
                         height={1080}
+                        className="rounded-lg drop-shadow-lg"
                     />
                 </div>
             </main>

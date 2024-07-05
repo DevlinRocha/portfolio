@@ -9,9 +9,10 @@ function banter() {
         <div className="flex flex-col justify-center gap-8 sm:gap-16 lg:gap-24">
             <img
                 src="banter-hero.svg"
-                className="drop-shadow-lg"
+                alt="Banter hero image"
                 width={1920}
                 height={720}
+                className="drop-shadow-lg"
             />
 
             <main className="mx-8 flex flex-col gap-8 lg:mx-32 xl:mx-64 2xl:mx-80 2xl:gap-16">
@@ -61,23 +62,26 @@ function banter() {
                 <div className="flex flex-col gap-8 2xl:gap-16">
                     <img
                         src="banter.png"
-                        className="rounded-lg drop-shadow-lg"
+                        alt="Banter chat screenshot"
                         width={1920}
                         height={1080}
+                        className="rounded-lg drop-shadow-lg"
                     />
 
                     <img
                         src="banter-user-settings.png"
-                        className="rounded-lg drop-shadow-lg"
+                        alt="Banter user settings screenshot"
                         width={1920}
                         height={1080}
+                        className="rounded-lg drop-shadow-lg"
                     />
 
                     <img
                         src="banter-login.png"
-                        className="rounded-lg drop-shadow-lg"
+                        alt="Banter login screenshot"
                         width={1920}
                         height={1080}
+                        className="rounded-lg drop-shadow-lg"
                     />
                 </div>
             </main>
