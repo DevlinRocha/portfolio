@@ -2,9 +2,7 @@ name: CICD
 
 on:
     push:
-        branches: ['main']
-    pull_request:
-        branches: ['main']
+        branches: '**'
 
     workflow_dispatch:
 
@@ -43,11 +41,10 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   cache: 'pnpm'
 
-            - name: pnpm audit
-              run: pnpm audit
-
-            - name: Install dependencies
-              run: pnpm install
+            - name: Install dependencies and audit
+              run: |
+                  pnpm install
+                  pnpm audit
 
             - name: Prettier
               run: pnpm prettier . --write
@@ -59,6 +56,7 @@ jobs:
               run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
     cd:
         name: CD
+        if: github.ref == 'refs/heads/main'
         needs: ci
         runs-on: ubuntu-latest
 
@@ -88,6 +86,9 @@ jobs:
 
             - name: Build
               run: pnpm build
+
+            - name: Clean up dev dependencies
+              run: pnpm prune --prod
 
             - name: Setup Pages
               uses: actions/configure-pages@v5
