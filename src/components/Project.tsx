@@ -23,7 +23,7 @@ function Project({ name }: ProjectProps) {
                 src={`/${formatString(name)}-banner.svg`}
                 alt={''}
                 className="rounded-lg"
-                width={2560}
+                width={1920}
                 height={720}
             />
         </Link>

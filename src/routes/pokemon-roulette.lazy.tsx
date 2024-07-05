@@ -10,7 +10,7 @@ function pokemonRoulette() {
             <img
                 src="pokemon-roulette-hero.svg"
                 className="drop-shadow-lg"
-                width={2560}
+                width={1920}
                 height={720}
             />
 
