@@ -2,23 +2,35 @@ import { Link } from '@tanstack/react-router'
 
 function Nav() {
     return (
-        <nav className="sticky top-0 z-10 bg-white">
-            <div className="flex gap-2 p-4">
-                <Link to="/" className="[&.active]:font-bold">
-                    home
-                </Link>{' '}
-                <Link to="/about" className="[&.active]:font-bold">
-                    about
+        <nav className="z-10 m-3 mx-8 flex h-16 items-end bg-white lg:mx-32 xl:mx-64 2xl:mx-80">
+            <div className="flex w-full items-center justify-between">
+                <Link to="/" className="text-nowrap py-2 sm:px-5">
+                    Devlin Rocha
                 </Link>
-                <a
-                    href="https://drive.google.com/file/d/1DTqIS7jxcQzt12IpAFkbrl4z3anU3q5l/view?usp=sharing"
-                    target="_blank"
-                    rel="noReferrer"
-                >
-                    résumé
-                </a>
+
+                <div className="flex text-sm">
+                    <Link
+                        to="/"
+                        className="px-2 py-2 sm:px-5 [&.active]:font-bold"
+                    >
+                        home
+                    </Link>
+                    <Link
+                        to="/about"
+                        className="px-2 py-2 sm:px-5 [&.active]:font-bold"
+                    >
+                        about
+                    </Link>
+                    <a
+                        href="https://drive.google.com/file/d/1DTqIS7jxcQzt12IpAFkbrl4z3anU3q5l/view?usp=sharing"
+                        target="_blank"
+                        rel="noReferrer"
+                        className="px-2 py-2 sm:px-5"
+                    >
+                        résumé
+                    </a>
+                </div>
             </div>
-            <hr />
         </nav>
     )
 }

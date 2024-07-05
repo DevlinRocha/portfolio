@@ -20,13 +20,12 @@ function Project({ name }: ProjectProps) {
             className="flex flex-col items-center gap-2 drop-shadow-lg"
         >
             <img
-                src={`/${formatString(name)}.png`}
-                alt={''}
-                className="rounded-lg"
+                src={`/${formatString(name)}-banner.svg`}
+                alt={`${name} banner image`}
                 width={1920}
-                height={1080}
+                height={720}
+                className="rounded-lg"
             />
-            <span>{name}</span>
         </Link>
     )
 }

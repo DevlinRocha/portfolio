@@ -6,54 +6,88 @@ export const Route = createLazyFileRoute('/wheres-waldo')({
 
 function wheresWaldo() {
     return (
-        <div className="flex h-auto w-full flex-col gap-8 p-8 lg:gap-8 lg:p-16">
-            <h1 className="text-4xl">Where's Waldo?</h1>
+        <div className="flex flex-col justify-center gap-8 sm:gap-16 lg:gap-24">
+            <img
+                src="wheres-waldo-hero.svg"
+                alt="Where's Waldo? hero image"
+                width={1920}
+                height={720}
+                className="drop-shadow-lg"
+            />
 
-            <div className="flex flex-col gap-4">
-                <p>
-                    Where's Waldo? is a fullstack open source web version of the
-                    iconic book series, built with <b>TypeScript</b>,{' '}
-                    <b>React</b>, <b>React Router</b>, <b>styled-components</b>,
-                    and <b>Firebase</b>
-                </p>
+            <main className="mx-8 flex flex-col gap-8 lg:mx-32 xl:mx-64 2xl:mx-80 2xl:gap-16">
+                <div className="flex flex-col text-sm 2xl:gap-1">
+                    <h1 className="text-4xl">Where's Waldo?</h1>
 
-                <p>
-                    Where's Waldo? was my first time working with a backend, as
-                    well as my first time working with TypeScript
-                </p>
-            </div>
+                    <span>
+                        {'{ '}
+                        <a
+                            href="https://github.com/DevlinRocha/wheres-waldo"
+                            target="_blank"
+                            rel="noReferrer"
+                        >
+                            source code
+                        </a>
+                        {' | '}
+                        <a
+                            href="https://devlinrocha.github.io/wheres-waldo/"
+                            target="_blank"
+                            rel="noReferrer"
+                        >
+                            deployed project
+                        </a>
+                        {' }'}
+                    </span>
+                </div>
 
-            <div className="grid grid-cols-1 gap-8 2xl:grid-cols-2 2xl:gap-16">
-                <img
-                    src="wheres-waldo.png"
-                    className="rounded-lg drop-shadow-lg"
-                    width={1920}
-                    height={1080}
-                />
+                <div className="mb-8 flex flex-col gap-2 lg:mb-16 lg:gap-4">
+                    <p>
+                        Where's Waldo? is a fullstack open source web version of
+                        the iconic book series, built with <b>TypeScript</b>,{' '}
+                        <b>React</b>, <b>React Router</b>,{' '}
+                        <b>styled-components</b>, and <b>Firebase</b>
+                    </p>
 
-                <img
-                    src="wheres-waldo-guess.png"
-                    className="rounded-lg drop-shadow-lg"
-                    width={1920}
-                    height={1080}
-                />
-            </div>
+                    <p>
+                        Where's Waldo? was my first time working with a backend,
+                        as well as my first time working with TypeScript
+                    </p>
+                </div>
 
-            <div className="grid grid-cols-2 gap-8 2xl:gap-16">
-                <img
-                    src="wheres-waldo-scores.png"
-                    className="rounded-lg drop-shadow-lg"
-                    width={1920}
-                    height={1080}
-                />
+                <div className="flex flex-col gap-8 2xl:gap-16">
+                    <img
+                        src="wheres-waldo.png"
+                        alt="Where's Waldo? home screenshot"
+                        width={1920}
+                        height={1080}
+                        className="rounded-lg drop-shadow-lg"
+                    />
 
-                <img
-                    src="wheres-waldo-bottom.png"
-                    className="rounded-lg drop-shadow-lg"
-                    width={1920}
-                    height={1080}
-                />
-            </div>
+                    <img
+                        src="wheres-waldo-guess.png"
+                        alt="Where's Waldo? game screenshot"
+                        width={1920}
+                        height={1080}
+                        className="rounded-lg drop-shadow-lg"
+                    />
+
+                    <img
+                        src="wheres-waldo-scores.png"
+                        alt="Where's Waldo? high scores leaderboard screenshot"
+                        width={1920}
+                        height={1080}
+                        className="rounded-lg drop-shadow-lg"
+                    />
+
+                    <img
+                        src="wheres-waldo-bottom.png"
+                        alt="Where's Waldo? characters screenshot"
+                        width={1920}
+                        height={1080}
+                        className="rounded-lg drop-shadow-lg"
+                    />
+                </div>
+            </main>
         </div>
     )
 }
