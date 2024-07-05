@@ -6,7 +6,7 @@ export const Route = createLazyFileRoute('/banter')({
 
 function banter() {
     return (
-        <div className="flex h-auto w-full flex-col justify-center gap-8 sm:gap-16 lg:gap-24">
+        <div className="flex flex-col justify-center gap-8 sm:gap-16 lg:gap-24">
             <img
                 src="banter-hero.svg"
                 className="drop-shadow-lg"

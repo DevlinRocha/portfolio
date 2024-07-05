@@ -1,7 +1,7 @@
 function Footer() {
     return (
         <footer className="h-64">
-            <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-4">
+            <div className="flex h-full flex-col items-center justify-center gap-4 p-4">
                 <div className="flex gap-4">
                     <a
                         href="https://twitter.com/DevlinRocha"
