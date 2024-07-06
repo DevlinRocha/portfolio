@@ -11,13 +11,13 @@ function Nav() {
                 <div className="flex text-sm">
                     <Link
                         to="/"
-                        className="px-2 py-2 sm:px-5 [&.active]:font-bold"
+                        className="px-2 py-2 sm:px-5 [&.active]:font-semibold"
                     >
                         home
                     </Link>
                     <Link
                         to="/about"
-                        className="px-2 py-2 sm:px-5 [&.active]:font-bold"
+                        className="px-2 py-2 sm:px-5 [&.active]:font-semibold"
                     >
                         about
                     </Link>
