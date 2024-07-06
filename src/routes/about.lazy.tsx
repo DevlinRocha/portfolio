@@ -26,7 +26,7 @@ function About() {
                 hanging out with my dog, Charlie
             </p>
 
-            <div className="flex w-full flex-col items-center gap-8 2xl:gap-16">
+            <div className="flex w-full select-none flex-col items-center gap-8 2xl:gap-16">
                 <img
                     src="about.png"
                     alt="me sitting with my laptop"

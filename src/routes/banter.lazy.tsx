@@ -16,8 +16,8 @@ function banter() {
             />
 
             <main className="mx-8 flex flex-col gap-8 lg:mx-32 xl:mx-64 2xl:mx-80 2xl:gap-16">
-                <div className="flex flex-col text-sm 2xl:gap-1">
-                    <h1 className="text-4xl font-semibold md:text-5xl">
+                <div className="flex select-none flex-col text-sm 2xl:gap-1">
+                    <h1 className="select-text text-4xl font-semibold md:text-5xl">
                         Banter
                     </h1>
 
@@ -59,7 +59,7 @@ function banter() {
                     </p>
                 </div>
 
-                <div className="flex flex-col gap-8 2xl:gap-16">
+                <div className="flex select-none flex-col gap-8 2xl:gap-16">
                     <img
                         src="banter.png"
                         alt="Banter chat screenshot"

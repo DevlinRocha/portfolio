@@ -16,8 +16,10 @@ function wheresWaldo() {
             />
 
             <main className="mx-8 flex flex-col gap-8 lg:mx-32 xl:mx-64 2xl:mx-80 2xl:gap-16">
-                <div className="flex flex-col text-sm 2xl:gap-1">
-                    <h1 className="text-4xl">Where's Waldo?</h1>
+                <div className="flex select-none flex-col text-sm 2xl:gap-1">
+                    <h1 className="select-text text-4xl font-semibold md:text-5xl">
+                        Where's Waldo?
+                    </h1>
 
                     <span>
                         {'{ '}
@@ -54,7 +56,7 @@ function wheresWaldo() {
                     </p>
                 </div>
 
-                <div className="flex flex-col gap-8 2xl:gap-16">
+                <div className="flex select-none flex-col gap-8 2xl:gap-16">
                     <img
                         src="wheres-waldo.png"
                         alt="Where's Waldo? home screenshot"

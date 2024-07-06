@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router'
 
 function Nav() {
     return (
-        <nav className="z-10 m-3 mx-8 flex h-16 items-end bg-white lg:mx-32 xl:mx-64 2xl:mx-80">
+        <nav className="z-10 m-3 mx-8 flex h-16 select-none items-end bg-white lg:mx-32 xl:mx-64 2xl:mx-80">
             <div className="flex w-full items-center justify-between">
                 <Link to="/" className="text-nowrap py-2 sm:px-5">
                     Devlin Rocha
