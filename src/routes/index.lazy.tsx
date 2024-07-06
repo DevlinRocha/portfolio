@@ -8,12 +8,12 @@ export const Route = createLazyFileRoute('/')({
 function Index() {
     return (
         <div className="mx-8 mt-8 flex flex-col gap-16 lg:mx-32 lg:mt-24 lg:gap-32 xl:mx-64 xl:gap-40 2xl:mx-80">
-            <div className="flex flex-col gap-2 text-pretty text-xl font-semibold sm:text-2xl md:text-3xl lg:text-4xl xl:gap-8 xl:text-6xl">
-                <h1 className="font-serif">hey, i&apos;m Devlin 👋</h1>
+            <div className="flex flex-col gap-2 text-pretty font-serif text-xl font-semibold sm:text-2xl md:text-3xl lg:text-4xl xl:gap-8 xl:text-6xl">
+                <h1>hey, i&apos;m Devlin 👋</h1>
 
-                <h1 className="font-serif">i code, design, and game</h1>
+                <h1>i code, design, and game</h1>
 
-                <p className="mt-4 text-base font-normal xl:mt-0">
+                <p className="mt-4 font-sans text-base font-normal xl:mt-0">
                     i'm a software engineer based in San Francisco, California
                     with experience implementing robust and scalable web
                     applications. i'm passionate about improving the lives of
