@@ -22,7 +22,7 @@ function Nav() {
                         about
                     </Link>
                     <a
-                        href="https://drive.google.com/file/d/1DTqIS7jxcQzt12IpAFkbrl4z3anU3q5l/view?usp=sharing"
+                        href="https://drive.google.com/file/d/1noU2L9hSqgo2zLrzT_YK2f4MNmeDIg8X/view?usp=sharing"
                         target="_blank"
                         rel="noReferrer"
                         className="px-2 py-2 sm:px-5"
