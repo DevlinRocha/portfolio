@@ -17,7 +17,7 @@ function About() {
             <p>
                 my passion for technology is life-long, stemming from a
                 childhood full of video games. it wasn&apos;t long before i was
-                taking consoles apart, building computers, and maining into
+                taking consoles apart, building computers, and diving into
                 programming
             </p>
             <p>

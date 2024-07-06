@@ -16,11 +16,9 @@ function Index() {
                 <p className="mt-4 text-base xl:mt-0">
                     i'm a software engineer based in San Francisco, California
                     with experience implementing robust and scalable web
-                    applications, improving development workflows, and
-                    delivering high-quality solutions aligned with business
-                    goals. i'm passionate about improving the lives of others
-                    through software and am constantly looking to learn new
-                    things
+                    applications. i'm passionate about improving the lives of
+                    others through software and am constantly looking to learn
+                    new things
                 </p>
             </div>
 
