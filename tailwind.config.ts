@@ -1,7 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme'
 
 const serifFonts = [
-    '-apple-system',
     'Montserrat',
     'Georgia',
     'Times',
