@@ -15,9 +15,9 @@ function pokemonRoulette() {
                 className="drop-shadow-lg"
             />
 
-            <main className="mx-8 flex flex-col gap-8 lg:mx-32 xl:mx-64 2xl:mx-80 2xl:gap-16">
+            <main className="mx-5 flex flex-col gap-12 lg:mx-32 xl:mx-64 2xl:mx-80 2xl:gap-16">
                 <div className="flex select-none flex-col text-sm 2xl:gap-1">
-                    <h1 className="font-display select-text text-4xl font-semibold md:text-5xl">
+                    <h1 className="xs:text-5xl font-display select-text text-4xl font-semibold leading-snug sm:text-6xl">
                         Pokémon Roulette
                     </h1>
 
@@ -42,7 +42,7 @@ function pokemonRoulette() {
                     </span>
                 </div>
 
-                <div className="mb-8 flex flex-col gap-2 lg:mb-16 lg:gap-4">
+                <div className="2xs:text-base 2xs:leading-7 mb-8 flex flex-col gap-8 text-pretty text-sm leading-7 lg:mb-12">
                     <p>
                         Pokémon Roulette is an open source gamified version of
                         "Who's that Pokémon?" from the anime, built with{' '}
@@ -56,7 +56,7 @@ function pokemonRoulette() {
                     </p>
                 </div>
 
-                <div className="flex select-none flex-col gap-8 2xl:gap-16">
+                <div className="2xs:gap-8 xs:gap-10 flex select-none flex-col gap-4 2xl:gap-16">
                     <img
                         src="pokemon-roulette.png"
                         alt="Pokémon Roulette correct answer Lugia screenshot"
