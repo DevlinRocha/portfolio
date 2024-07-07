@@ -1,5 +1,17 @@
 import defaultTheme from 'tailwindcss/defaultTheme'
 
+const sansFonts = [
+    'Inter',
+    '-apple-system',
+    'BlinkMacSystemFont',
+    '"Segoe UI"',
+    'Roboto',
+    '"Helvetica Neue"',
+    'Arial',
+    'sans-serif',
+    ...defaultTheme.fontFamily.sans,
+]
+
 const serifFonts = [
     'Montserrat',
     'Georgia',
@@ -20,6 +32,17 @@ const displayFonts = [
     ...serifFonts,
 ]
 
+const monoFonts = [
+    'Menlo',
+    'Monaco',
+    'Consolas',
+    '"Courier New"',
+    '"Liberation Mono"',
+    'DejaVu Sans Mono',
+    'monospace',
+    ...defaultTheme.fontFamily.mono,
+]
+
 /** @type {import('tailwindcss').Config} */
 export default {
     content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -30,29 +53,10 @@ export default {
                 xs: '528px',
             },
             fontFamily: {
-                sans: [
-                    'Inter',
-                    '-apple-system',
-                    'BlinkMacSystemFont',
-                    '"Segoe UI"',
-                    'Roboto',
-                    '"Helvetica Neue"',
-                    'Arial',
-                    'sans-serif',
-                    ...defaultTheme.fontFamily.sans,
-                ],
+                sans: sansFonts,
                 serif: serifFonts,
                 display: displayFonts,
-                mono: [
-                    'Menlo',
-                    'Monaco',
-                    'Consolas',
-                    '"Courier New"',
-                    '"Liberation Mono"',
-                    'DejaVu Sans Mono',
-                    'monospace',
-                    ...defaultTheme.fontFamily.mono,
-                ],
+                mono: monoFonts,
             },
         },
     },
