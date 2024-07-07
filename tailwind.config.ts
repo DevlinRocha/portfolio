@@ -25,6 +25,10 @@ export default {
     content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
     theme: {
         extend: {
+            screens: {
+                '2xs': '448px',
+                xs: '528px',
+            },
             fontFamily: {
                 sans: [
                     'Inter',
