@@ -59,7 +59,7 @@ export default {
                 mono: monoFonts,
             },
             transitionProperty: {
-                height: 'height',
+                height: 'height, max-height, border',
             },
         },
     },
