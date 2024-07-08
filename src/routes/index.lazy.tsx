@@ -11,6 +11,7 @@ function Index() {
             <div className="flex flex-col gap-2 xl:gap-8">
                 <h1 className="xs:text-5xl text-balance font-serif text-4xl font-semibold leading-snug sm:text-6xl">
                     <span>hey, i&apos;m Devlin 👋</span>
+
                     <span className="xs:mt-8 xs:leading-none mt-0.5 block leading-tight">
                         i code, design, and game
                     </span>
@@ -25,7 +26,10 @@ function Index() {
                 </p>
             </div>
 
-            <div className="2xs:gap-8 xs:gap-10 flex select-none flex-col gap-4 2xl:gap-16">
+            <div
+                id="projects"
+                className="2xs:gap-8 xs:gap-10 flex select-none flex-col gap-4 2xl:gap-16"
+            >
                 <Project name="Banter" />
                 <Project name="VVordle" />
                 <Project name="Pokémon Roulette" />
