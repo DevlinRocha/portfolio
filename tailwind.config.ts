@@ -60,6 +60,7 @@ export default {
             },
             transitionProperty: {
                 height: 'height, max-height, border',
+                text: 'color, opacity',
             },
         },
     },
