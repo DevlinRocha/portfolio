@@ -16,35 +16,35 @@ function Nav() {
                     htmlFor="menu"
                     aria-controls="menu"
                     aria-expanded="false"
-                    className="xs:hidden flex h-full w-12 cursor-pointer flex-col items-center justify-center gap-1.5"
+                    className="xs:hidden z-20 flex h-full w-12 cursor-pointer flex-col items-center justify-center gap-1.5"
                 >
                     <span className="h-[1.6px] w-4 bg-black" />
                     <span className="h-[1.6px] w-4 bg-black" />
                 </label>
 
-                <ul className="xs:flex hidden h-full items-center text-sm peer-checked/menu:flex">
-                    <li className="h-full">
+                <ul className="transition-layout xs:transition-none xs:flex-row xs:max-h-none peer-checked/menu:xs:max-h-none peer-checked/menu:xs:pt-0 xs:static xs:w-auto xs:h-full xs:items-center xs:text-sm xs:pt-0 absolute top-0 flex h-dvh max-h-0 w-full flex-col overflow-hidden bg-white text-2xl duration-500 ease-in peer-checked/menu:max-h-dvh peer-checked/menu:pt-12">
+                    <li className="xs:h-full">
                         <Link
                             to="/"
-                            className="transition-text flex h-full items-center px-2 hover:text-black sm:px-4 md:px-5 [&.active]:font-semibold"
+                            className="transition-text xs:py-0 xs:px-2 xs:h-full flex items-center px-12 py-2 hover:text-black sm:px-4 [&.active]:font-semibold"
                         >
                             home
                         </Link>
                     </li>
 
-                    <li className="group h-full">
+                    <li className="xs:h-full group">
                         <a
                             href="/#projects"
-                            className="transition-text group relative flex h-full items-center px-2 group-hover:text-black sm:px-4 md:px-5"
+                            className="transition-text xs:px-2 xs:py-0 xs:h-full group relative flex items-center px-12 py-2 group-hover:text-black sm:px-4"
                         >
                             projects
                         </a>
 
-                        <ul className="transition-height absolute z-10 max-h-0 flex-col overflow-clip border-0 bg-white duration-500 ease-in group-hover:max-h-96 group-hover:border-x group-hover:border-b">
+                        <ul className="transition-height absolute z-10 max-h-0 flex-col overflow-hidden border-0 bg-white duration-500 ease-in group-hover:max-h-96 group-hover:border-x group-hover:border-b">
                             <li className="flex">
                                 <Link
                                     to="/banter"
-                                    className="transition-text w-full p-4 hover:text-black sm:px-4 md:px-5 [&.active]:font-semibold"
+                                    className="transition-text w-full p-4 hover:text-black [&.active]:font-semibold"
                                 >
                                     Banter
                                 </Link>
@@ -53,7 +53,7 @@ function Nav() {
                             <li className="flex">
                                 <Link
                                     to="/vvordle"
-                                    className="transition-text w-full p-4 hover:text-black sm:px-4 md:px-5 [&.active]:font-semibold"
+                                    className="transition-text w-full p-4 hover:text-black [&.active]:font-semibold"
                                 >
                                     VVordle
                                 </Link>
@@ -62,7 +62,7 @@ function Nav() {
                             <li className="flex">
                                 <Link
                                     to="/pokemon-roulette"
-                                    className="transition-text w-full p-4 hover:text-black sm:px-4 md:px-5 [&.active]:font-semibold"
+                                    className="transition-text w-full p-4 hover:text-black [&.active]:font-semibold"
                                 >
                                     Pokémon Roulette
                                 </Link>
@@ -71,7 +71,7 @@ function Nav() {
                             <li className="flex">
                                 <Link
                                     to="/wheres-waldo"
-                                    className="transition-text w-full p-4 hover:text-black sm:px-4 md:px-5 [&.active]:font-semibold"
+                                    className="transition-text w-full p-4 hover:text-black [&.active]:font-semibold"
                                 >
                                     Where's Waldo?
                                 </Link>
@@ -79,21 +79,21 @@ function Nav() {
                         </ul>
                     </li>
 
-                    <li className="h-full">
+                    <li className="xs:h-full">
                         <Link
                             to="/about"
-                            className="transition-text flex h-full items-center px-2 hover:text-black sm:px-4 md:px-5 [&.active]:font-semibold"
+                            className="transition-text xs:px-2 xs:py-0 xs:h-full flex items-center px-12 py-2 hover:text-black sm:px-4 [&.active]:font-semibold"
                         >
                             about
                         </Link>
                     </li>
 
-                    <li className="h-full">
+                    <li className="xs:h-full">
                         <a
                             href="https://drive.google.com/file/d/1noU2L9hSqgo2zLrzT_YK2f4MNmeDIg8X/view?usp=sharing"
                             target="_blank"
                             rel="noReferrer"
-                            className="transition-text flex h-full items-center px-2 hover:text-black sm:px-4"
+                            className="transition-text xs:py-0 xs:px-2 xs:h-full flex items-center px-12 py-2 hover:text-black sm:px-4"
                         >
                             résumé
                         </a>
