@@ -27,7 +27,7 @@ function vvordle() {
                             href="https://github.com/DevlinRocha/vvordle"
                             target="_blank"
                             rel="noReferrer"
-                            className="transition-text hover:text-black"
+                            className="transition-text hover:text-black hover:underline"
                         >
                             source code
                         </a>
@@ -36,7 +36,7 @@ function vvordle() {
                             href="https://vvordle.vercel.app"
                             target="_blank"
                             rel="noReferrer"
-                            className="transition-text hover:text-black"
+                            className="transition-text hover:text-black hover:underline"
                         >
                             deployed project
                         </a>

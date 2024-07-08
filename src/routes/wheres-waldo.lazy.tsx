@@ -27,7 +27,7 @@ function wheresWaldo() {
                             href="https://github.com/DevlinRocha/wheres-waldo"
                             target="_blank"
                             rel="noReferrer"
-                            className="transition-text hover:text-black"
+                            className="transition-text hover:text-black hover:underline"
                         >
                             source code
                         </a>
@@ -36,7 +36,7 @@ function wheresWaldo() {
                             href="https://devlinrocha.github.io/wheres-waldo/"
                             target="_blank"
                             rel="noReferrer"
-                            className="transition-text hover:text-black"
+                            className="transition-text hover:text-black hover:underline"
                         >
                             deployed project
                         </a>

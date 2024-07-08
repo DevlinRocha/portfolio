@@ -38,6 +38,7 @@ function Nav() {
                                     Banter
                                 </Link>
                             </li>
+
                             <li className="flex">
                                 <Link
                                     to="/vvordle"
@@ -46,12 +47,22 @@ function Nav() {
                                     VVordle
                                 </Link>
                             </li>
+
                             <li className="flex">
                                 <Link
                                     to="/pokemon-roulette"
                                     className="transition-text p-4 hover:text-black sm:px-5 [&.active]:font-semibold"
                                 >
                                     Pokémon Roulette
+                                </Link>
+                            </li>
+
+                            <li className="flex">
+                                <Link
+                                    to="/wheres-waldo"
+                                    className="transition-text p-4 hover:text-black sm:px-5 [&.active]:font-semibold"
+                                >
+                                    Where's Waldo?
                                 </Link>
                             </li>
                         </ul>
