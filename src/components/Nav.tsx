@@ -61,7 +61,7 @@ function Nav() {
                                 <Link
                                     to="/banter"
                                     onClick={handleClick}
-                                    className="transition-text xs:p-4 w-full px-16 py-4 hover:text-black [&.active]:font-semibold"
+                                    className="transition-text xs:p-4 w-full px-16 py-2 hover:text-black [&.active]:font-semibold"
                                 >
                                     Banter
                                 </Link>
@@ -71,7 +71,7 @@ function Nav() {
                                 <Link
                                     to="/vvordle"
                                     onClick={handleClick}
-                                    className="transition-text xs:p-4 w-full px-16 py-4 hover:text-black [&.active]:font-semibold"
+                                    className="transition-text xs:p-4 w-full px-16 py-2 hover:text-black [&.active]:font-semibold"
                                 >
                                     VVordle
                                 </Link>
@@ -81,7 +81,7 @@ function Nav() {
                                 <Link
                                     to="/pokemon-roulette"
                                     onClick={handleClick}
-                                    className="transition-text xs:p-4 w-full px-16 py-4 hover:text-black [&.active]:font-semibold"
+                                    className="transition-text xs:p-4 w-full px-16 py-2 hover:text-black [&.active]:font-semibold"
                                 >
                                     Pokémon Roulette
                                 </Link>
@@ -91,7 +91,7 @@ function Nav() {
                                 <Link
                                     to="/wheres-waldo"
                                     onClick={handleClick}
-                                    className="transition-text xs:p-4 w-full px-16 py-4 hover:text-black [&.active]:font-semibold"
+                                    className="transition-text xs:p-4 w-full px-16 py-2 hover:text-black [&.active]:font-semibold"
                                 >
                                     Where's Waldo?
                                 </Link>
