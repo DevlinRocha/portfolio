@@ -21,12 +21,13 @@ function banter() {
                         Banter
                     </h1>
 
-                    <span>
+                    <span className="text-black/80">
                         {'{ '}
                         <a
                             href="https://github.com/DevlinRocha/banter"
                             target="_blank"
                             rel="noReferrer"
+                            className="transition-text hover:text-black"
                         >
                             source code
                         </a>
@@ -35,6 +36,7 @@ function banter() {
                             href="https://banter-kappa.vercel.app/"
                             target="_blank"
                             rel="noReferrer"
+                            className="transition-text hover:text-black"
                         >
                             deployed project
                         </a>

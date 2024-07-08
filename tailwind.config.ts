@@ -58,6 +58,10 @@ export default {
                 display: displayFonts,
                 mono: monoFonts,
             },
+            transitionProperty: {
+                height: 'height, max-height, border',
+                text: 'color, opacity',
+            },
         },
     },
     plugins: [],

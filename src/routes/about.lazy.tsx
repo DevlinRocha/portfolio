@@ -17,12 +17,14 @@ function About() {
                         a music, gaming, and tech enthusiast with a passion for
                         design, creation, and collaboration
                     </p>
+
                     <p>
                         my passion for technology is life-long, stemming from a
                         childhood full of video games. it wasn&apos;t long
                         before i was taking consoles apart, building computers,
                         and diving into programming
                     </p>
+
                     <p>
                         in addition to programming and video games, my hobbies
                         include music / audio production, video editing /
