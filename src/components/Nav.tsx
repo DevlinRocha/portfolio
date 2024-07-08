@@ -2,29 +2,40 @@ import { Link } from '@tanstack/react-router'
 
 function Nav() {
     return (
-        <nav className="m-3 mx-5 flex h-16 select-none items-end bg-white text-black/80 lg:mx-32 xl:mx-64 2xl:mx-80">
-            <div className="flex w-full items-center justify-between">
+        <nav className="xs:px-2 sticky top-0 z-10 flex h-12 select-none bg-white text-black/80 lg:px-32 xl:px-64 2xl:px-80">
+            <div className="flex h-full w-full items-center justify-between">
                 <Link
                     to="/"
-                    className="transition-text text-nowrap py-2 hover:text-black sm:px-5"
+                    className="transition-text flex h-full items-center text-nowrap px-4 hover:text-black"
                 >
                     Devlin Rocha
                 </Link>
 
-                <ul className="flex items-center text-sm">
-                    <li>
+                <input type="checkbox" id="menu" className="peer/menu hidden" />
+                <label
+                    htmlFor="menu"
+                    aria-controls="menu"
+                    aria-expanded="false"
+                    className="xs:hidden flex h-full w-12 cursor-pointer flex-col items-center justify-center gap-1.5"
+                >
+                    <span className="h-[1.6px] w-4 bg-black" />
+                    <span className="h-[1.6px] w-4 bg-black" />
+                </label>
+
+                <ul className="xs:flex hidden h-full items-center text-sm peer-checked/menu:flex">
+                    <li className="h-full">
                         <Link
                             to="/"
-                            className="transition-text p-2 hover:text-black sm:px-5 [&.active]:font-semibold"
+                            className="transition-text flex h-full items-center px-2 hover:text-black sm:px-4 md:px-5 [&.active]:font-semibold"
                         >
                             home
                         </Link>
                     </li>
 
-                    <li className="group">
+                    <li className="group h-full">
                         <a
                             href="/#projects"
-                            className="transition-text group relative p-2 group-hover:text-black sm:px-5"
+                            className="transition-text group relative flex h-full items-center px-2 group-hover:text-black sm:px-4 md:px-5"
                         >
                             projects
                         </a>
@@ -33,7 +44,7 @@ function Nav() {
                             <li className="flex">
                                 <Link
                                     to="/banter"
-                                    className="transition-text p-4 hover:text-black sm:px-5 [&.active]:font-semibold"
+                                    className="transition-text w-full p-4 hover:text-black sm:px-4 md:px-5 [&.active]:font-semibold"
                                 >
                                     Banter
                                 </Link>
@@ -42,7 +53,7 @@ function Nav() {
                             <li className="flex">
                                 <Link
                                     to="/vvordle"
-                                    className="transition-text p-4 hover:text-black sm:px-5 [&.active]:font-semibold"
+                                    className="transition-text w-full p-4 hover:text-black sm:px-4 md:px-5 [&.active]:font-semibold"
                                 >
                                     VVordle
                                 </Link>
@@ -51,7 +62,7 @@ function Nav() {
                             <li className="flex">
                                 <Link
                                     to="/pokemon-roulette"
-                                    className="transition-text p-4 hover:text-black sm:px-5 [&.active]:font-semibold"
+                                    className="transition-text w-full p-4 hover:text-black sm:px-4 md:px-5 [&.active]:font-semibold"
                                 >
                                     Pokémon Roulette
                                 </Link>
@@ -60,7 +71,7 @@ function Nav() {
                             <li className="flex">
                                 <Link
                                     to="/wheres-waldo"
-                                    className="transition-text p-4 hover:text-black sm:px-5 [&.active]:font-semibold"
+                                    className="transition-text w-full p-4 hover:text-black sm:px-4 md:px-5 [&.active]:font-semibold"
                                 >
                                     Where's Waldo?
                                 </Link>
@@ -68,21 +79,21 @@ function Nav() {
                         </ul>
                     </li>
 
-                    <li>
+                    <li className="h-full">
                         <Link
                             to="/about"
-                            className="transition-text p-2 hover:text-black sm:px-5 [&.active]:font-semibold"
+                            className="transition-text flex h-full items-center px-2 hover:text-black sm:px-4 md:px-5 [&.active]:font-semibold"
                         >
                             about
                         </Link>
                     </li>
 
-                    <li>
+                    <li className="h-full">
                         <a
                             href="https://drive.google.com/file/d/1noU2L9hSqgo2zLrzT_YK2f4MNmeDIg8X/view?usp=sharing"
                             target="_blank"
                             rel="noReferrer"
-                            className="transition-text p-2 hover:text-black sm:px-5"
+                            className="transition-text flex h-full items-center px-2 hover:text-black sm:px-4"
                         >
                             résumé
                         </a>
