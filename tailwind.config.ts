@@ -62,6 +62,9 @@ export default {
                 height: 'height, max-height, border',
                 text: 'color, opacity',
             },
+            scale: {
+                101: '1.01',
+            },
         },
     },
     plugins: [],
