@@ -7,7 +7,7 @@ function Footer() {
                         href="https://twitter.com/DevlinRocha"
                         target="_blank"
                         rel="noReferrer"
-                        className="transition-text hover:text-black"
+                        className="transition-text hover:text-black hover:underline"
                     >
                         Twitter
                     </a>
@@ -15,7 +15,7 @@ function Footer() {
                         href="https://github.com/DevlinRocha"
                         target="_blank"
                         rel="noReferrer"
-                        className="transition-text hover:text-black"
+                        className="transition-text hover:text-black hover:underline"
                     >
                         GitHub
                     </a>
@@ -23,7 +23,7 @@ function Footer() {
                         href="https://www.linkedin.com/in/DevlinRocha"
                         target="_blank"
                         rel="noReferrer"
-                        className="transition-text hover:text-black"
+                        className="transition-text hover:text-black hover:underline"
                     >
                         LinkedIn
                     </a>
