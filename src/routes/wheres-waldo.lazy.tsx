@@ -21,12 +21,13 @@ function wheresWaldo() {
                         Where's Waldo?
                     </h1>
 
-                    <span>
+                    <span className="text-black/80">
                         {'{ '}
                         <a
                             href="https://github.com/DevlinRocha/wheres-waldo"
                             target="_blank"
                             rel="noReferrer"
+                            className="transition-text hover:text-black"
                         >
                             source code
                         </a>
@@ -35,6 +36,7 @@ function wheresWaldo() {
                             href="https://devlinrocha.github.io/wheres-waldo/"
                             target="_blank"
                             rel="noReferrer"
+                            className="transition-text hover:text-black"
                         >
                             deployed project
                         </a>

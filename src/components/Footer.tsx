@@ -2,11 +2,12 @@ function Footer() {
     return (
         <footer className="h-64">
             <div className="flex h-full flex-col items-center justify-center gap-4 p-4">
-                <div className="flex select-none gap-4">
+                <div className="flex select-none gap-4 text-black/80">
                     <a
                         href="https://twitter.com/DevlinRocha"
                         target="_blank"
                         rel="noReferrer"
+                        className="transition-text hover:text-black"
                     >
                         Twitter
                     </a>
@@ -14,6 +15,7 @@ function Footer() {
                         href="https://github.com/DevlinRocha"
                         target="_blank"
                         rel="noReferrer"
+                        className="transition-text hover:text-black"
                     >
                         GitHub
                     </a>
@@ -21,6 +23,7 @@ function Footer() {
                         href="https://www.linkedin.com/in/DevlinRocha"
                         target="_blank"
                         rel="noReferrer"
+                        className="transition-text hover:text-black"
                     >
                         LinkedIn
                     </a>
