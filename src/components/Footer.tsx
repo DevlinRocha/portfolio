@@ -29,7 +29,9 @@ function Footer() {
                     </a>
                 </div>
 
-                <span>designed and developed by Devlin Rocha</span>
+                <span className="text-black/70">
+                    designed and developed by Devlin Rocha
+                </span>
             </div>
         </footer>
     )
