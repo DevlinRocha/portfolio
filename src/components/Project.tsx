@@ -24,7 +24,7 @@ function Project({ name }: ProjectProps) {
                 alt={`${name} banner image`}
                 width={1920}
                 height={720}
-                className="rounded-lg"
+                className="hover:scale-101 rounded-lg transition-transform duration-300"
             />
         </Link>
     )
