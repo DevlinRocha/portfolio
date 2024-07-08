@@ -7,12 +7,15 @@ export const Route = createLazyFileRoute('/')({
 
 function Index() {
     return (
-        <div className="mx-5 mt-8 flex flex-col gap-12 lg:mx-32 lg:mt-24 lg:gap-32 xl:mx-64 xl:gap-40 2xl:mx-80">
+        <div
+            id="home"
+            className="flex scroll-mt-96 flex-col gap-12 px-5 pt-8 lg:gap-32 lg:px-32 lg:pt-24 xl:gap-40 xl:px-64 2xl:px-80"
+        >
             <div className="flex flex-col gap-2 xl:gap-8">
                 <h1 className="xs:text-5xl text-balance font-serif text-4xl font-semibold leading-snug sm:text-6xl">
                     <span>hey, i&apos;m Devlin 👋</span>
 
-                    <span className="xs:mt-8 xs:leading-none mt-0.5 block leading-tight">
+                    <span className="xs:pt-8 xs:leading-none block pt-0.5 leading-tight">
                         i code, design, and game
                     </span>
                 </h1>
@@ -28,7 +31,7 @@ function Index() {
 
             <div
                 id="projects"
-                className="2xs:gap-8 xs:gap-10 flex select-none flex-col gap-4 2xl:gap-16"
+                className="2xs:gap-8 xs:gap-10 flex select-none scroll-mt-16 flex-col gap-4 2xl:gap-16"
             >
                 <Project name="Banter" />
                 <Project name="VVordle" />
