@@ -59,6 +59,7 @@ export default {
                 mono: monoFonts,
             },
             transitionProperty: {
+                'layout-transform': 'margin, padding, transform',
                 layout: 'height, max-height, border, margin, padding',
                 height: 'height, max-height, border',
                 text: 'color, opacity',
