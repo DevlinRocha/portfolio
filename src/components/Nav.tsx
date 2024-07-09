@@ -30,10 +30,10 @@ function Nav() {
                     htmlFor="menu"
                     aria-controls="menu"
                     aria-expanded="false"
-                    className="xs:hidden z-20 flex h-full w-12 cursor-pointer flex-col items-center justify-center gap-1.5"
+                    className="xs:hidden z-20 flex h-full w-12 cursor-pointer flex-col items-center justify-center peer-checked/menu:*:absolute peer-checked/menu:*:mb-0 peer-checked/menu:[&>*:first-child]:rotate-45 peer-checked/menu:[&>*:last-child]:-rotate-45"
                 >
-                    <span className="h-[1.6px] w-4 bg-black" />
-                    <span className="h-[1.6px] w-4 bg-black" />
+                    <span className="transition-layout-transform mb-1.5 h-[1.6px] w-4 bg-black duration-500" />
+                    <span className="transition-layout-transform h-[1.6px] w-4 bg-black duration-500" />
                 </label>
 
                 <ul className="transition-layout xs:transition-none xs:flex-row xs:max-h-none peer-checked/menu:xs:max-h-none peer-checked/menu:xs:pt-0 xs:static xs:w-auto xs:h-full xs:items-center xs:text-sm xs:pt-0 absolute top-0 flex h-dvh max-h-0 w-full flex-col overflow-hidden bg-white text-2xl duration-500 ease-in peer-checked/menu:max-h-dvh peer-checked/menu:pt-12">
