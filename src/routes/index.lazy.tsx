@@ -26,7 +26,7 @@ function Index() {
 
             <div
                 id="projects"
-                className="flex w-full select-none scroll-mt-16 flex-col items-center gap-3"
+                className="flex w-full scroll-mt-16 flex-col items-center gap-3"
             >
                 <Project
                     name="Banter"

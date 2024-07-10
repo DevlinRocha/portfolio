@@ -20,7 +20,7 @@ function Project({ name, description, link, className }: ProjectProps) {
     return (
         <Link
             to={`/${formatString(name)}`}
-            className={`flex max-h-[500px] w-full max-w-[2560px] items-center justify-center md:max-h-[650px] lg:max-h-[692px] ${className}`}
+            className={`flex max-h-[500px] w-full max-w-[2560px] select-none items-center justify-center md:max-h-[650px] lg:max-h-[692px] ${className}`}
         >
             <figure className="w-[87.5lvw] py-8 text-center">
                 <div className="flex flex-col items-center gap-4">
