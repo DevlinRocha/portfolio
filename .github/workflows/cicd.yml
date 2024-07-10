@@ -56,11 +56,13 @@ jobs:
 
             - name: Lint
               run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
-    cd:
-        name: CD
-        if: github.ref == 'refs/heads/main'
+
+    staging:
+        name: Deploy to staging
+        if: github.ref == 'refs/heads/staging'
         needs: ci
         runs-on: ubuntu-latest
+        environment: staging
 
         strategy:
             matrix:
@@ -103,3 +105,60 @@ jobs:
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v4
+              with:
+                  branch: 'staging'
+                  path: './dist'
+                  custom_domain: 'staging.www.devlinrocha.com'
+
+    production:
+        name: Deploy to production
+        if: github.ref == 'refs/heads/main'
+        needs: ci
+        runs-on: ubuntu-latest
+        environment: production
+
+        strategy:
+            matrix:
+                node-version: [20]
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Install pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 9
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'pnpm'
+
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Build
+              run: pnpm build
+
+            - name: Clean up dev dependencies
+              run: pnpm prune --prod
+
+            - name: Setup Pages
+              uses: actions/configure-pages@v5
+
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  path: './dist'
+
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
+              with:
+                  branch: 'main'
+                  path: './dist'
+                  custom_domain: 'www.devlinrocha.com'
