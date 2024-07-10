@@ -9,34 +9,52 @@ function Index() {
     return (
         <div
             id="home"
-            className="flex scroll-mt-96 flex-col gap-12 px-5 pt-8 lg:gap-32 lg:px-32 lg:pt-24 xl:gap-40 xl:px-64 2xl:px-80"
+            className="flex scroll-mt-96 flex-col items-center gap-3"
         >
-            <div className="flex flex-col gap-2 xl:gap-8">
-                <h1 className="xs:text-5xl text-balance font-serif text-4xl font-semibold leading-snug sm:text-6xl">
-                    <span>hey, i&apos;m Devlin 👋</span>
+            <div className="flex w-[87.5lvw] max-w-[1152px] flex-col items-center gap-2 py-14 text-center">
+                <div className="text-balance font-serif text-3xl font-semibold md:text-5xl lg:text-6xl">
+                    <h1>hey, i'm Devlin 👋</h1>
 
-                    <span className="xs:pt-8 xs:leading-none block pt-0.5 leading-tight">
+                    <p className="mt-2 text-xl md:text-2xl lg:text-3xl">
                         i code, design, and game
-                    </span>
-                </h1>
+                    </p>
+                </div>
 
-                <p className="2xs:text-base 2xs:leading-7 mt-4 text-pretty text-sm leading-7 sm:mt-8 xl:mt-0">
+                <p className="max-w-prose text-pretty leading-7">
                     i'm a software engineer based in San Francisco, California
                     with experience implementing robust and scalable web
-                    applications. i'm passionate about improving the lives of
-                    others through software and am constantly looking to learn
-                    new things
+                    applications
                 </p>
             </div>
 
             <div
                 id="projects"
-                className="2xs:gap-8 xs:gap-10 flex select-none scroll-mt-16 flex-col gap-4 2xl:gap-16"
+                className="flex w-full select-none scroll-mt-16 flex-col items-center gap-3"
             >
-                <Project name="Banter" />
-                <Project name="VVordle" />
-                <Project name="Pokémon Roulette" />
-                <Project name="Where's Waldo?" />
+                <Project
+                    name="Banter"
+                    description="fullstack open source Discord clone"
+                    link="https://banter-kappa.vercel.app/"
+                    className="bg-sky-300"
+                />
+                <Project
+                    name="VVordle"
+                    description="open source Wordle clone"
+                    link="https://vvordle.vercel.app/"
+                    className="bg-green-500"
+                />
+                <Project
+                    name="Pokémon Roulette"
+                    description='web version of "who&apos;s that Pokémon?" from the anime'
+                    link="https://pokemon-roulette.vercel.app/"
+                    className="bg-amber-400"
+                />
+                <Project
+                    name="Where's Waldo?"
+                    description="fullstack web version of the iconic book series"
+                    link="https://devlinrocha.github.io/wheres-waldo/"
+                    className="bg-red-600"
+                />
             </div>
         </div>
     )
