@@ -31,7 +31,7 @@ function Footer() {
 
                 <a
                     href="/#home"
-                    className="transition-text hover:text-black hover:underline"
+                    className="text-balance text-center transition-text hover:text-black hover:underline"
                 >
                     designed and developed by Devlin Rocha
                 </a>
