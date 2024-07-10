@@ -11,7 +11,7 @@ function Index() {
             id="home"
             className="flex scroll-mt-96 flex-col items-center gap-3"
         >
-            <div className="flex w-[87.5lvw] max-w-[1152px] flex-col items-center gap-2 py-14 text-center">
+            <div className="flex w-[87.5lvw] max-w-[1152px] flex-col items-center gap-2 py-9 text-center md:py-14">
                 <div className="text-balance font-serif text-3xl font-semibold md:text-5xl lg:text-6xl">
                     <h1>hey, i'm Devlin 👋</h1>
 
