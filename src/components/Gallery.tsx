@@ -10,36 +10,43 @@ interface GalleryItem {
 
 function Gallery({ items }: GalleryProps) {
     return (
-        <ul className="flex h-[480px] w-full snap-x snap-mandatory gap-5 overflow-x-scroll">
+        <ul className="scrollbar-hide flex h-auto w-full snap-x snap-mandatory gap-5 overflow-x-auto py-4 md:gap-10 2xl:gap-20">
+            <div className="w-0 shrink-0 snap-align-none md:w-[4lvw] xl:w-[12lvw] 2xl:w-[26lvw]" />
+
             {items.map(({ src, title, description }: GalleryItem, index) => {
                 return (
                     <li
                         key={index}
-                        className="relative w-full flex-shrink-0 snap-center"
+                        className="flex-shrink-0 snap-center snap-always"
                     >
-                        <div className="absolute inset-0">
+                        <div>
                             <figure className="flex flex-col items-center gap-10">
-                                <div className="flex w-full justify-center rounded-3xl bg-gray-300 py-5">
+                                <div className="flex justify-center rounded-2xl bg-gray-300 p-5 md:p-12">
                                     <img
                                         src={src}
                                         width={1920}
                                         height={1080}
-                                        className="w-[87.5lvw]"
+                                        draggable={false}
+                                        className="max-h-[50vh] w-fit max-w-[95lvw]"
                                     />
                                 </div>
 
-                                <div className="flex w-[87.5lvw] flex-col items-center gap-7">
-                                    <figcaption className="text-lg text-sky-500">
+                                <div className="flex w-[87.5lvw] max-w-[297px] flex-col items-center gap-5 2xs:max-w-[360px] xs:max-w-[432px] sm:max-w-[504px] md:max-w-[648px] lg:gap-8">
+                                    <figcaption className="text-lg font-medium text-sky-500 underline underline-offset-8 md:text-xl lg:text-2xl">
                                         {title}
                                     </figcaption>
 
-                                    <p className="text-xl">{description}</p>
+                                    <p className="max-w-prose text-pretty text-lg lg:text-3xl">
+                                        {description}
+                                    </p>
                                 </div>
                             </figure>
                         </div>
                     </li>
                 )
             })}
+
+            <div className="w-0 shrink-0 snap-align-none md:w-[4lvw] xl:w-[12lvw] 2xl:w-[32lvw]" />
         </ul>
     )
 }
