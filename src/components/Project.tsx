@@ -20,6 +20,7 @@ function Project({ name, description, link, className }: ProjectProps) {
     return (
         <Link
             to={`/${formatString(name)}`}
+            draggable={false}
             className={`flex max-h-[500px] w-full max-w-[2560px] select-none items-center justify-center md:max-h-[650px] lg:max-h-[692px] ${className}`}
         >
             <figure className="w-[87.5lvw] py-8 text-center">
@@ -60,6 +61,7 @@ function Project({ name, description, link, className }: ProjectProps) {
                             src={`${formatString(name)}.png`}
                             width={1920}
                             height={1080}
+                            draggable={false}
                             className="rounded-lg drop-shadow-lg"
                         />
                     </div>
