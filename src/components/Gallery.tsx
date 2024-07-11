@@ -19,29 +19,27 @@ function Gallery({ items }: GalleryProps) {
                         key={index}
                         className="flex-shrink-0 snap-center snap-always"
                     >
-                        <div>
-                            <figure className="flex flex-col items-center gap-10">
-                                <div className="flex justify-center rounded-2xl bg-gray-300 p-5 md:p-12">
-                                    <img
-                                        src={src}
-                                        width={1920}
-                                        height={1080}
-                                        draggable={false}
-                                        className="max-h-[50vh] w-fit max-w-[95lvw]"
-                                    />
-                                </div>
+                        <figure className="flex flex-col items-center gap-10">
+                            <div className="flex justify-center rounded-2xl bg-gray-300 p-5 md:p-12">
+                                <img
+                                    src={src}
+                                    width={1920}
+                                    height={1080}
+                                    draggable={false}
+                                    className="max-h-[50vh] w-fit max-w-[95lvw]"
+                                />
+                            </div>
 
-                                <div className="flex w-[87.5lvw] max-w-[297px] flex-col items-center gap-5 2xs:max-w-[360px] xs:max-w-[432px] sm:max-w-[504px] md:max-w-[648px] lg:gap-8">
-                                    <figcaption className="text-lg font-medium text-sky-500 underline underline-offset-8 md:text-xl lg:text-2xl">
-                                        {title}
-                                    </figcaption>
+                            <div className="flex w-[87.5lvw] max-w-[297px] flex-col items-center gap-5 2xs:max-w-[360px] xs:max-w-[432px] sm:max-w-[504px] md:max-w-[648px] lg:gap-8">
+                                <figcaption className="text-lg font-medium text-sky-500 underline underline-offset-8 md:text-xl lg:text-2xl">
+                                    {title}
+                                </figcaption>
 
-                                    <p className="max-w-prose text-pretty text-lg lg:text-3xl">
-                                        {description}
-                                    </p>
-                                </div>
-                            </figure>
-                        </div>
+                                <p className="max-w-prose text-pretty text-lg lg:text-3xl">
+                                    {description}
+                                </p>
+                            </div>
+                        </figure>
                     </li>
                 )
             })}
