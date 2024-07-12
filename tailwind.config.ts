@@ -51,6 +51,8 @@ export default {
             screens: {
                 '2xs': '448px',
                 xs: '528px',
+                '3xl': '1840px',
+                '4xl': '2208px',
             },
             fontFamily: {
                 sans: sansFonts,
