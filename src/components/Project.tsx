@@ -59,10 +59,10 @@ function Project({ name, description, link, className }: ProjectProps) {
                     <div className="max-w-[480px] md:max-w-[672px] lg:max-w-[720px]">
                         <img
                             src={`${formatString(name)}.png`}
-                            width={1920}
-                            height={1080}
+                            width={1280}
+                            height={720}
                             draggable={false}
-                            className="rounded-lg drop-shadow-lg"
+                            className="rounded-lg object-contain drop-shadow-lg"
                         />
                     </div>
                 </div>
