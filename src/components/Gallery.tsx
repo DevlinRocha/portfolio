@@ -26,7 +26,7 @@ function Gallery({ items }: GalleryProps) {
                                     width={1920}
                                     height={1080}
                                     draggable={false}
-                                    className="max-h-[50vh] w-fit max-w-[95lvw]"
+                                    className="max-h-[50vh] w-fit max-w-[95lvw] object-contain"
                                 />
                             </div>
 
