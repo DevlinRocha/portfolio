@@ -20,7 +20,7 @@ function Gallery({ items }: GalleryProps) {
                     <li
                         id={`${index}`}
                         key={index}
-                        className="flex-shrink-0 snap-center snap-always"
+                        className="shrink-0 snap-center snap-always"
                     >
                         <Link hash={`${index}`}>
                             <figure className="flex flex-col items-center gap-10">
