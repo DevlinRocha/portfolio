@@ -32,11 +32,11 @@ const galleryItems = [
 function vvordle() {
     return (
         <main className="flex flex-col items-center">
-            <div className="w-full max-w-[2560px] bg-green-500 py-14 text-center">
+            <header className="w-full max-w-[2560px] bg-green-500 py-14 text-center">
                 <h1 className="font-display text-5xl">VVordle</h1>
-            </div>
+            </header>
 
-            <div className="flex h-full w-full flex-col items-center gap-8 pt-14">
+            <section className="flex h-full w-full flex-col items-center gap-8 pt-14">
                 <div className="flex w-[87.5lvw] max-w-prose flex-col gap-2 text-pretty text-sm leading-7 2xs:text-base 2xs:leading-7">
                     <p>
                         VVordle is an open source Wordle clone built with{' '}
@@ -70,7 +70,7 @@ function vvordle() {
                 </div>
 
                 <Gallery items={galleryItems} />
-            </div>
+            </section>
         </main>
     )
 }

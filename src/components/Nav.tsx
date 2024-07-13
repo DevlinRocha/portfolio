@@ -11,8 +11,8 @@ function Nav() {
     }
 
     return (
-        <nav className="sticky top-0 z-10 flex h-12 select-none justify-center bg-white/80 text-black/80 backdrop-blur">
-            <div className="flex h-full w-full max-w-[1152px] items-center justify-between">
+        <header className="sticky top-0 z-10 flex h-12 select-none justify-center bg-white/80 text-black/80 backdrop-blur">
+            <nav className="flex h-full w-full max-w-[1152px] items-center justify-between">
                 <Link
                     to="/"
                     className="flex h-full items-center text-nowrap px-4 transition-text hover:text-black"
@@ -122,8 +122,8 @@ function Nav() {
                         </a>
                     </li>
                 </ul>
-            </div>
-        </nav>
+            </nav>
+        </header>
     )
 }
 
