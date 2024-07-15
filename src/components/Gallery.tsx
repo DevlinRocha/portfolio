@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import Caret from './Caret'
 
 interface GalleryProps {
     items: GalleryItem[]
@@ -11,9 +12,20 @@ interface GalleryItem {
 }
 
 function Gallery({ items }: GalleryProps) {
+    function handleClick(e: React.MouseEvent, direction: 'left' | 'right') {
+        e.stopPropagation()
+
+        const target = e.currentTarget as HTMLElement
+        target?.parentElement?.scrollBy(direction === 'left' ? -16 : 16, 0)
+    }
+
     return (
         <ul className="scrollbar-hide flex h-auto w-full snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth py-4 md:gap-10 2xl:gap-20">
             <div className="w-0 shrink-0 snap-align-none md:w-[4lvw] lg:w-[10lvw] xl:w-[16lvw] 2xl:w-[20lvw] 3xl:w-[25lvw] 4xl:w-[32lvw]" />
+            <Caret
+                onClick={(e) => handleClick(e, 'left')}
+                className="sticky left-4 top-1/4 min-h-32 min-w-32 cursor-pointer"
+            />
 
             {items.map(({ src, title, description }: GalleryItem, index) => {
                 return (
@@ -49,6 +61,10 @@ function Gallery({ items }: GalleryProps) {
                 )
             })}
 
+            <Caret
+                onClick={(e) => handleClick(e, 'right')}
+                className="sticky right-4 top-1/4 min-h-32 min-w-32 -scale-x-100 cursor-pointer"
+            />
             <div className="w-0 shrink-0 snap-align-none md:w-[4lvw] lg:w-[10lvw] xl:w-[16lvw] 2xl:w-[20lvw] 3xl:w-[25lvw] 4xl:w-[32lvw]" />
         </ul>
     )
