@@ -22,9 +22,10 @@ function Gallery({ items }: GalleryProps) {
     return (
         <ul className="scrollbar-hide flex h-auto w-full snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth py-4 md:gap-10 2xl:gap-20">
             <div className="w-0 shrink-0 snap-align-none md:w-[4lvw] lg:w-[10lvw] xl:w-[16lvw] 2xl:w-[20lvw] 3xl:w-[25lvw] 4xl:w-[32lvw]" />
+
             <Caret
                 onClick={(e) => handleClick(e, 'left')}
-                className="sticky left-4 top-1/4 min-h-32 min-w-32 cursor-pointer"
+                className="sticky left-0 top-1/4 z-10 min-h-14 min-w-14 cursor-pointer snap-align-none xs:left-4 xs:top-1/3 md:left-1/4 4xl:left-1/3"
             />
 
             {items.map(({ src, title, description }: GalleryItem, index) => {
@@ -36,7 +37,7 @@ function Gallery({ items }: GalleryProps) {
                     >
                         <Link hash={`${index}`}>
                             <figure className="flex flex-col items-center gap-10">
-                                <div className="flex justify-center rounded-2xl bg-gray-300 p-5 md:p-12">
+                                <div className="flex justify-center rounded-2xl bg-neutral-400 p-5 md:p-12">
                                     <img
                                         src={src}
                                         width={1920}
@@ -63,8 +64,9 @@ function Gallery({ items }: GalleryProps) {
 
             <Caret
                 onClick={(e) => handleClick(e, 'right')}
-                className="sticky right-4 top-1/4 min-h-32 min-w-32 -scale-x-100 cursor-pointer"
+                className="sticky right-0 top-1/4 z-10 min-h-14 min-w-14 -scale-x-100 cursor-pointer snap-align-none xs:right-4 xs:top-1/3 md:right-1/4 4xl:right-1/3"
             />
+
             <div className="w-0 shrink-0 snap-align-none md:w-[4lvw] lg:w-[10lvw] xl:w-[16lvw] 2xl:w-[20lvw] 3xl:w-[25lvw] 4xl:w-[32lvw]" />
         </ul>
     )
