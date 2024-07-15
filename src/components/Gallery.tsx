@@ -13,7 +13,7 @@ interface GalleryItem {
 function Gallery({ items }: GalleryProps) {
     return (
         <ul className="scrollbar-hide flex h-auto w-full snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth py-4 md:gap-10 2xl:gap-20">
-            <div className="4xl:w-[32lvw] 3xl:w-[25lvw] w-0 shrink-0 snap-align-none md:w-[4lvw] lg:w-[10lvw] xl:w-[16lvw] 2xl:w-[20lvw]" />
+            <div className="w-0 shrink-0 snap-align-none md:w-[4lvw] lg:w-[10lvw] xl:w-[16lvw] 2xl:w-[20lvw] 3xl:w-[25lvw] 4xl:w-[32lvw]" />
 
             {items.map(({ src, title, description }: GalleryItem, index) => {
                 return (
@@ -49,7 +49,7 @@ function Gallery({ items }: GalleryProps) {
                 )
             })}
 
-            <div className="4xl:w-[32lvw] 3xl:w-[25lvw] w-0 shrink-0 snap-align-none md:w-[4lvw] lg:w-[10lvw] xl:w-[16lvw] 2xl:w-[20lvw]" />
+            <div className="w-0 shrink-0 snap-align-none md:w-[4lvw] lg:w-[10lvw] xl:w-[16lvw] 2xl:w-[20lvw] 3xl:w-[25lvw] 4xl:w-[32lvw]" />
         </ul>
     )
 }
