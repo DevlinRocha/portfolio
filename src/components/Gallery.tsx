@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import Caret from './Caret'
+import { slug } from '@/utilities/functions'
 
 interface GalleryProps {
     items: GalleryItem[]
@@ -31,11 +32,11 @@ function Gallery({ items }: GalleryProps) {
             {items.map(({ src, title, description }: GalleryItem, index) => {
                 return (
                     <li
-                        id={`${index}`}
+                        id={`${slug(title)}`}
                         key={index}
                         className="shrink-0 snap-center snap-always"
                     >
-                        <Link hash={`${index}`}>
+                        <Link hash={`${slug(title)}`} draggable={false}>
                             <figure className="flex flex-col items-center gap-10">
                                 <div className="flex justify-center rounded-2xl bg-neutral-400 p-5 md:p-12">
                                     <img
