@@ -12,26 +12,29 @@ function Caret({ onClick, className }: CaretProps) {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             onClick={onClick}
-            className={className}
+            className={`group ${className}`}
         >
             <rect
                 width="5"
                 height="5"
                 rx="2.5"
                 fill="#424245"
-                fill-opacity="0.72"
+                fillOpacity="0.72"
+                className="transition-colors group-hover:fill-neutral-600"
             />
             <path
                 d="M2 2.5L3 1.5"
-                stroke="white"
-                stroke-width="0.5"
-                stroke-linecap="round"
+                stroke="#F5F5F5"
+                strokeWidth="0.5"
+                strokeLinecap="round"
+                className="transition-colors group-hover:stroke-white"
             />
             <path
                 d="M2 2.5L3 3.5"
-                stroke="white"
-                stroke-width="0.5"
-                stroke-linecap="round"
+                stroke="#F5F5F5"
+                strokeWidth="0.5"
+                strokeLinecap="round"
+                className="transition-colors group-hover:stroke-white"
             />
         </svg>
     )
