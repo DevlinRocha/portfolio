@@ -21,7 +21,6 @@ function Gallery({ items }: GalleryProps) {
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        console.log(entries)
                         entry.target.classList.remove('opacity-0')
                     } else {
                         entry.target.classList.add('opacity-0')
@@ -33,12 +32,14 @@ function Gallery({ items }: GalleryProps) {
             }
         )
 
-        captions.current.forEach((el) => {
+        const { current } = captions
+
+        current.forEach((el) => {
             if (el) observer.observe(el)
         })
 
         return () => {
-            captions.current.forEach((el) => {
+            current.forEach((el) => {
                 if (el) observer.unobserve(el)
             })
         }
