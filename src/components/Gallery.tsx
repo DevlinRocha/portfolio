@@ -64,7 +64,7 @@ function Gallery({ items }: GalleryProps) {
                             <li
                                 id={`${slug(title)}`}
                                 key={index}
-                                className="m-0 shrink-0 snap-center snap-always first:md:ml-[4lvw] last:md:mr-[4lvw] first:lg:ml-[10lvw] last:lg:mr-[10lvw] first:xl:ml-[16lvw] last:xl:mr-[16lvw] first:2xl:ml-[20lvw] last:2xl:mr-[20lvw] first:3xl:ml-[25lvw] last:3xl:mr-[25lvw] first:4xl:ml-[32lvw] last:4xl:mr-[32lvw]"
+                                className="m-0 shrink-0 snap-center snap-always first:md:ml-[3lvw] last:md:mr-[3lvw] first:lg:ml-[13lvw] last:lg:mr-[13lvw] first:xl:ml-[19lvw] last:xl:mr-[19lvw] first:2xl:ml-[24lvw] last:2xl:mr-[24lvw] first:3xl:ml-[29lvw] last:3xl:mr-[29lvw] first:4xl:ml-[36lvw] last:4xl:mr-[36lvw]"
                             >
                                 <Link hash={`${slug(title)}`} draggable={false}>
                                     <figure className="flex h-full flex-col items-center gap-10">
@@ -82,7 +82,7 @@ function Gallery({ items }: GalleryProps) {
                                                     (captions.current[index] =
                                                         item)
                                                 }
-                                                className="flex w-[87.5lvw] max-w-[297px] flex-col items-center gap-5 transition-opacity duration-500 ease-out 2xs:max-w-[360px] xs:max-w-[432px] sm:max-w-[504px] md:max-w-[648px] lg:gap-8"
+                                                className="flex w-[87.5lvw] max-w-[297px] flex-col items-center gap-5 transition-opacity duration-500 ease-out 2xs:max-w-[360px] xs:max-w-[432px] md:max-w-[648px] lg:gap-8"
                                             >
                                                 <figcaption className="text-lg font-medium text-sky-500 underline underline-offset-8 md:text-xl lg:text-2xl">
                                                     {title}
