@@ -69,7 +69,7 @@ function vvordle() {
                     </a>
                 </div>
 
-                <Gallery items={galleryItems} />
+                <Gallery items={galleryItems} className="text-green-700" />
             </section>
         </main>
     )
