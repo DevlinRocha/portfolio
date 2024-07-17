@@ -7,7 +7,7 @@ export const Route = createLazyFileRoute('/about')({
 function About() {
     return (
         <main className="flex flex-col items-center gap-6">
-            <div className="flex w-[87.5lvw] max-w-prose flex-col gap-4 text-pretty text-sm leading-7 md:text-base md:leading-7">
+            <section className="flex w-[87.5lvw] max-w-prose flex-col gap-4 text-pretty text-sm leading-7 md:text-base md:leading-7">
                 <h1 className="-mb-2 w-full pt-9 font-serif text-3xl font-semibold leading-9 md:pt-14 md:text-5xl lg:text-6xl">
                     i&apos;m Devlin,
                 </h1>
@@ -20,8 +20,8 @@ function About() {
                 <p>
                     my passion for technology is life-long, stemming from a
                     childhood full of video games. it wasn&apos;t long before i
-                    was taking consoles apart, building computers, and diving
-                    into programming
+                    was taking consoles apart, building computers, and
+                    sectioning into programming
                 </p>
 
                 <p>
@@ -29,7 +29,7 @@ function About() {
                     include music / audio production, video editing / content
                     creation, and hanging out with my dog, Charlie
                 </p>
-            </div>
+            </section>
 
             <div className="flex w-[87.5lvw] select-none flex-col items-center">
                 <img

@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import { slug } from '@/utilities/functions'
 
 interface ProjectProps {
     name: string
@@ -8,18 +9,9 @@ interface ProjectProps {
 }
 
 function Project({ name, description, link, className }: ProjectProps) {
-    function formatString(string: string) {
-        return string
-            .normalize('NFKD')
-            .replace(/\p{Diacritic}/gu, '')
-            .replace(/[^\w\s]|_/g, '')
-            .replace(/\s+/g, '-')
-            .toLowerCase()
-    }
-
     return (
         <Link
-            to={`/${formatString(name)}`}
+            to={`/${slug(name)}`}
             draggable={false}
             className={`flex max-h-[500px] w-full max-w-[2560px] select-none items-center justify-center md:max-h-[650px] lg:max-h-[692px] ${className}`}
         >
@@ -36,7 +28,7 @@ function Project({ name, description, link, className }: ProjectProps) {
 
                     <div className="flex gap-2.5 text-sm md:text-base">
                         <Link
-                            to={`/${formatString(name)}`}
+                            to={`/${slug(name)}`}
                             onClick={(e) => e.stopPropagation()}
                             className="flex items-center rounded-full bg-black px-4 py-2 text-center text-white hover:bg-black/80 md:px-5 md:py-2.5"
                         >
@@ -58,7 +50,7 @@ function Project({ name, description, link, className }: ProjectProps) {
 
                     <div className="max-w-[480px] md:max-w-[672px] lg:max-w-[720px]">
                         <img
-                            src={`${formatString(name)}.png`}
+                            src={`${slug(name)}.png`}
                             width={1280}
                             height={720}
                             draggable={false}

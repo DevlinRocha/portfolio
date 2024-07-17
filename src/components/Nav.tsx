@@ -11,8 +11,8 @@ function Nav() {
     }
 
     return (
-        <nav className="sticky top-0 z-10 flex h-12 select-none justify-center bg-white/80 text-black/80 backdrop-blur">
-            <div className="flex h-full w-full max-w-[1152px] items-center justify-between">
+        <header className="sticky top-0 z-10 flex h-12 select-none justify-center bg-white/80 text-black/80 backdrop-blur">
+            <nav className="flex h-full w-full max-w-[1152px] items-center justify-between">
                 <Link
                     to="/"
                     className="flex h-full items-center text-nowrap px-4 transition-text hover:text-black"
@@ -48,13 +48,14 @@ function Nav() {
                     </li>
 
                     <li className="group xs:h-full">
-                        <a
-                            href="/#projects"
+                        <Link
+                            to="/"
+                            hash="projects"
                             onClick={handleClick}
                             className="group relative flex items-center px-12 py-2 transition-text hover:text-black xs:h-full xs:px-2 xs:py-0 group-hover:xs:text-black"
                         >
                             projects
-                        </a>
+                        </Link>
 
                         <ul className="flex-col overflow-hidden border-0 bg-white/80 backdrop-blur transition-height duration-500 ease-in xs:absolute xs:max-h-0 group-hover:xs:max-h-96 group-hover:xs:border-x group-hover:xs:border-b">
                             <li className="flex">
@@ -121,8 +122,8 @@ function Nav() {
                         </a>
                     </li>
                 </ul>
-            </div>
-        </nav>
+            </nav>
+        </header>
     )
 }
 

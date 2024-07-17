@@ -1,3 +1,5 @@
+import { Link } from '@tanstack/react-router'
+
 function Footer() {
     return (
         <footer className="flex h-full flex-col items-center justify-center gap-4 p-4 text-black/80">
@@ -28,12 +30,13 @@ function Footer() {
                 </a>
             </div>
 
-            <a
-                href="/#home"
+            <Link
+                to="/"
+                hash="home"
                 className="text-balance text-center transition-text hover:text-black hover:underline"
             >
                 designed and developed by Devlin Rocha
-            </a>
+            </Link>
         </footer>
     )
 }
