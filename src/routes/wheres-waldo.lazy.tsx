@@ -38,15 +38,23 @@ function wheresWaldo() {
             <section className="flex h-full w-full flex-col items-center gap-8 pt-14">
                 <div className="flex w-[87.5lvw] max-w-prose flex-col gap-2 text-pretty text-sm leading-7 2xs:text-base 2xs:leading-7">
                     <p>
-                        Where's Waldo? is a fullstack open source web version of
+                        Where's Waldo? is a fullstack open-source web version of
                         the iconic book series, built with <b>TypeScript</b>,{' '}
                         <b>React</b>, <b>React Router</b>,{' '}
                         <b>styled-components</b>, and <b>Firebase</b>
                     </p>
 
                     <p>
-                        Where's Waldo? was my first time working with a backend,
-                        as well as my first time working with TypeScript
+                        my goal for Where's Waldo? was to create my first
+                        fullstack application! this was my first time working
+                        with a backend, as well as my first time working with
+                        TypeScript
+                    </p>
+
+                    <p>
+                        Where's Waldo? features 6 different levels and 2
+                        difficulty modes with separate leaderboards to track the
+                        high scores for each
                     </p>
                 </div>
 
