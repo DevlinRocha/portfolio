@@ -70,7 +70,7 @@ function wheresWaldo() {
                     </a>
                 </div>
 
-                <Gallery items={galleryItems} />
+                <Gallery items={galleryItems} className="text-red-600" />
             </section>
         </main>
     )

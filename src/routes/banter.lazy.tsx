@@ -71,7 +71,7 @@ function banter() {
                     </a>
                 </div>
 
-                <Gallery items={galleryItems} />
+                <Gallery items={galleryItems} className="text-sky-500" />
             </section>
         </main>
     )
