@@ -1,5 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
+import { typeScript, vue, vite } from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/vvordle')({
     component: vvordle,
@@ -39,13 +40,24 @@ function vvordle() {
             <section className="flex h-full w-full flex-col items-center gap-8 pt-14">
                 <div className="flex w-[87.5lvw] max-w-prose flex-col gap-2 text-pretty text-sm leading-7 2xs:text-base 2xs:leading-7">
                     <p>
-                        VVordle is an open source Wordle clone built with{' '}
-                        <b>TypeScript</b>, <b>Vue</b>, and <b>Vite</b>
+                        VVordle is an open-source Wordle clone built with{' '}
+                        <b title={typeScript}>TypeScript</b>,{' '}
+                        <b title={vue}>Vue</b>, and <b title={vite}>Vite</b>
                     </p>
 
                     <p>
-                        my goal for VVordle was to teach myself Vue, and i learn
-                        best by building projects
+                        i created VVordle to teach myself Vue using the
+                        Composition API, the new method of writing components in
+                        Vue. at work i was tasked with rewriting a web
+                        application from Vue 2 (using the Options API) to Vue 3
+                        (using the Composition API), so knowing both API's was
+                        important
+                    </p>
+
+                    <p>
+                        VVordle includes most of the features we all love about
+                        the original Wordle, and uses the word list from before{' '}
+                        <em>The New York Times</em> purchased it
                     </p>
                 </div>
 
@@ -69,7 +81,7 @@ function vvordle() {
                     </a>
                 </div>
 
-                <Gallery items={galleryItems} />
+                <Gallery items={galleryItems} className="text-green-700" />
             </section>
         </main>
     )

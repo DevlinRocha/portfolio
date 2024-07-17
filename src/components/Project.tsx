@@ -21,7 +21,7 @@ function Project({ name, description, link, className }: ProjectProps) {
                         <h2 className="font-display text-3xl md:text-5xl lg:text-6xl">
                             {name}
                         </h2>
-                        <p className="mt-1 text-balance text-xl md:text-2xl lg:text-3xl">
+                        <p className="mt-1 max-w-prose text-balance text-xl md:text-2xl lg:text-3xl">
                             {description}
                         </p>
                     </figcaption>

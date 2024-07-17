@@ -1,5 +1,16 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
+import {
+    typeScript,
+    react,
+    nextjs,
+    reduxToolkit,
+    firebase,
+    tailwindCss,
+    styledComponents,
+    tenorApi,
+    figma,
+} from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/banter')({
     component: banter,
@@ -10,7 +21,7 @@ const galleryItems = [
         src: 'banter.png',
         title: 'chat with friends',
         description:
-            'interact with people from across the world. send text messages, images, gifs, links and more',
+            'interact with people from across the world. send text messages, images, GIFs, links and more',
     },
     {
         src: 'banter-user-settings.png',
@@ -36,18 +47,40 @@ function banter() {
             <section className="flex h-full w-full flex-col items-center gap-8 pt-14">
                 <div className="flex w-[87.5lvw] max-w-prose flex-col gap-2 text-pretty text-sm leading-7 2xs:text-base 2xs:leading-7">
                     <p>
-                        Banter is a fullstack open source Discord clone built
-                        with <b>TypeScript</b>, <b>React</b>, <b>Next.js</b>,{' '}
-                        <b>Redux Toolkit</b>, <b>Firebase</b>,{' '}
-                        <b>Tailwind CSS</b>, and <b>styled-components</b>. the{' '}
-                        <b>Tenor API</b> is implemented to allow users to share
-                        gifs, and <b>Figma</b> was used to create the logo and
-                        icons for the user interface
+                        Banter is a fullstack open-source Discord clone built
+                        with <b title={typeScript}>TypeScript</b>,{' '}
+                        <b title={react}>React</b>,{' '}
+                        <b title={nextjs}>Next.js</b>,{' '}
+                        <b title={reduxToolkit}>Redux Toolkit</b>,{' '}
+                        <b title={firebase}>Firebase</b>,{' '}
+                        <b title={tailwindCss}>Tailwind CSS</b>, and{' '}
+                        <b title={styledComponents}>styled-components</b>. the{' '}
+                        <b title={tenorApi}>Tenor API</b> is implemented to
+                        allow users to share GIFs, and{' '}
+                        <b title={figma}>Figma</b> was used to create the logo
+                        and icons for the user interface
                     </p>
 
                     <p>
-                        my goal for Banter was to resemble Discord as close as
+                        my goal for Banter was to recreate Discord as close as
                         possible (with some exceptions, such as guest accounts)
+                    </p>
+
+                    <p>
+                        send messages, with text, GIFs, links, and images in a
+                        global server, or create your own private server to
+                        invite your friends! create an account and customize
+                        your profile, or use a guest account without needing to
+                        worry about emails and passwords
+                    </p>
+
+                    <p>
+                        while creating Banter, inspiration struck for an
+                        entirely new project based on it. although Banter is
+                        feature-rich, it never left early alpha stages. the most
+                        notable missing feature is a mobile layout, so if you
+                        want to view the deployed project, it's best experienced
+                        with a landscape oriented screen
                     </p>
                 </div>
 
@@ -71,7 +104,7 @@ function banter() {
                     </a>
                 </div>
 
-                <Gallery items={galleryItems} />
+                <Gallery items={galleryItems} className="text-sky-500" />
             </section>
         </main>
     )

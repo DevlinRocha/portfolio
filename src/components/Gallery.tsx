@@ -5,6 +5,7 @@ import { slug } from '@/utilities/functions'
 
 interface GalleryProps {
     items: GalleryItem[]
+    className?: string
 }
 
 interface GalleryItem {
@@ -13,7 +14,7 @@ interface GalleryItem {
     description: string
 }
 
-function Gallery({ items }: GalleryProps) {
+function Gallery({ items, className }: GalleryProps) {
     const [activeIndex, setActiveIndex] = useState(0)
     const captions = useRef<(HTMLElement | null)[]>([])
 
@@ -93,7 +94,9 @@ function Gallery({ items }: GalleryProps) {
                                                 }
                                                 className="flex w-[87.5lvw] max-w-[297px] flex-col items-center gap-5 transition-opacity duration-500 ease-out 2xs:max-w-[360px] xs:max-w-[432px] md:max-w-[648px] lg:gap-8"
                                             >
-                                                <figcaption className="text-lg font-medium text-sky-500 underline underline-offset-8 md:text-xl lg:text-2xl">
+                                                <figcaption
+                                                    className={`text-lg font-medium underline underline-offset-8 md:text-xl lg:text-2xl ${className}`}
+                                                >
                                                     {title}
                                                 </figcaption>
 
