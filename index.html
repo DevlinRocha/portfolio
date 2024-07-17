@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="cursor-default scroll-smooth">
+<html lang="en" class="cursor-default focus-within:scroll-smooth">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,6 +15,7 @@
             name="keywords"
             content="Devlin Rocha, software engineer, portfolio"
         />
+        <meta name="robots" content="index, follow" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
 
@@ -22,7 +23,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
         <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@600&family=Righteous&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&family=Righteous&display=swap"
             rel="stylesheet"
         />
 
@@ -30,11 +31,13 @@
         <link rel="icon" href="icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.webmanifest" />
+        <!-- <link rel="canonical" href="https://www.devlinrocha.com" /> -->
 
         <meta
             property="og:site_name"
             content="Devlin Rocha | Software Engineer | Portfolio"
         />
+        <!-- <meta property="og:url" content="https://devlinrocha.com" /> -->
         <meta
             property="og:title"
             content="Devlin Rocha | Software Engineer | Portfolio"
@@ -66,7 +69,7 @@
             content="https://www.devlinrocha.com/about.png"
         />
     </head>
-    <body class="mx-auto max-w-[1920px]">
+    <body>
         <div id="root"></div>
         <script type="module" src="/src/main.tsx"></script>
     </body>

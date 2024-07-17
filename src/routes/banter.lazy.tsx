@@ -1,50 +1,40 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
+import Gallery from '@/components/Gallery'
 
 export const Route = createLazyFileRoute('/banter')({
     component: banter,
 })
 
+const galleryItems = [
+    {
+        src: 'banter.png',
+        title: 'chat with friends',
+        description:
+            'interact with people from across the world. send text messages, images, gifs, links and more',
+    },
+    {
+        src: 'banter-user-settings.png',
+        title: 'custom profile',
+        description:
+            'stand out from the crowd with a custom profile. upload your own avatar, write a bio, and more',
+    },
+    {
+        src: 'banter-login.png',
+        title: 'login',
+        description:
+            'enter your own email and password to create an account or use a guest account',
+    },
+]
+
 function banter() {
     return (
-        <div className="flex flex-col justify-center gap-8 sm:gap-16 lg:gap-24">
-            <img
-                src="banter-hero.svg"
-                alt="Banter hero image"
-                width={1920}
-                height={720}
-                className="drop-shadow-lg"
-            />
+        <main className="flex flex-col items-center">
+            <header className="w-full max-w-[2560px] bg-sky-300 py-14 text-center">
+                <h1 className="font-display text-5xl">Banter</h1>
+            </header>
 
-            <main className="flex flex-col gap-12 px-5 lg:px-32 xl:px-64 2xl:gap-16 2xl:px-80">
-                <div className="flex select-none flex-col text-sm 2xl:gap-1">
-                    <h1 className="xs:text-5xl font-display select-text text-4xl font-semibold leading-snug sm:text-6xl">
-                        Banter
-                    </h1>
-
-                    <span className="text-black/80">
-                        {'{ '}
-                        <a
-                            href="https://github.com/DevlinRocha/banter"
-                            target="_blank"
-                            rel="noReferrer"
-                            className="transition-text hover:text-black hover:underline"
-                        >
-                            source code
-                        </a>
-                        {' | '}
-                        <a
-                            href="https://banter-kappa.vercel.app/"
-                            target="_blank"
-                            rel="noReferrer"
-                            className="transition-text hover:text-black hover:underline"
-                        >
-                            deployed project
-                        </a>
-                        {' }'}
-                    </span>
-                </div>
-
-                <div className="2xs:text-base 2xs:leading-7 mb-8 flex flex-col gap-8 text-pretty text-sm leading-7 lg:mb-12">
+            <section className="flex h-full w-full flex-col items-center gap-8 pt-14">
+                <div className="flex w-[87.5lvw] max-w-prose flex-col gap-2 text-pretty text-sm leading-7 2xs:text-base 2xs:leading-7">
                     <p>
                         Banter is a fullstack open source Discord clone built
                         with <b>TypeScript</b>, <b>React</b>, <b>Next.js</b>,{' '}
@@ -61,32 +51,28 @@ function banter() {
                     </p>
                 </div>
 
-                <div className="2xs:gap-8 xs:gap-10 flex select-none flex-col gap-4 2xl:gap-16">
-                    <img
-                        src="banter.png"
-                        alt="Banter chat screenshot"
-                        width={1920}
-                        height={1080}
-                        className="rounded-lg drop-shadow-lg"
-                    />
+                <div className="flex justify-center gap-2.5 text-sm md:text-base">
+                    <a
+                        href="https://banter-kappa.vercel.app/"
+                        target="_blank"
+                        rel="noReferrer"
+                        className="flex items-center rounded-full bg-black px-4 py-2 text-center text-white hover:bg-black/80 md:px-5 md:py-2.5"
+                    >
+                        view project
+                    </a>
 
-                    <img
-                        src="banter-user-settings.png"
-                        alt="Banter user settings screenshot"
-                        width={1920}
-                        height={1080}
-                        className="rounded-lg drop-shadow-lg"
-                    />
-
-                    <img
-                        src="banter-login.png"
-                        alt="Banter login screenshot"
-                        width={1920}
-                        height={1080}
-                        className="rounded-lg drop-shadow-lg"
-                    />
+                    <a
+                        href="https://github.com/DevlinRocha/banter"
+                        target="_blank"
+                        rel="noReferrer"
+                        className="flex items-center rounded-full border border-black/80 px-4 py-2 text-center text-black/80 hover:bg-black/80 hover:text-white md:px-5 md:py-2.5"
+                    >
+                        source code
+                    </a>
                 </div>
-            </main>
-        </div>
+
+                <Gallery items={galleryItems} />
+            </section>
+        </main>
     )
 }

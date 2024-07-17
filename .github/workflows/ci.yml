@@ -1,0 +1,50 @@
+name: CI
+
+on:
+    push:
+        branches: '**'
+
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+jobs:
+    ci:
+        name: CI
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node-version: [20]
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Install pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 9
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'pnpm'
+
+            - name: Install dependencies and audit
+              run: |
+                  pnpm install
+                  pnpm audit
+
+            - name: Prettier
+              run: pnpm prettier . --write
+
+            - name: Typecheck
+              run: pnpm tsc --build --verbose
+
+            - name: Lint
+              run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
