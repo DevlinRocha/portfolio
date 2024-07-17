@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import Caret from './Caret'
 import { slug } from '@/utilities/functions'
@@ -14,25 +14,32 @@ interface GalleryItem {
 }
 
 function Gallery({ items }: GalleryProps) {
+    const [activeIndex, setActiveIndex] = useState(0)
     const captions = useRef<(HTMLElement | null)[]>([])
 
     useEffect(() => {
+        const { current } = captions
+
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
+                    entry.target.classList.toggle(
+                        'opacity-0',
+                        !entry.isIntersecting
+                    )
+
                     if (entry.isIntersecting) {
-                        entry.target.classList.remove('opacity-0')
-                    } else {
-                        entry.target.classList.add('opacity-0')
+                        setActiveIndex(
+                            current.findIndex((el) => el === entry.target)
+                        )
                     }
                 })
             },
             {
                 threshold: 0.5,
+                rootMargin: '0px -25%',
             }
         )
-
-        const { current } = captions
 
         current.forEach((el) => {
             if (el) observer.observe(el)
@@ -48,24 +55,25 @@ function Gallery({ items }: GalleryProps) {
     function handleClick(e: React.MouseEvent, direction: 'left' | 'right') {
         e.stopPropagation()
 
-        const target = e.currentTarget as HTMLElement
+        const newIndex =
+            direction === 'left' ? activeIndex - 1 : activeIndex + 1
 
-        target?.parentElement?.previousElementSibling?.scrollBy(
-            direction === 'left' ? -16 : 16,
-            0
-        )
+        captions.current[newIndex]?.scrollIntoView({
+            behavior: 'smooth',
+            inline: 'center',
+        })
     }
 
     return (
         <>
-            <ul className="scrollbar-hide flex h-auto w-full snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth">
+            <ul className="scrollbar-hide flex h-auto w-full snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth md:px-[3lvw] lg:px-[13lvw] xl:px-[19lvw] 2xl:px-[24lvw] 3xl:px-[29lvw] 4xl:px-[36lvw]">
                 {items.map(
                     ({ src, title, description }: GalleryItem, index) => {
                         return (
                             <li
                                 id={`${slug(title)}`}
                                 key={index}
-                                className="m-0 shrink-0 snap-center snap-always first:md:ml-[3lvw] last:md:mr-[3lvw] first:lg:ml-[13lvw] last:lg:mr-[13lvw] first:xl:ml-[19lvw] last:xl:mr-[19lvw] first:2xl:ml-[24lvw] last:2xl:mr-[24lvw] first:3xl:ml-[29lvw] last:3xl:mr-[29lvw] first:4xl:ml-[36lvw] last:4xl:mr-[36lvw]"
+                                className="shrink-0 snap-center"
                             >
                                 <Link hash={`${slug(title)}`} draggable={false}>
                                     <figure className="flex h-full flex-col items-center gap-10">
@@ -104,13 +112,15 @@ function Gallery({ items }: GalleryProps) {
 
             <div className="mb-4 flex gap-4">
                 <Caret
+                    disabled={activeIndex === 0}
                     onClick={(e) => handleClick(e, 'left')}
-                    className="min-h-14 min-w-14 cursor-pointer"
+                    className="min-h-14 min-w-14"
                 />
 
                 <Caret
+                    disabled={activeIndex === items.length - 1}
                     onClick={(e) => handleClick(e, 'right')}
-                    className="min-h-14 min-w-14 -scale-x-100 cursor-pointer"
+                    className="min-h-14 min-w-14 -scale-x-100"
                 />
             </div>
         </>
