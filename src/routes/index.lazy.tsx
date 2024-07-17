@@ -30,7 +30,7 @@ function Index() {
             >
                 <Project
                     name="Banter"
-                    description="fullstack open-source Discord clone"
+                    description="feature-rich fullstack open-source Discord clone"
                     link="https://banter-kappa.vercel.app/"
                     className="bg-sky-300"
                 />
