@@ -1,5 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
+import { typeScript, vue, vite, pinia, pokeApi } from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/pokemon-roulette')({
     component: pokemonRoulette,
@@ -42,8 +43,10 @@ function pokemonRoulette() {
                     <p>
                         Pokémon Roulette is an open-source gamified version of
                         "Who's that Pokémon?" from the anime, built with{' '}
-                        <b>TypeScript</b>, <b>Vue</b>, <b>Vite</b>, <b>Pinia</b>
-                        , and the <b>PokéApi</b>
+                        <b title={typeScript}>TypeScript</b>,{' '}
+                        <b title={vue}>Vue</b>, <b title={vite}>Vite</b>,{' '}
+                        <b title={pinia}>Pinia</b>, and the{' '}
+                        <b title={pokeApi}>PokéApi</b>
                     </p>
 
                     <p>

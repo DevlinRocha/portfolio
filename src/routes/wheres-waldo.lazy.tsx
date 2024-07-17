@@ -1,5 +1,12 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
+import {
+    typeScript,
+    react,
+    reactRouter,
+    styledComponents,
+    firebase,
+} from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/wheres-waldo')({
     component: wheresWaldo,
@@ -39,9 +46,12 @@ function wheresWaldo() {
                 <div className="flex w-[87.5lvw] max-w-prose flex-col gap-2 text-pretty text-sm leading-7 2xs:text-base 2xs:leading-7">
                     <p>
                         Where's Waldo? is a fullstack open-source web version of
-                        the iconic book series, built with <b>TypeScript</b>,{' '}
-                        <b>React</b>, <b>React Router</b>,{' '}
-                        <b>styled-components</b>, and <b>Firebase</b>
+                        the iconic book series, built with{' '}
+                        <b title={typeScript}>TypeScript</b>,{' '}
+                        <b title={react}>React</b>,{' '}
+                        <b title={reactRouter}>React Router</b>,{' '}
+                        <b title={styledComponents}>styled-components</b>, and{' '}
+                        <b title={firebase}>Firebase</b>
                     </p>
 
                     <p>
