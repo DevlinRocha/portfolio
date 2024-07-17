@@ -20,14 +20,14 @@ function About() {
                 <p>
                     my passion for technology is life-long, stemming from a
                     childhood full of video games. it wasn&apos;t long before i
-                    was taking consoles apart, building computers, and
-                    sectioning into programming
+                    was taking consoles apart, building computers, and diving
+                    into programming
                 </p>
 
                 <p>
                     in addition to programming and video games, my hobbies
-                    include music / audio production, video editing / content
-                    creation, and hanging out with my dog, Charlie
+                    include music/audio production, content creation, and
+                    hanging out with my dog, Charlie
                 </p>
             </section>
 
