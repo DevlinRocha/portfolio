@@ -88,7 +88,11 @@ function wheresWaldo() {
                     </a>
                 </div>
 
-                <Gallery items={galleryItems} className="text-red-600" />
+                <Gallery
+                    items={galleryItems}
+                    containerClass="!bg-red-100"
+                    titleClass="text-red-600"
+                />
             </section>
         </main>
     )

@@ -104,7 +104,11 @@ function banter() {
                     </a>
                 </div>
 
-                <Gallery items={galleryItems} className="text-sky-500" />
+                <Gallery
+                    items={galleryItems}
+                    containerClass="!bg-sky-100"
+                    titleClass="text-sky-500"
+                />
             </section>
         </main>
     )

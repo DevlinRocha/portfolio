@@ -81,7 +81,11 @@ function vvordle() {
                     </a>
                 </div>
 
-                <Gallery items={galleryItems} className="text-green-700" />
+                <Gallery
+                    items={galleryItems}
+                    containerClass="!bg-green-100"
+                    titleClass="text-green-700"
+                />
             </section>
         </main>
     )

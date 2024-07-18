@@ -86,7 +86,11 @@ function pokemonRoulette() {
                     </a>
                 </div>
 
-                <Gallery items={galleryItems} className="text-amber-600" />
+                <Gallery
+                    items={galleryItems}
+                    containerClass="!bg-amber-100"
+                    titleClass="text-amber-600"
+                />
             </section>
         </main>
     )
