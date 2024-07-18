@@ -5,6 +5,8 @@ import { slug } from '@/utilities/functions'
 
 interface GalleryProps {
     items: GalleryItem[]
+    containerClass?: string
+    titleClass?: string
     className?: string
 }
 
@@ -14,7 +16,7 @@ interface GalleryItem {
     description: string
 }
 
-function Gallery({ items, className }: GalleryProps) {
+function Gallery({ items, containerClass, titleClass }: GalleryProps) {
     const [activeIndex, setActiveIndex] = useState(0)
     const captions = useRef<(HTMLElement | null)[]>([])
 
@@ -78,7 +80,9 @@ function Gallery({ items, className }: GalleryProps) {
                             >
                                 <Link hash={`${slug(title)}`} draggable={false}>
                                     <figure className="flex h-full flex-col items-center gap-10">
-                                        <div className="flex h-full flex-col items-center gap-5 rounded-2xl bg-neutral-300 p-5 md:p-12 lg:gap-8">
+                                        <div
+                                            className={`flex h-full flex-col items-center gap-5 rounded-2xl bg-neutral-300 p-5 md:p-12 lg:gap-8 ${containerClass}`}
+                                        >
                                             <img
                                                 src={src}
                                                 width={1920}
@@ -95,7 +99,7 @@ function Gallery({ items, className }: GalleryProps) {
                                                 className="flex w-[87.5lvw] max-w-[297px] flex-col items-center gap-5 transition-opacity duration-500 ease-out 2xs:max-w-[360px] xs:max-w-[432px] md:max-w-[648px] lg:gap-8"
                                             >
                                                 <figcaption
-                                                    className={`text-lg font-medium underline underline-offset-8 md:text-xl lg:text-2xl ${className}`}
+                                                    className={`text-lg font-medium underline underline-offset-8 md:text-xl lg:text-2xl ${titleClass}`}
                                                 >
                                                     {title}
                                                 </figcaption>
