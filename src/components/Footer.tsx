@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router'
 function Footer() {
     return (
         <footer className="flex h-full flex-col items-center justify-center gap-4 p-4 text-black/80">
-            <div className="flex select-none gap-4">
+            <nav className="flex select-none gap-4">
                 <a
                     href="https://twitter.com/DevlinRocha"
                     target="_blank"
@@ -28,7 +28,7 @@ function Footer() {
                 >
                     LinkedIn
                 </a>
-            </div>
+            </nav>
 
             <Link
                 to="/"
