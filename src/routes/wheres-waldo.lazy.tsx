@@ -38,13 +38,13 @@ const galleryItems = [
 function wheresWaldo() {
     return (
         <main className="flex flex-col items-center">
-            <header className="w-full max-w-[2560px] bg-red-600 py-14 text-center">
-                <h1 className="font-display text-5xl">Where's Waldo?</h1>
-            </header>
+            <article className="flex h-full w-full flex-col items-center gap-8">
+                <header className="w-full max-w-[2560px] bg-red-600 py-14 text-center">
+                    <h1 className="font-display text-5xl">Where's Waldo?</h1>
+                </header>
 
-            <section className="flex h-full w-full flex-col items-center gap-8 pt-14">
-                <div className="flex w-[87.5lvw] max-w-prose flex-col gap-2 text-pretty text-sm leading-7 2xs:text-base 2xs:leading-7">
-                    <p>
+                <section className="flex w-full flex-col items-center gap-2 text-pretty pt-6 text-sm leading-7 2xs:text-base 2xs:leading-7">
+                    <p className="w-[87.5lvw] max-w-prose">
                         Where's Waldo? is a fullstack open-source web version of
                         the iconic book series, built with{' '}
                         <b title={typeScript}>TypeScript</b>,{' '}
@@ -54,21 +54,21 @@ function wheresWaldo() {
                         <b title={firebase}>Firebase</b>
                     </p>
 
-                    <p>
+                    <p className="w-[87.5lvw] max-w-prose">
                         my goal for Where's Waldo? was to create my first
                         fullstack application! this was my first time working
                         with a backend, as well as my first time working with
                         TypeScript
                     </p>
 
-                    <p>
+                    <p className="w-[87.5lvw] max-w-prose">
                         Where's Waldo? features 6 different levels and 2
                         difficulty modes with separate leaderboards to track the
                         high scores for each
                     </p>
-                </div>
+                </section>
 
-                <div className="flex justify-center gap-2.5 text-sm md:text-base">
+                <aside className="flex justify-center gap-2.5 text-sm md:text-base">
                     <a
                         href="https://devlinrocha.github.io/wheres-waldo/"
                         target="_blank"
@@ -86,14 +86,14 @@ function wheresWaldo() {
                     >
                         source code
                     </a>
-                </div>
+                </aside>
 
                 <Gallery
                     items={galleryItems}
                     containerClass="!bg-red-100"
                     titleClass="text-red-600"
                 />
-            </section>
+            </article>
         </main>
     )
 }
