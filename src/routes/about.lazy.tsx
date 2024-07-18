@@ -31,7 +31,7 @@ function About() {
                 </p>
             </section>
 
-            <div className="flex w-[87.5lvw] select-none flex-col items-center">
+            <figure className="flex w-[87.5lvw] select-none flex-col items-center">
                 <img
                     src="about.png"
                     alt="me sitting with my laptop"
@@ -40,7 +40,7 @@ function About() {
                     draggable={false}
                     className="max-h-[512px] w-auto rounded-2xl object-contain md:max-h-[656px] lg:max-h-[768px]"
                 />
-            </div>
+            </figure>
         </main>
     )
 }
