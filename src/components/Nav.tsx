@@ -22,21 +22,26 @@ function Nav() {
 
                 <input
                     type="checkbox"
-                    id="menu"
+                    id="menu-toggle"
                     ref={menu}
                     className="peer/menu hidden"
                 />
                 <label
-                    htmlFor="menu"
+                    htmlFor="menu-toggle"
+                    role="button"
                     aria-controls="menu"
-                    aria-expanded="false"
+                    aria-expanded={menu?.current?.checked || false}
                     className="z-20 flex h-full w-12 cursor-pointer flex-col items-center justify-center peer-checked/menu:*:absolute peer-checked/menu:*:mb-0 xs:hidden peer-checked/menu:[&>*:first-child]:rotate-[135deg] peer-checked/menu:[&>*:last-child]:-rotate-[135deg]"
                 >
                     <span className="mb-1.5 h-[1.6px] w-4 bg-black transition-layout-transform duration-500" />
                     <span className="h-[1.6px] w-4 bg-black transition-layout-transform duration-500" />
                 </label>
 
-                <ul className="absolute top-0 flex h-lvh max-h-0 w-full flex-col overflow-hidden bg-white text-2xl transition-layout duration-500 ease-in peer-checked/menu:max-h-lvh peer-checked/menu:pt-12 xs:static xs:h-full xs:max-h-none xs:w-auto xs:flex-row xs:items-center xs:bg-inherit xs:pt-0 xs:text-sm xs:transition-none peer-checked/menu:xs:max-h-none peer-checked/menu:xs:pt-0">
+                <ul
+                    id="menu"
+                    role="menu"
+                    className="absolute top-0 flex h-lvh max-h-0 w-full flex-col overflow-hidden bg-white text-2xl transition-layout duration-500 ease-in peer-checked/menu:max-h-lvh peer-checked/menu:pt-12 xs:static xs:h-full xs:max-h-none xs:w-auto xs:flex-row xs:items-center xs:bg-inherit xs:pt-0 xs:text-sm xs:transition-none peer-checked/menu:xs:max-h-none peer-checked/menu:xs:pt-0"
+                >
                     <li className="xs:h-full">
                         <Link
                             to="/"
