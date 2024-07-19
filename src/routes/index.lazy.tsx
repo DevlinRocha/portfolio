@@ -1,5 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
-import Project from '../components/Project'
+import Project from '@/components/Project'
+import { projects } from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/')({
     component: Index,
@@ -28,30 +29,19 @@ function Index() {
                 id="projects"
                 className="flex w-full scroll-mt-16 flex-col items-center gap-3"
             >
-                <Project
-                    name="Banter"
-                    description="feature-rich fullstack open-source Discord clone"
-                    link="https://banter-kappa.vercel.app/"
-                    className="bg-sky-300"
-                />
-                <Project
-                    name="VVordle"
-                    description="open-source Wordle clone"
-                    link="https://vvordle.vercel.app/"
-                    className="bg-green-500"
-                />
-                <Project
-                    name="Pokémon Roulette"
-                    description='open-source web version of "who&apos;s that Pokémon?"'
-                    link="https://pokemon-roulette.vercel.app/"
-                    className="bg-amber-400"
-                />
-                <Project
-                    name="Where's Waldo?"
-                    description="fullstack open-source web version of the iconic book series"
-                    link="https://devlinrocha.github.io/wheres-waldo/"
-                    className="bg-red-600"
-                />
+                {Object.entries(projects).map(
+                    ([key, { name, description, link, color }]) => {
+                        return (
+                            <Project
+                                name={name}
+                                description={description}
+                                link={link}
+                                key={key}
+                                className={color}
+                            />
+                        )
+                    }
+                )}
             </section>
         </main>
     )
