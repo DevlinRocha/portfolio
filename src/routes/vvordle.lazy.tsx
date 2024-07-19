@@ -1,6 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
-import ProjectList from '@/components/ProjectList'
+import ProjectsNav from '@/components/ProjectsNav'
 import { typeScript, vue, vite } from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/vvordle')({
@@ -10,22 +10,26 @@ export const Route = createLazyFileRoute('/vvordle')({
 const galleryItems = [
     {
         src: 'vvordle.png',
+        alt: 'game screen with only one letter missing from the correct word',
         title: 'use hints to win',
         description:
             'use clever letter placement to figure out the secret word',
     },
     {
         src: 'vvordle-home.png',
+        alt: 'new game screen with a fresh puzzle',
         title: 'guess the word',
         description: 'can you figure out the 5 letter word in just 6 guesses?',
     },
     {
         src: 'vvordle-game.png',
+        alt: 'game screen on the verge of being won with a correct guess',
         title: 'sweet victory',
         description: 'a lucky break is all it takes',
     },
     {
         src: 'vvordle-win.png',
+        alt: 'victory screen showing the correctly guessed word',
         title: 'new VVordle every day',
         description: 'every day brings a new puzzle to tease your brain',
     },
@@ -89,7 +93,7 @@ function vvordle() {
                 />
             </article>
 
-            <ProjectList filter="vvordle" className="bg-green-100" />
+            <ProjectsNav filter="vvordle" className="bg-green-100" />
         </main>
     )
 }

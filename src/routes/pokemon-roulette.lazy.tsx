@@ -1,6 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
-import ProjectList from '@/components/ProjectList'
+import ProjectsNav from '@/components/ProjectsNav'
 import { typeScript, vue, vite, pinia, pokeApi } from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/pokemon-roulette')({
@@ -10,22 +10,26 @@ export const Route = createLazyFileRoute('/pokemon-roulette')({
 const galleryItems = [
     {
         src: 'pokemon-roulette.png',
+        alt: 'victory screen with new record fastest time',
         title: "gotta name 'em all",
         description:
             'choose a difficulty, filter by generation, record your longest streak, and track your fastest correct answer',
     },
     {
         src: 'pokemon-roulette-loss.png',
+        alt: 'failure screen from an incorrect guess',
         title: 'learn from your mistakes',
         description: "learn the name of Pokémon you haven't encountered",
     },
     {
         src: 'pokemon-roulette-guess.png',
+        alt: 'game screen displaying a Pokémon silhouette to guess',
         title: "who's that Pokémon?",
         description: 'can you name the Pokémon just from a silhouette?',
     },
     {
         src: 'pokemon-roulette-win.png',
+        alt: 'victory screen showing previously guessed Pokémon',
         title: 'login',
         description:
             'enter your own email and password to create an account or use a guest account',
@@ -94,7 +98,7 @@ function pokemonRoulette() {
                 />
             </article>
 
-            <ProjectList filter="pokemonRoulette" className="bg-amber-100" />
+            <ProjectsNav filter="pokemonRoulette" className="bg-amber-100" />
         </main>
     )
 }

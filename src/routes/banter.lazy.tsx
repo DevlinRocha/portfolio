@@ -1,6 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
-import ProjectList from '@/components/ProjectList'
+import ProjectsNav from '@/components/ProjectsNav'
 import {
     typeScript,
     react,
@@ -20,18 +20,21 @@ export const Route = createLazyFileRoute('/banter')({
 const galleryItems = [
     {
         src: 'banter.png',
+        alt: 'chat screen with GIF menu open showing available GIFs to send',
         title: 'chat with friends',
         description:
             'interact with people from across the world. send text messages, images, GIFs, links and more',
     },
     {
         src: 'banter-user-settings.png',
+        alt: 'user profile settings screen where users can customize their avatar and bio',
         title: 'custom profile',
         description:
             'stand out from the crowd with a custom profile. upload your own avatar, write a bio, and more',
     },
     {
         src: 'banter-login.png',
+        alt: 'login screen for logging in to an existing account or using a guest account',
         title: 'login',
         description:
             'enter your own email and password to create an account or use a guest account',
@@ -128,7 +131,7 @@ function banter() {
                 />
             </article>
 
-            <ProjectList filter="banter" className="bg-sky-100" />
+            <ProjectsNav filter="banter" className="bg-sky-100" />
         </main>
     )
 }

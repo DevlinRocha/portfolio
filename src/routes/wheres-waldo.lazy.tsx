@@ -1,6 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
-import ProjectList from '@/components/ProjectList'
+import ProjectsNav from '@/components/ProjectsNav'
 import {
     typeScript,
     react,
@@ -16,21 +16,25 @@ export const Route = createLazyFileRoute('/wheres-waldo')({
 const galleryItems = [
     {
         src: 'wheres-waldo.png',
+        alt: 'level selection screen with six different levels from the book series',
         title: 'choose a level',
-        description: '6 different levels from the iconic book series',
+        description: 'six different levels from the iconic book series',
     },
     {
         src: 'wheres-waldo-guess.png',
+        alt: 'game screen displaying the "Beach" level',
         title: 'find Waldo',
         description: 'select anywhere in the picture to make a guess',
     },
     {
         src: 'wheres-waldo-scores.png',
+        alt: 'high scores screen for the "Gobbling Gluttons" level',
         title: 'high scores',
         description: 'find Waldo quick enough to make it on the leaderboard',
     },
     {
         src: 'wheres-waldo-bottom.png',
+        alt: 'screen showing the five different characters to find in each level',
         title: 'more than just Waldo',
         description: 'can you find all the different characters?',
     },
@@ -96,7 +100,7 @@ function wheresWaldo() {
                 />
             </article>
 
-            <ProjectList filter="wheresWaldo" className="bg-red-100" />
+            <ProjectsNav filter="wheresWaldo" className="bg-red-100" />
         </main>
     )
 }
