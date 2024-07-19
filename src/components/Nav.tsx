@@ -40,7 +40,6 @@ function Nav() {
                 <ul
                     id="menu"
                     role="menu"
-                    aria-labelledby="menu-toggle"
                     className="absolute top-0 flex h-lvh max-h-0 w-full flex-col overflow-hidden bg-white text-2xl transition-layout duration-500 ease-in peer-checked/menu:max-h-lvh peer-checked/menu:pt-12 xs:static xs:h-full xs:max-h-none xs:w-auto xs:flex-row xs:items-center xs:bg-inherit xs:pt-0 xs:text-sm xs:transition-none peer-checked/menu:xs:max-h-none peer-checked/menu:xs:pt-0"
                 >
                     <li className="xs:h-full">
