@@ -4,11 +4,19 @@ interface ProjectProps {
     name: string
     description: string
     link?: string
-    slug?: string
+    slug: string
+    alt: string
     className?: string
 }
 
-function Project({ name, description, link, slug, className }: ProjectProps) {
+function Project({
+    name,
+    description,
+    link,
+    slug,
+    alt,
+    className,
+}: ProjectProps) {
     return (
         <Link
             to={slug}
@@ -54,6 +62,7 @@ function Project({ name, description, link, slug, className }: ProjectProps) {
                             width={1280}
                             height={720}
                             draggable={false}
+                            alt={alt}
                             className="rounded-lg object-contain drop-shadow-lg"
                         />
                     </div>
