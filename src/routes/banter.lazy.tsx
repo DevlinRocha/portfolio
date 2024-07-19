@@ -1,6 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
-import ProjectList from '@/components/ProjectList'
+import ProjectsNav from '@/components/ProjectsNav'
 import {
     typeScript,
     react,
@@ -128,7 +128,7 @@ function banter() {
                 />
             </article>
 
-            <ProjectList filter="banter" className="bg-sky-100" />
+            <ProjectsNav filter="banter" className="bg-sky-100" />
         </main>
     )
 }
