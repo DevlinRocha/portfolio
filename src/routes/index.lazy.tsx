@@ -30,25 +30,25 @@ function Index() {
             >
                 <Project
                     name="Banter"
-                    description="fullstack open source Discord clone"
+                    description="feature-rich fullstack open-source Discord clone"
                     link="https://banter-kappa.vercel.app/"
                     className="bg-sky-300"
                 />
                 <Project
                     name="VVordle"
-                    description="open source Wordle clone"
+                    description="open-source Wordle clone"
                     link="https://vvordle.vercel.app/"
                     className="bg-green-500"
                 />
                 <Project
                     name="Pokémon Roulette"
-                    description='web version of "who&apos;s that Pokémon?" from the anime'
+                    description='open-source web version of "who&apos;s that Pokémon?"'
                     link="https://pokemon-roulette.vercel.app/"
                     className="bg-amber-400"
                 />
                 <Project
                     name="Where's Waldo?"
-                    description="fullstack web version of the iconic book series"
+                    description="fullstack open-source web version of the iconic book series"
                     link="https://devlinrocha.github.io/wheres-waldo/"
                     className="bg-red-600"
                 />

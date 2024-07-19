@@ -20,18 +20,18 @@ function About() {
                 <p>
                     my passion for technology is life-long, stemming from a
                     childhood full of video games. it wasn&apos;t long before i
-                    was taking consoles apart, building computers, and
-                    sectioning into programming
+                    was taking consoles apart, building computers, and diving
+                    into programming
                 </p>
 
                 <p>
                     in addition to programming and video games, my hobbies
-                    include music / audio production, video editing / content
-                    creation, and hanging out with my dog, Charlie
+                    include music/audio production, content creation, and
+                    hanging out with my dog, Charlie
                 </p>
             </section>
 
-            <div className="flex w-[87.5lvw] select-none flex-col items-center">
+            <figure className="flex w-[87.5lvw] select-none flex-col items-center">
                 <img
                     src="about.png"
                     alt="me sitting with my laptop"
@@ -40,7 +40,7 @@ function About() {
                     draggable={false}
                     className="max-h-[512px] w-auto rounded-2xl object-contain md:max-h-[656px] lg:max-h-[768px]"
                 />
-            </div>
+            </figure>
         </main>
     )
 }

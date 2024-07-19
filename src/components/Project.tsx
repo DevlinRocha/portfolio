@@ -21,7 +21,7 @@ function Project({ name, description, link, className }: ProjectProps) {
                         <h2 className="font-display text-3xl md:text-5xl lg:text-6xl">
                             {name}
                         </h2>
-                        <p className="mt-1 text-balance text-xl md:text-2xl lg:text-3xl">
+                        <p className="mt-1 max-w-prose text-balance text-xl md:text-2xl lg:text-3xl">
                             {description}
                         </p>
                     </figcaption>
@@ -39,7 +39,7 @@ function Project({ name, description, link, className }: ProjectProps) {
                             <a
                                 href={link}
                                 target="_blank"
-                                rel="noReferrer"
+                                rel="noopener"
                                 onClick={(e) => e.stopPropagation()}
                                 className="flex items-center rounded-full border border-black/80 px-4 py-2 text-center text-black/80 hover:bg-black/80 hover:text-white md:px-5 md:py-2.5"
                             >
