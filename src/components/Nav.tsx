@@ -38,10 +38,9 @@ function Nav() {
 
                 <ul
                     id="menu"
-                    role="menu"
                     className="absolute top-0 flex h-lvh max-h-0 w-full flex-col overflow-hidden bg-white text-2xl transition-layout duration-500 ease-in peer-checked/menu:max-h-lvh peer-checked/menu:pt-12 xs:static xs:h-full xs:max-h-none xs:w-auto xs:flex-row xs:items-center xs:bg-inherit xs:pt-0 xs:text-sm xs:transition-none peer-checked/menu:xs:max-h-none peer-checked/menu:xs:pt-0"
                 >
-                    <li role="menuitem" className="xs:h-full">
+                    <li className="xs:h-full">
                         <Link
                             to="/"
                             onClick={handleClick}
@@ -51,7 +50,7 @@ function Nav() {
                         </Link>
                     </li>
 
-                    <li role="menuitem" className="group xs:h-full">
+                    <li className="group xs:h-full">
                         <Link
                             to="/"
                             hash="projects"
@@ -61,7 +60,10 @@ function Nav() {
                             projects
                         </Link>
 
-                        <ul className="flex-col overflow-hidden border-0 bg-white/80 backdrop-blur transition-height duration-500 ease-in xs:absolute xs:max-h-0 group-hover:xs:max-h-96 group-hover:xs:border-x group-hover:xs:border-b">
+                        <ul
+                            role="menu"
+                            className="flex-col overflow-hidden border-0 bg-white/80 backdrop-blur transition-height duration-500 ease-in xs:absolute xs:max-h-0 group-hover:xs:max-h-96 group-hover:xs:border-x group-hover:xs:border-b"
+                        >
                             <li role="menuitem" className="flex">
                                 <Link
                                     to="/banter"
@@ -104,7 +106,7 @@ function Nav() {
                         </ul>
                     </li>
 
-                    <li role="menuitem" className="xs:h-full">
+                    <li className="xs:h-full">
                         <Link
                             to="/about"
                             onClick={handleClick}
@@ -114,7 +116,7 @@ function Nav() {
                         </Link>
                     </li>
 
-                    <li role="menuitem" className="xs:h-full">
+                    <li className="xs:h-full">
                         <a
                             href="https://drive.google.com/file/d/1noU2L9hSqgo2zLrzT_YK2f4MNmeDIg8X/view?usp=sharing"
                             target="_blank"
