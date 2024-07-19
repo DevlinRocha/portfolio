@@ -64,6 +64,7 @@ function Gallery({ items, containerClass, titleClass }: GalleryProps) {
 
         captions.current[newIndex]?.scrollIntoView({
             behavior: 'smooth',
+            block: 'nearest',
             inline: 'center',
         })
     }
