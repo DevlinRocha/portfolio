@@ -50,7 +50,7 @@ function Nav() {
                         </Link>
                     </li>
 
-                    <li className="group xs:h-full">
+                    <li role="menuitem" className="group xs:h-full">
                         <Link
                             to="/"
                             hash="projects"
@@ -106,7 +106,7 @@ function Nav() {
                         </ul>
                     </li>
 
-                    <li className="xs:h-full">
+                    <li role="menuitem" className="xs:h-full">
                         <Link
                             to="/about"
                             onClick={handleClick}
@@ -116,7 +116,7 @@ function Nav() {
                         </Link>
                     </li>
 
-                    <li className="xs:h-full">
+                    <li role="menuitem" className="xs:h-full">
                         <a
                             href="https://drive.google.com/file/d/1noU2L9hSqgo2zLrzT_YK2f4MNmeDIg8X/view?usp=sharing"
                             target="_blank"
