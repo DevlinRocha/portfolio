@@ -18,7 +18,7 @@ const galleryItems = [
         src: 'wheres-waldo.png',
         alt: 'level selection screen with six different levels from the book series',
         title: 'choose a level',
-        description: '6 different levels from the iconic book series',
+        description: 'six different levels from the iconic book series',
     },
     {
         src: 'wheres-waldo-guess.png',
