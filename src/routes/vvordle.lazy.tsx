@@ -1,5 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
+import ProjectList from '@/components/ProjectList'
 import { typeScript, vue, vite } from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/vvordle')({
@@ -33,12 +34,12 @@ const galleryItems = [
 function vvordle() {
     return (
         <main className="flex flex-col items-center">
-            <article className="flex h-full w-full flex-col items-center gap-8">
+            <article className="flex h-full w-full flex-col items-center gap-8 pb-24 md:pb-32 lg:pb-36">
                 <header className="w-full max-w-[2560px] bg-green-500 py-14 text-center">
                     <h1 className="font-display text-5xl">VVordle</h1>
                 </header>
 
-                <section className="flex w-full flex-col items-center gap-2 text-pretty pt-6 text-sm leading-7 2xs:text-base 2xs:leading-7">
+                <section className="flex w-full flex-col items-center gap-2 text-pretty pt-6 text-sm leading-7 2xs:text-base 2xs:leading-7 md:pt-12 lg:pt-14">
                     <p className="w-[87.5lvw] max-w-prose">
                         VVordle is an open-source Wordle clone built with{' '}
                         <b title={typeScript}>TypeScript</b>,{' '}
@@ -87,6 +88,8 @@ function vvordle() {
                     titleClass="text-green-700"
                 />
             </article>
+
+            <ProjectList filter="vvordle" className="bg-green-100" />
         </main>
     )
 }

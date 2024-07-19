@@ -1,3 +1,35 @@
+export const projects = {
+    banter: {
+        name: 'Banter',
+        description: 'feature-rich fullstack open-source Discord clone',
+        link: 'https://banter-kappa.vercel.app/',
+        color: 'bg-sky-300',
+        slug: '/banter',
+    },
+    vvorlde: {
+        name: 'VVordle',
+        description: 'open-source Wordle clone',
+        link: 'https://vvordle.vercel.app/',
+        color: 'bg-green-500',
+        slug: '/vvordle',
+    },
+    pokemonRoulette: {
+        name: 'Pokémon Roulette',
+        description: 'open-source web version of "who&apos;s that Pokémon?"',
+        link: 'https://pokemon-roulette.vercel.app/',
+        color: 'bg-amber-400',
+        slug: '/pokemon-roulette',
+    },
+    wheresWaldo: {
+        name: "Where's Waldo?",
+        description:
+            'fullstack open-source web version of the iconic book series',
+        link: 'https://devlinrocha.github.io/wheres-waldo/',
+        color: 'bg-red-600',
+        slug: '/wheres-waldo',
+    },
+}
+
 export const glossary = {
     figma: 'collaborative application for interface design',
     firebase:
