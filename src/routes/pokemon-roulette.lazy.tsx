@@ -10,22 +10,26 @@ export const Route = createLazyFileRoute('/pokemon-roulette')({
 const galleryItems = [
     {
         src: 'pokemon-roulette.png',
+        alt: 'victory screen with new record fastest time',
         title: "gotta name 'em all",
         description:
             'choose a difficulty, filter by generation, record your longest streak, and track your fastest correct answer',
     },
     {
         src: 'pokemon-roulette-loss.png',
+        alt: 'failure screen from an incorrect guess',
         title: 'learn from your mistakes',
         description: "learn the name of Pokémon you haven't encountered",
     },
     {
         src: 'pokemon-roulette-guess.png',
+        alt: 'game screen displaying a Pokémon silhouette to guess',
         title: "who's that Pokémon?",
         description: 'can you name the Pokémon just from a silhouette?',
     },
     {
         src: 'pokemon-roulette-win.png',
+        alt: 'victory screen showing previously guessed Pokémon',
         title: 'login',
         description:
             'enter your own email and password to create an account or use a guest account',
