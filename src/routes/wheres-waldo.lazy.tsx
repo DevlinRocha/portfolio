@@ -72,7 +72,7 @@ function wheresWaldo() {
                     <a
                         href="https://devlinrocha.github.io/wheres-waldo/"
                         target="_blank"
-                        rel="noReferrer"
+                        rel="noopener"
                         className="flex items-center rounded-full bg-black px-4 py-2 text-center text-white hover:bg-black/80 md:px-5 md:py-2.5"
                     >
                         view project
@@ -81,7 +81,7 @@ function wheresWaldo() {
                     <a
                         href="https://github.com/DevlinRocha/wheres-waldo"
                         target="_blank"
-                        rel="noReferrer"
+                        rel="noopener"
                         className="flex items-center rounded-full border border-black/80 px-4 py-2 text-center text-black/80 hover:bg-black/80 hover:text-white md:px-5 md:py-2.5"
                     >
                         source code
