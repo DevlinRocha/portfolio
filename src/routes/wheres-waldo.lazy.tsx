@@ -1,5 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
+import ProjectsNav from '@/components/ProjectsNav'
 import {
     typeScript,
     react,
@@ -15,21 +16,25 @@ export const Route = createLazyFileRoute('/wheres-waldo')({
 const galleryItems = [
     {
         src: 'wheres-waldo.png',
+        alt: 'level selection screen with six different levels from the book series',
         title: 'choose a level',
-        description: '6 different levels from the iconic book series',
+        description: 'six different levels from the iconic book series',
     },
     {
         src: 'wheres-waldo-guess.png',
+        alt: 'game screen displaying the "Beach" level',
         title: 'find Waldo',
         description: 'select anywhere in the picture to make a guess',
     },
     {
         src: 'wheres-waldo-scores.png',
+        alt: 'high scores screen for the "Gobbling Gluttons" level',
         title: 'high scores',
         description: 'find Waldo quick enough to make it on the leaderboard',
     },
     {
         src: 'wheres-waldo-bottom.png',
+        alt: 'screen showing the five different characters to find in each level',
         title: 'more than just Waldo',
         description: 'can you find all the different characters?',
     },
@@ -38,12 +43,12 @@ const galleryItems = [
 function wheresWaldo() {
     return (
         <main className="flex flex-col items-center">
-            <article className="flex h-full w-full flex-col items-center gap-8">
+            <article className="flex h-full w-full flex-col items-center gap-8 pb-24 md:pb-32 lg:pb-36">
                 <header className="w-full max-w-[2560px] bg-red-600 py-14 text-center">
                     <h1 className="font-display text-5xl">Where's Waldo?</h1>
                 </header>
 
-                <section className="flex w-full flex-col items-center gap-2 text-pretty pt-6 text-sm leading-7 2xs:text-base 2xs:leading-7">
+                <section className="flex w-full flex-col items-center gap-2 text-pretty pt-6 text-sm leading-7 2xs:text-base 2xs:leading-7 md:pt-12 lg:pt-14">
                     <p className="w-[87.5lvw] max-w-prose">
                         Where's Waldo? is a fullstack open-source web version of
                         the iconic book series, built with{' '}
@@ -94,6 +99,8 @@ function wheresWaldo() {
                     titleClass="text-red-600"
                 />
             </article>
+
+            <ProjectsNav filter="wheresWaldo" className="bg-red-100" />
         </main>
     )
 }

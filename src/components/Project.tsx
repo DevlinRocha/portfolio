@@ -1,17 +1,25 @@
 import { Link } from '@tanstack/react-router'
-import { slug } from '@/utilities/functions'
 
 interface ProjectProps {
     name: string
     description: string
     link?: string
+    slug: string
+    alt: string
     className?: string
 }
 
-function Project({ name, description, link, className }: ProjectProps) {
+function Project({
+    name,
+    description,
+    link,
+    slug,
+    alt,
+    className,
+}: ProjectProps) {
     return (
         <Link
-            to={`/${slug(name)}`}
+            to={slug}
             draggable={false}
             className={`flex max-h-[500px] w-full max-w-[2560px] select-none items-center justify-center md:max-h-[650px] lg:max-h-[692px] ${className}`}
         >
@@ -28,7 +36,7 @@ function Project({ name, description, link, className }: ProjectProps) {
 
                     <div className="flex gap-2.5 text-sm md:text-base">
                         <Link
-                            to={`/${slug(name)}`}
+                            to={slug}
                             onClick={(e) => e.stopPropagation()}
                             className="flex items-center rounded-full bg-black px-4 py-2 text-center text-white hover:bg-black/80 md:px-5 md:py-2.5"
                         >
@@ -50,10 +58,11 @@ function Project({ name, description, link, className }: ProjectProps) {
 
                     <div className="max-w-[480px] md:max-w-[672px] lg:max-w-[720px]">
                         <img
-                            src={`${slug(name)}.png`}
+                            src={`${slug}.png`}
                             width={1280}
                             height={720}
                             draggable={false}
+                            alt={alt}
                             className="rounded-lg object-contain drop-shadow-lg"
                         />
                     </div>

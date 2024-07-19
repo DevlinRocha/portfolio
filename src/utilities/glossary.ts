@@ -1,3 +1,39 @@
+export const projects = {
+    banter: {
+        name: 'Banter',
+        description: 'feature-rich fullstack open-source Discord clone',
+        link: 'https://banter-kappa.vercel.app/',
+        color: 'bg-sky-300',
+        slug: '/banter',
+        alt: 'Banter: interact with people from across the world. send text messages, images, GIFs, links and more',
+    },
+    vvordle: {
+        name: 'VVordle',
+        description: 'open-source Wordle clone',
+        link: 'https://vvordle.vercel.app/',
+        color: 'bg-green-500',
+        slug: '/vvordle',
+        alt: 'VVordle: use clever letter placement to figure out the secret word',
+    },
+    pokemonRoulette: {
+        name: 'Pokémon Roulette',
+        description: 'open-source web version of "who\'s that Pokémon?"',
+        link: 'https://pokemon-roulette.vercel.app/',
+        color: 'bg-amber-400',
+        slug: '/pokemon-roulette',
+        alt: 'Pokémon Roulette: choose a difficulty, filter by generation, record your longest streak, and track your fastest correct answer',
+    },
+    wheresWaldo: {
+        name: "Where's Waldo?",
+        description:
+            'fullstack open-source web version of the iconic book series',
+        link: 'https://devlinrocha.github.io/wheres-waldo/',
+        color: 'bg-red-600',
+        slug: '/wheres-waldo',
+        alt: "Where's Waldo?: six different levels from the iconic book series",
+    },
+}
+
 export const glossary = {
     figma: 'collaborative application for interface design',
     firebase:

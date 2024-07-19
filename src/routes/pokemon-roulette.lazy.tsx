@@ -1,5 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
+import ProjectsNav from '@/components/ProjectsNav'
 import { typeScript, vue, vite, pinia, pokeApi } from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/pokemon-roulette')({
@@ -9,22 +10,26 @@ export const Route = createLazyFileRoute('/pokemon-roulette')({
 const galleryItems = [
     {
         src: 'pokemon-roulette.png',
+        alt: 'victory screen with new record fastest time',
         title: "gotta name 'em all",
         description:
             'choose a difficulty, filter by generation, record your longest streak, and track your fastest correct answer',
     },
     {
         src: 'pokemon-roulette-loss.png',
+        alt: 'failure screen from an incorrect guess',
         title: 'learn from your mistakes',
         description: "learn the name of Pokémon you haven't encountered",
     },
     {
         src: 'pokemon-roulette-guess.png',
+        alt: 'game screen displaying a Pokémon silhouette to guess',
         title: "who's that Pokémon?",
         description: 'can you name the Pokémon just from a silhouette?',
     },
     {
         src: 'pokemon-roulette-win.png',
+        alt: 'victory screen showing previously guessed Pokémon',
         title: 'login',
         description:
             'enter your own email and password to create an account or use a guest account',
@@ -34,12 +39,12 @@ const galleryItems = [
 function pokemonRoulette() {
     return (
         <main className="flex flex-col items-center">
-            <article className="flex h-full w-full flex-col items-center gap-8">
+            <article className="flex h-full w-full flex-col items-center gap-8 pb-24 md:pb-32 lg:pb-36">
                 <header className="w-full max-w-[2560px] bg-amber-400 py-14 text-center">
                     <h1 className="font-display text-5xl">Pokémon Roulette</h1>
                 </header>
 
-                <section className="flex w-full flex-col items-center gap-2 text-pretty pt-6 text-sm leading-7 2xs:text-base 2xs:leading-7">
+                <section className="flex w-full flex-col items-center gap-2 text-pretty pt-6 text-sm leading-7 2xs:text-base 2xs:leading-7 md:pt-12 lg:pt-14">
                     <p className="w-[87.5lvw] max-w-prose">
                         Pokémon Roulette is an open-source gamified version of
                         "Who's that Pokémon?" from the anime, built with{' '}
@@ -92,6 +97,8 @@ function pokemonRoulette() {
                     titleClass="text-amber-600"
                 />
             </article>
+
+            <ProjectsNav filter="pokemonRoulette" className="bg-amber-100" />
         </main>
     )
 }
