@@ -12,6 +12,7 @@ interface GalleryProps {
 
 interface GalleryItem {
     src: string
+    alt: string
     title: string
     description: string
 }
@@ -71,7 +72,7 @@ function Gallery({ items, containerClass, titleClass }: GalleryProps) {
         <>
             <ul className="scrollbar-hide flex h-auto w-full snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth md:px-[3lvw] lg:px-[13lvw] xl:px-[19lvw] 2xl:px-[24lvw] 3xl:px-[29lvw] 4xl:px-[36lvw]">
                 {items.map(
-                    ({ src, title, description }: GalleryItem, index) => {
+                    ({ src, alt, title, description }: GalleryItem, index) => {
                         return (
                             <li
                                 id={`${slug(title)}`}
@@ -88,6 +89,7 @@ function Gallery({ items, containerClass, titleClass }: GalleryProps) {
                                                 width={1920}
                                                 height={1080}
                                                 draggable={false}
+                                                alt={alt}
                                                 className="max-h-[50vh] w-fit max-w-[95lvw] object-contain"
                                             />
 
