@@ -22,21 +22,24 @@ function Nav() {
 
                 <input
                     type="checkbox"
-                    id="menu"
+                    id="menu-toggle"
                     ref={menu}
                     className="peer/menu hidden"
                 />
                 <label
-                    htmlFor="menu"
+                    htmlFor="menu-toggle"
                     aria-controls="menu"
-                    aria-expanded="false"
+                    aria-expanded={menu?.current?.checked || false}
                     className="z-20 flex h-full w-12 cursor-pointer flex-col items-center justify-center peer-checked/menu:*:absolute peer-checked/menu:*:mb-0 xs:hidden peer-checked/menu:[&>*:first-child]:rotate-[135deg] peer-checked/menu:[&>*:last-child]:-rotate-[135deg]"
                 >
                     <span className="mb-1.5 h-[1.6px] w-4 bg-black transition-layout-transform duration-500" />
                     <span className="h-[1.6px] w-4 bg-black transition-layout-transform duration-500" />
                 </label>
 
-                <ul className="absolute top-0 flex h-lvh max-h-0 w-full flex-col overflow-hidden bg-white text-2xl transition-layout duration-500 ease-in peer-checked/menu:max-h-lvh peer-checked/menu:pt-12 xs:static xs:h-full xs:max-h-none xs:w-auto xs:flex-row xs:items-center xs:bg-inherit xs:pt-0 xs:text-sm xs:transition-none peer-checked/menu:xs:max-h-none peer-checked/menu:xs:pt-0">
+                <ul
+                    id="menu"
+                    className="absolute top-0 flex h-lvh max-h-0 w-full flex-col overflow-hidden bg-white text-2xl transition-layout duration-500 ease-in peer-checked/menu:max-h-lvh peer-checked/menu:pt-12 xs:static xs:h-full xs:max-h-none xs:w-auto xs:flex-row xs:items-center xs:bg-inherit xs:pt-0 xs:text-sm xs:transition-none peer-checked/menu:xs:max-h-none peer-checked/menu:xs:pt-0"
+                >
                     <li className="xs:h-full">
                         <Link
                             to="/"
@@ -47,7 +50,7 @@ function Nav() {
                         </Link>
                     </li>
 
-                    <li className="group xs:h-full">
+                    <li role="menuitem" className="group xs:h-full">
                         <Link
                             to="/"
                             hash="projects"
@@ -57,8 +60,11 @@ function Nav() {
                             projects
                         </Link>
 
-                        <ul className="flex-col overflow-hidden border-0 bg-white/80 backdrop-blur transition-height duration-500 ease-in xs:absolute xs:max-h-0 group-hover:xs:max-h-96 group-hover:xs:border-x group-hover:xs:border-b">
-                            <li className="flex">
+                        <ul
+                            role="menu"
+                            className="flex-col overflow-hidden border-0 bg-white/80 backdrop-blur transition-height duration-500 ease-in xs:absolute xs:max-h-0 group-hover:xs:max-h-96 group-hover:xs:border-x group-hover:xs:border-b"
+                        >
+                            <li role="menuitem" className="flex">
                                 <Link
                                     to="/banter"
                                     onClick={handleClick}
@@ -68,7 +74,7 @@ function Nav() {
                                 </Link>
                             </li>
 
-                            <li className="flex">
+                            <li role="menuitem" className="flex">
                                 <Link
                                     to="/vvordle"
                                     onClick={handleClick}
@@ -78,7 +84,7 @@ function Nav() {
                                 </Link>
                             </li>
 
-                            <li className="flex">
+                            <li role="menuitem" className="flex">
                                 <Link
                                     to="/pokemon-roulette"
                                     onClick={handleClick}
@@ -88,7 +94,7 @@ function Nav() {
                                 </Link>
                             </li>
 
-                            <li className="flex">
+                            <li role="menuitem" className="flex">
                                 <Link
                                     to="/wheres-waldo"
                                     onClick={handleClick}
@@ -100,7 +106,7 @@ function Nav() {
                         </ul>
                     </li>
 
-                    <li className="xs:h-full">
+                    <li role="menuitem" className="xs:h-full">
                         <Link
                             to="/about"
                             onClick={handleClick}
@@ -110,7 +116,7 @@ function Nav() {
                         </Link>
                     </li>
 
-                    <li className="xs:h-full">
+                    <li role="menuitem" className="xs:h-full">
                         <a
                             href="https://drive.google.com/file/d/1noU2L9hSqgo2zLrzT_YK2f4MNmeDIg8X/view?usp=sharing"
                             target="_blank"
