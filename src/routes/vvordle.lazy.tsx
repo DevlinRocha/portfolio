@@ -1,6 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
-import ProjectList from '@/components/ProjectList'
+import ProjectsNav from '@/components/ProjectsNav'
 import { typeScript, vue, vite } from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/vvordle')({
@@ -89,7 +89,7 @@ function vvordle() {
                 />
             </article>
 
-            <ProjectList filter="vvordle" className="bg-green-100" />
+            <ProjectsNav filter="vvordle" className="bg-green-100" />
         </main>
     )
 }

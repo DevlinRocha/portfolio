@@ -1,6 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
-import ProjectList from '@/components/ProjectList'
+import ProjectsNav from '@/components/ProjectsNav'
 import { typeScript, vue, vite, pinia, pokeApi } from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/pokemon-roulette')({
@@ -94,7 +94,7 @@ function pokemonRoulette() {
                 />
             </article>
 
-            <ProjectList filter="pokemonRoulette" className="bg-amber-100" />
+            <ProjectsNav filter="pokemonRoulette" className="bg-amber-100" />
         </main>
     )
 }
