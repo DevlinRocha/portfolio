@@ -6,7 +6,7 @@ export const projects = {
         color: 'bg-sky-300',
         slug: '/banter',
     },
-    vvorlde: {
+    vvordle: {
         name: 'VVordle',
         description: 'open-source Wordle clone',
         link: 'https://vvordle.vercel.app/',
@@ -15,7 +15,7 @@ export const projects = {
     },
     pokemonRoulette: {
         name: 'Pokémon Roulette',
-        description: 'open-source web version of "who&apos;s that Pokémon?"',
+        description: 'open-source web version of "who\'s that Pokémon?"',
         link: 'https://pokemon-roulette.vercel.app/',
         color: 'bg-amber-400',
         slug: '/pokemon-roulette',
