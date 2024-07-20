@@ -24,12 +24,12 @@ function Nav() {
                     type="checkbox"
                     id="menu-toggle"
                     ref={menu}
+                    aria-expanded={menu?.current?.checked || false}
                     className="peer/menu hidden"
                 />
                 <label
                     htmlFor="menu-toggle"
                     aria-controls="menu"
-                    aria-expanded={menu?.current?.checked || false}
                     className="z-20 flex h-full w-12 cursor-pointer flex-col items-center justify-center peer-checked/menu:*:absolute peer-checked/menu:*:mb-0 xs:hidden peer-checked/menu:[&>*:first-child]:rotate-[135deg] peer-checked/menu:[&>*:last-child]:-rotate-[135deg]"
                 >
                     <span className="mb-1.5 h-[1.6px] w-4 bg-black transition-layout-transform duration-500" />
@@ -50,7 +50,7 @@ function Nav() {
                         </Link>
                     </li>
 
-                    <li role="menuitem" className="group xs:h-full">
+                    <li className="group xs:h-full">
                         <Link
                             to="/"
                             hash="projects"
@@ -60,11 +60,8 @@ function Nav() {
                             projects
                         </Link>
 
-                        <ul
-                            role="menu"
-                            className="flex-col overflow-hidden border-0 bg-white/80 backdrop-blur transition-height duration-500 ease-in xs:absolute xs:max-h-0 group-hover:xs:max-h-96 group-hover:xs:border-x group-hover:xs:border-b"
-                        >
-                            <li role="menuitem" className="flex">
+                        <ul className="flex-col overflow-hidden border-0 bg-white/80 backdrop-blur transition-height duration-500 ease-in xs:absolute xs:max-h-0 group-hover:xs:max-h-96 group-hover:xs:border-x group-hover:xs:border-b">
+                            <li className="flex">
                                 <Link
                                     to="/banter"
                                     onClick={handleClick}
@@ -74,7 +71,7 @@ function Nav() {
                                 </Link>
                             </li>
 
-                            <li role="menuitem" className="flex">
+                            <li className="flex">
                                 <Link
                                     to="/vvordle"
                                     onClick={handleClick}
@@ -84,7 +81,7 @@ function Nav() {
                                 </Link>
                             </li>
 
-                            <li role="menuitem" className="flex">
+                            <li className="flex">
                                 <Link
                                     to="/pokemon-roulette"
                                     onClick={handleClick}
@@ -94,7 +91,7 @@ function Nav() {
                                 </Link>
                             </li>
 
-                            <li role="menuitem" className="flex">
+                            <li className="flex">
                                 <Link
                                     to="/wheres-waldo"
                                     onClick={handleClick}
@@ -106,7 +103,7 @@ function Nav() {
                         </ul>
                     </li>
 
-                    <li role="menuitem" className="xs:h-full">
+                    <li className="xs:h-full">
                         <Link
                             to="/about"
                             onClick={handleClick}
@@ -116,7 +113,7 @@ function Nav() {
                         </Link>
                     </li>
 
-                    <li role="menuitem" className="xs:h-full">
+                    <li className="xs:h-full">
                         <a
                             href="https://drive.google.com/file/d/1noU2L9hSqgo2zLrzT_YK2f4MNmeDIg8X/view?usp=sharing"
                             target="_blank"
