@@ -38,7 +38,7 @@ function About() {
                     height={720}
                     draggable={false}
                     alt="me sitting with my laptop"
-                    className="max-h-[512px] w-auto rounded-2xl object-contain md:max-h-[656px] lg:max-h-[768px]"
+                    className="max-h-[512px] w-auto rounded-2xl object-contain text-transparent md:max-h-[656px] lg:max-h-[768px]"
                 />
             </figure>
         </main>

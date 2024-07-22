@@ -91,7 +91,7 @@ function Gallery({ items, containerClass, titleClass }: GalleryProps) {
                                                 height={1080}
                                                 draggable={false}
                                                 alt={alt}
-                                                className="max-h-[50vh] w-fit max-w-[95lvw] object-contain"
+                                                className="max-h-[50vh] w-fit max-w-[95lvw] object-contain text-transparent"
                                             />
 
                                             <div
