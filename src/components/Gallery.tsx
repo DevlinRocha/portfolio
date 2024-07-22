@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { Link } from '@tanstack/react-router'
 import Caret from './Caret'
 import { slug } from '@/utilities/functions'
@@ -19,10 +19,42 @@ interface GalleryItem {
 
 function Gallery({ items, containerClass, titleClass }: GalleryProps) {
     const [activeIndex, setActiveIndex] = useState(0)
-    const captions = useRef<(HTMLElement | null)[]>([])
+    const captionsRef = useRef<(HTMLElement | null)[]>([])
+    const intervalRef = useRef<NodeJS.Timeout | null>(null)
+
+    const handleClick = useCallback(
+        (e: React.MouseEvent | null, direction: 'left' | 'right') => {
+            if (e) e.stopPropagation()
+
+            const newIndex =
+                direction === 'left' ? activeIndex - 1 : activeIndex + 1
+
+            captionsRef.current[newIndex]?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'center',
+            })
+        },
+        [activeIndex]
+    )
+
+    const updateInterval = useCallback(() => {
+        if (intervalRef.current) clearInterval(intervalRef.current)
+
+        intervalRef.current = setInterval(() => {
+            activeIndex < items.length - 1
+                ? handleClick(null, 'right')
+                : captionsRef.current[0]?.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'nearest',
+                      inline: 'center',
+                  })
+        }, 5000)
+    }, [activeIndex, items.length, handleClick])
 
     useEffect(() => {
-        const { current } = captions
+        const { current: captions } = captionsRef
+        const { current: interval } = intervalRef
 
         const observer = new IntersectionObserver(
             (entries) => {
@@ -34,8 +66,15 @@ function Gallery({ items, containerClass, titleClass }: GalleryProps) {
 
                     if (entry.isIntersecting) {
                         setActiveIndex(
-                            current.findIndex((el) => el === entry.target)
+                            captions.findIndex((el) => el === entry.target)
                         )
+
+                        updateInterval()
+                    } else if (
+                        !entries.some((el) => el?.isIntersecting) &&
+                        interval
+                    ) {
+                        clearInterval(interval)
                     }
                 })
             },
@@ -45,29 +84,18 @@ function Gallery({ items, containerClass, titleClass }: GalleryProps) {
             }
         )
 
-        current.forEach((el) => {
+        captions.forEach((el) => {
             if (el) observer.observe(el)
         })
 
         return () => {
-            current.forEach((el) => {
+            captions.forEach((el) => {
                 if (el) observer.unobserve(el)
             })
+
+            if (interval) clearInterval(interval)
         }
-    }, [])
-
-    function handleClick(e: React.MouseEvent, direction: 'left' | 'right') {
-        e.stopPropagation()
-
-        const newIndex =
-            direction === 'left' ? activeIndex - 1 : activeIndex + 1
-
-        captions.current[newIndex]?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'center',
-        })
-    }
+    }, [updateInterval])
 
     return (
         <>
@@ -96,8 +124,9 @@ function Gallery({ items, containerClass, titleClass }: GalleryProps) {
 
                                             <div
                                                 ref={(item) =>
-                                                    (captions.current[index] =
-                                                        item)
+                                                    (captionsRef.current[
+                                                        index
+                                                    ] = item)
                                                 }
                                                 className="flex w-[87.5lvw] max-w-[297px] flex-col items-center gap-5 transition-opacity duration-500 ease-out 2xs:max-w-[360px] xs:max-w-[432px] md:max-w-[648px] lg:gap-8"
                                             >
