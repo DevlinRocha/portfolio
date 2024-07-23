@@ -99,7 +99,7 @@ function Gallery({ items }: GalleryProps) {
                                                 (captionsRef.current[index] =
                                                     item)
                                             }
-                                            className="w-full max-w-prose text-pretty text-sm transition-opacity duration-500 ease-out lg:text-base"
+                                            className="w-[95lvw] max-w-prose text-pretty text-sm transition-opacity duration-500 ease-out lg:text-base"
                                         >
                                             {caption}
                                         </figcaption>
