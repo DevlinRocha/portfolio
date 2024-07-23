@@ -33,29 +33,33 @@ function Gallery({ items }: GalleryProps) {
         [activeIndex]
     )
 
+    const observerCallback: IntersectionObserverCallback = useCallback(
+        (entries) => {
+            entries.forEach((entry) => {
+                entry.target.classList.toggle(
+                    'opacity-0',
+                    !entry.isIntersecting
+                )
+
+                if (entry.isIntersecting) {
+                    setActiveIndex(
+                        captionsRef.current.findIndex(
+                            (el) => el === entry.target
+                        )
+                    )
+                }
+            })
+        },
+        []
+    )
+
     useEffect(() => {
         const { current: captions } = captionsRef
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    entry.target.classList.toggle(
-                        'opacity-0',
-                        !entry.isIntersecting
-                    )
-
-                    if (entry.isIntersecting) {
-                        setActiveIndex(
-                            captions.findIndex((el) => el === entry.target)
-                        )
-                    }
-                })
-            },
-            {
-                threshold: 0.5,
-                rootMargin: '0px -25%',
-            }
-        )
+        const observer = new IntersectionObserver(observerCallback, {
+            threshold: 0.5,
+            rootMargin: '0px -25%',
+        })
 
         captions.forEach((el) => {
             if (el) observer.observe(el)
@@ -66,7 +70,7 @@ function Gallery({ items }: GalleryProps) {
                 if (el) observer.unobserve(el)
             })
         }
-    }, [])
+    }, [observerCallback])
 
     return (
         <>
@@ -95,7 +99,7 @@ function Gallery({ items }: GalleryProps) {
                                                 (captionsRef.current[index] =
                                                     item)
                                             }
-                                            className="w-full max-w-[87.5lvw] text-pretty text-sm transition-opacity duration-500 ease-out lg:text-base"
+                                            className="w-full max-w-prose text-pretty text-sm transition-opacity duration-500 ease-out lg:text-base"
                                         >
                                             {caption}
                                         </figcaption>
