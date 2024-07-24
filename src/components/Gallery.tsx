@@ -74,7 +74,7 @@ function Gallery({ items }: GalleryProps) {
 
     return (
         <>
-            <ul className="scrollbar-hide flex h-auto w-full snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth px-3 xs:px-4 sm:px-5 md:order-2 md:px-[3lvw] lg:px-[5lvw] xl:px-[13lvw] 2xl:px-[19lvw] 3xl:px-[24lvw] 4xl:px-[34lvw]">
+            <ul className="scrollbar-hide flex h-auto w-full snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth px-7 2xs:px-8 xs:px-10 sm:px-12 md:order-2 md:px-[12lvw] xl:px-[calc(50%-490px)]">
                 {items.map(
                     ({ src, alt, caption, slug }: GalleryItem, index) => {
                         return (
@@ -91,7 +91,7 @@ function Gallery({ items }: GalleryProps) {
                                             height={1080}
                                             draggable={false}
                                             alt={alt}
-                                            className="max-h-[87.5lvh] w-fit max-w-[87.5lvw] rounded-2xl object-contain text-transparent md:max-h-[50lvh]"
+                                            className="max-w-[87.5lvw] rounded-2xl object-contain text-transparent md:max-w-[768px] lg:max-w-[896px]"
                                         />
 
                                         <figcaption
