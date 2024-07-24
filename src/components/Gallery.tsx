@@ -58,7 +58,7 @@ function Gallery({ items }: GalleryProps) {
 
         const observer = new IntersectionObserver(observerCallback, {
             threshold: 0.5,
-            rootMargin: '0px -25%',
+            rootMargin: '0px -28%',
         })
 
         captions.forEach((el) => {
