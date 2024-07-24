@@ -111,7 +111,7 @@ function Gallery({ items }: GalleryProps) {
                 )}
             </ul>
 
-            <div className="flex w-full justify-end gap-4 px-3 xs:px-4 sm:px-5 md:absolute md:order-2 md:mt-0 md:px-[3lvw] lg:px-[5lvw] xl:px-[13lvw] 2xl:px-[19lvw] 3xl:px-[24lvw] 4xl:px-[34lvw]">
+            <div className="flex w-full justify-end gap-4 px-7 2xs:px-8 xs:px-10 sm:px-12 md:absolute md:mt-0 md:px-[12lvw] xl:px-[calc(50%-490px)]">
                 <Caret
                     disabled={activeIndex === 0}
                     onClick={(e) => handleClick(e, 'left')}
