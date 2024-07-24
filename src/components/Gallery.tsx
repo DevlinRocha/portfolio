@@ -84,14 +84,14 @@ function Gallery({ items }: GalleryProps) {
                                 className="shrink-0 snap-center"
                             >
                                 <Link hash={slug} draggable={false}>
-                                    <figure className="flex h-full flex-col gap-8">
+                                    <figure className="flex h-full w-min flex-col gap-8">
                                         <img
                                             src={src}
                                             width={1920}
                                             height={1080}
                                             draggable={false}
                                             alt={alt}
-                                            className="max-h-[50vh] w-fit max-w-[95lvw] rounded-2xl object-contain text-transparent"
+                                            className="max-h-[87.5lvh] w-fit max-w-[87.5lvw] rounded-2xl object-contain text-transparent md:max-h-[50lvh]"
                                         />
 
                                         <figcaption
@@ -99,7 +99,7 @@ function Gallery({ items }: GalleryProps) {
                                                 (captionsRef.current[index] =
                                                     item)
                                             }
-                                            className="w-[95lvw] max-w-prose text-pretty text-sm transition-opacity duration-500 ease-out lg:text-base"
+                                            className="max-w-prose text-pretty text-sm transition-opacity duration-500 ease-out lg:text-base"
                                         >
                                             {caption}
                                         </figcaption>
