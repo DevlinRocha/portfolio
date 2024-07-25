@@ -55,7 +55,7 @@ function Nav() {
                             to="/"
                             hash="projects"
                             onClick={handleClick}
-                            className="group relative flex items-center px-12 py-2 transition-text hover:text-black xs:h-full xs:px-2 xs:py-0 group-hover:xs:text-black"
+                            className="relative flex items-center px-12 py-2 transition-text hover:text-black xs:h-full xs:px-2 xs:py-0 group-hover:xs:text-black"
                         >
                             projects
                         </Link>
