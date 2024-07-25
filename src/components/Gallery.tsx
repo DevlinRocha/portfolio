@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { Link } from '@tanstack/react-router'
 import Caret from './Caret'
 
@@ -113,14 +113,14 @@ function Gallery({ items }: GalleryProps) {
 
             <div className="flex w-full justify-end gap-4 px-7 2xs:px-8 xs:px-10 sm:px-12 md:absolute md:mt-0 md:px-[12lvw] xl:px-[calc(50%-490px)]">
                 <Caret
-                    disabled={activeIndex === 0}
                     onClick={(e) => handleClick(e, 'left')}
+                    disabled={activeIndex === 0}
                     className="min-h-9 min-w-9"
                 />
 
                 <Caret
-                    disabled={activeIndex === items.length - 1}
                     onClick={(e) => handleClick(e, 'right')}
+                    disabled={activeIndex === items.length - 1}
                     className="min-h-9 min-w-9 -scale-x-100"
                 />
             </div>
