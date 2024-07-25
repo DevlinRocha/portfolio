@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 
 import { routeTree } from './routeTree.gen'
 import DefaultNotFound from './components/DefaultNotFound'
+import './index.css'
 
 const router = createRouter({
     defaultNotFoundComponent: DefaultNotFound,
