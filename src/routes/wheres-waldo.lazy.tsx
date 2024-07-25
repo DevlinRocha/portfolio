@@ -20,7 +20,9 @@ const galleryItems = [
         caption: (
             <>
                 choose from <b>six different levels</b> from the iconic book
-                series
+                series and two different difficulties with separate
+                leaderboards. "Waldo Mode" where you only find Waldo, or
+                "Challenge Mode" where you find all five different characters
             </>
         ),
         slug: 'choose-a-level',
@@ -30,8 +32,10 @@ const galleryItems = [
         alt: 'game screen displaying the "Beach" level',
         caption: (
             <>
-                <b>where's Waldo?</b> select anywhere in the picture to make a
-                guess
+                <b>where's Waldo?</b> select anywhere in the picture and choose
+                a character from the dropdown menu to make a guess. results of
+                the guess will be displayed, and a correct guess will cross the
+                characters name off the list
             </>
         ),
         slug: 'find-Waldo',
@@ -42,7 +46,8 @@ const galleryItems = [
         caption: (
             <>
                 <b>become a legend.</b> find Waldo quick enough to make it on
-                the high scores leaderboard
+                the high scores leaderboard. each level and difficulty
+                combination has a separate leaderboard
             </>
         ),
         slug: 'high-scores',
@@ -53,7 +58,8 @@ const galleryItems = [
         caption: (
             <>
                 there's <b>more than just Waldo</b>, can you find all the
-                different characters?
+                different characters? play "Challenge Mode" to look for all
+                five!
             </>
         ),
         slug: 'more-than-just-Waldo',
