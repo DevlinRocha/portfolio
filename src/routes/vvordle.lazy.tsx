@@ -11,27 +11,46 @@ const galleryItems = [
     {
         src: 'vvordle.png',
         alt: 'game screen with only one letter missing from the correct word',
-        title: 'use hints to win',
-        description:
-            'use clever letter placement to figure out the secret word',
+        caption: (
+            <>
+                <b>use hints and clever letter placement</b> to figure out the
+                secret word and win
+            </>
+        ),
+        slug: 'use-hints-to-win',
     },
     {
         src: 'vvordle-home.png',
         alt: 'new game screen with a fresh puzzle',
-        title: 'guess the word',
-        description: 'can you figure out the 5 letter word in just 6 guesses?',
+        caption: (
+            <>
+                <b>think carefully and plan ahead to win!</b> can you figure out
+                the 5 letter word in just 6 guesses?
+            </>
+        ),
+        slug: 'guess-the-word',
     },
     {
         src: 'vvordle-game.png',
         alt: 'game screen on the verge of being won with a correct guess',
-        title: 'sweet victory',
-        description: 'a lucky break is all it takes',
+        caption: (
+            <>
+                a lucky break is all it takes to achieve{' '}
+                <b>sweet, sweet victory</b>!
+            </>
+        ),
+        slug: 'sweet-victory',
     },
     {
         src: 'vvordle-win.png',
         alt: 'victory screen showing the correctly guessed word',
-        title: 'new VVordle every day',
-        description: 'every day brings a new puzzle to tease your brain',
+        caption: (
+            <>
+                <b>a new VVordle every day</b>, come back for a new puzzle to
+                tease your brain
+            </>
+        ),
+        slug: 'new-VVordle-every-day',
     },
 ]
 
@@ -66,7 +85,7 @@ function vvordle() {
                     </p>
                 </section>
 
-                <aside className="flex justify-center gap-2.5 text-sm md:text-base">
+                <aside className="flex justify-center gap-2.5 py-6 text-sm md:text-base">
                     <a
                         href="https://vvordle.vercel.app/"
                         target="_blank"
@@ -86,14 +105,18 @@ function vvordle() {
                     </a>
                 </aside>
 
-                <Gallery
-                    items={galleryItems}
-                    containerClass="!bg-green-100"
-                    titleClass="text-green-700"
-                />
+                <section className="flex w-full flex-col items-center gap-8 bg-green-100 py-16">
+                    <header className="w-full px-7 2xs:px-8 xs:px-10 sm:px-12 md:order-2 md:px-[12lvw] xl:px-[calc(50%-490px)]">
+                        <h2 className="font-serif text-xl font-semibold md:text-2xl lg:text-3xl">
+                            explore features
+                        </h2>
+                    </header>
+
+                    <Gallery items={galleryItems} />
+                </section>
             </article>
 
-            <ProjectsNav filter="vvordle" className="bg-green-100" />
+            <ProjectsNav filter="vvordle" />
         </main>
     )
 }

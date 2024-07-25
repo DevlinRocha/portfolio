@@ -3,14 +3,11 @@ import { projects } from '@/utilities/glossary'
 
 interface ProjectProps {
     filter?: string
-    className?: string
 }
 
-function ProjectsNav({ filter, className }: ProjectProps) {
+function ProjectsNav({ filter }: ProjectProps) {
     return (
-        <section
-            className={`flex w-full flex-col items-center gap-9 py-24 md:gap-16 md:py-32 lg:py-36 ${className}`}
-        >
+        <section className="flex w-full flex-col items-center gap-9 py-24 md:gap-16 md:py-32 lg:py-36">
             <header className="w-[87.5lvw] max-w-prose">
                 <h3 className="font-serif text-3xl font-semibold md:text-5xl">
                     projects

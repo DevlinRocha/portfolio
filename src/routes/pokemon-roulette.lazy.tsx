@@ -11,28 +11,47 @@ const galleryItems = [
     {
         src: 'pokemon-roulette.png',
         alt: 'victory screen with new record fastest time',
-        title: "gotta name 'em all",
-        description:
-            'choose a difficulty, filter by generation, record your longest streak, and track your fastest correct answer',
+        caption: (
+            <>
+                <b>gotta name 'em all!</b> choose a difficulty, filter by
+                generation, record your longest streak, and track your fastest
+                correct answer
+            </>
+        ),
+        slug: "gotta-name-'em-all",
     },
     {
         src: 'pokemon-roulette-loss.png',
         alt: 'failure screen from an incorrect guess',
-        title: 'learn from your mistakes',
-        description: "learn the name of Pokémon you haven't encountered",
+        caption: (
+            <>
+                incorrect answers are opportunities to{' '}
+                <b>learn the names of Pokémon</b>!
+            </>
+        ),
+        slug: 'learn-the-names-of-pokemon',
     },
     {
         src: 'pokemon-roulette-guess.png',
         alt: 'game screen displaying a Pokémon silhouette to guess',
-        title: "who's that Pokémon?",
-        description: 'can you name the Pokémon just from a silhouette?',
+        caption: (
+            <>
+                <b>who's that Pokémon?</b> can you name the Pokémon from only
+                their silhouette?
+            </>
+        ),
+        slug: 'whos-that-Pokémon?',
     },
     {
         src: 'pokemon-roulette-win.png',
         alt: 'victory screen showing previously guessed Pokémon',
-        title: 'login',
-        description:
-            'enter your own email and password to create an account or use a guest account',
+        caption: (
+            <>
+                <b>it's Squirtle!</b> there's over 1,000 more Pokémon, can you
+                name them all?
+            </>
+        ),
+        slug: 'its-squirtle',
     },
 ]
 
@@ -71,7 +90,7 @@ function pokemonRoulette() {
                     </p>
                 </section>
 
-                <aside className="flex justify-center gap-2.5 text-sm md:text-base">
+                <aside className="flex justify-center gap-2.5 py-6 text-sm md:text-base">
                     <a
                         href="https://pokemon-roulette.vercel.app/"
                         target="_blank"
@@ -91,14 +110,18 @@ function pokemonRoulette() {
                     </a>
                 </aside>
 
-                <Gallery
-                    items={galleryItems}
-                    containerClass="!bg-amber-100"
-                    titleClass="text-amber-600"
-                />
+                <section className="flex w-full flex-col items-center gap-8 bg-amber-100 py-16">
+                    <header className="w-full px-7 2xs:px-8 xs:px-10 sm:px-12 md:order-2 md:px-[12lvw] xl:px-[calc(50%-490px)]">
+                        <h2 className="font-serif text-xl font-semibold md:text-2xl lg:text-3xl">
+                            explore features
+                        </h2>
+                    </header>
+
+                    <Gallery items={galleryItems} />
+                </section>
             </article>
 
-            <ProjectsNav filter="pokemonRoulette" className="bg-amber-100" />
+            <ProjectsNav filter="pokemonRoulette" />
         </main>
     )
 }

@@ -17,26 +17,46 @@ const galleryItems = [
     {
         src: 'wheres-waldo.png',
         alt: 'level selection screen with six different levels from the book series',
-        title: 'choose a level',
-        description: 'six different levels from the iconic book series',
+        caption: (
+            <>
+                choose from <b>six different levels</b> from the iconic book
+                series
+            </>
+        ),
+        slug: 'choose-a-level',
     },
     {
         src: 'wheres-waldo-guess.png',
         alt: 'game screen displaying the "Beach" level',
-        title: 'find Waldo',
-        description: 'select anywhere in the picture to make a guess',
+        caption: (
+            <>
+                <b>where's Waldo?</b> select anywhere in the picture to make a
+                guess
+            </>
+        ),
+        slug: 'find-Waldo',
     },
     {
         src: 'wheres-waldo-scores.png',
         alt: 'high scores screen for the "Gobbling Gluttons" level',
-        title: 'high scores',
-        description: 'find Waldo quick enough to make it on the leaderboard',
+        caption: (
+            <>
+                <b>become a legend.</b> find Waldo quick enough to make it on
+                the high scores leaderboard
+            </>
+        ),
+        slug: 'high-scores',
     },
     {
         src: 'wheres-waldo-bottom.png',
         alt: 'screen showing the five different characters to find in each level',
-        title: 'more than just Waldo',
-        description: 'can you find all the different characters?',
+        caption: (
+            <>
+                there's <b>more than just Waldo</b>, can you find all the
+                different characters?
+            </>
+        ),
+        slug: 'more-than-just-Waldo',
     },
 ]
 
@@ -73,7 +93,7 @@ function wheresWaldo() {
                     </p>
                 </section>
 
-                <aside className="flex justify-center gap-2.5 text-sm md:text-base">
+                <aside className="flex justify-center gap-2.5 py-6 text-sm md:text-base">
                     <a
                         href="https://devlinrocha.github.io/wheres-waldo/"
                         target="_blank"
@@ -93,14 +113,18 @@ function wheresWaldo() {
                     </a>
                 </aside>
 
-                <Gallery
-                    items={galleryItems}
-                    containerClass="!bg-red-100"
-                    titleClass="text-red-600"
-                />
+                <section className="flex w-full flex-col items-center gap-8 bg-red-100 py-16">
+                    <header className="w-full px-7 2xs:px-8 xs:px-10 sm:px-12 md:order-2 md:px-[12lvw] xl:px-[calc(50%-490px)]">
+                        <h2 className="font-serif text-xl font-semibold md:text-2xl lg:text-3xl">
+                            explore features
+                        </h2>
+                    </header>
+
+                    <Gallery items={galleryItems} />
+                </section>
             </article>
 
-            <ProjectsNav filter="wheresWaldo" className="bg-red-100" />
+            <ProjectsNav filter="wheresWaldo" />
         </main>
     )
 }
