@@ -13,9 +13,11 @@ const galleryItems = [
         alt: 'victory screen with new record fastest time',
         caption: (
             <>
-                <b>gotta name 'em all!</b> choose a difficulty, filter by
-                generation, record your longest streak, and track your fastest
-                correct answer
+                <b>gotta name 'em all!</b> select any combination of Pokémon
+                generations to filter by. guess from only the silhouette on
+                normal difficulty or view the full color sprite on easy
+                difficulty. record your current score, longest streak, previous
+                correct answer time, and fastest correct answer
             </>
         ),
         slug: "gotta-name-'em-all",
@@ -25,8 +27,10 @@ const galleryItems = [
         alt: 'failure screen from an incorrect guess',
         caption: (
             <>
-                incorrect answers are opportunities to{' '}
-                <b>learn the names of Pokémon</b>!
+                incorrect answers are great <b>opportunities to learn</b>! if
+                you don't know the name of a Pokémon, it will be revealed for
+                you to discover. time to start a new game and build that score
+                back up!
             </>
         ),
         slug: 'learn-the-names-of-pokemon',
@@ -37,7 +41,8 @@ const galleryItems = [
         caption: (
             <>
                 <b>who's that Pokémon?</b> can you name the Pokémon from only
-                their silhouette?
+                their silhouette? full color sprites can also be used on easy
+                difficulty
             </>
         ),
         slug: 'whos-that-Pokémon?',
@@ -48,7 +53,8 @@ const galleryItems = [
         caption: (
             <>
                 <b>it's Squirtle!</b> there's over 1,000 more Pokémon, can you
-                name them all?
+                name them all? correct answers are automatically detected and
+                times are recorded
             </>
         ),
         slug: 'its-squirtle',
