@@ -1,6 +1,7 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
 import ProjectsNav from '@/components/ProjectsNav'
+// import { banter as project } from '@/utilities/glossary'
 import {
     typeScript,
     react,
@@ -23,8 +24,11 @@ const galleryItems = [
         alt: 'chat screen with GIF menu open showing available GIFs to send',
         caption: (
             <>
-                <b>chat with friends</b> and interact with people from across
-                the world. send text messages, images, GIFs, links and more
+                <b>send messages with images, GIFs, links</b>, and more. chat in
+                a global server and interact with people from across the world,
+                or create a private server to invite your friends. create text
+                channels to organize the discussions on your server, and create
+                custom roles to organize the members of your server
             </>
         ),
         slug: 'chat-with-friends',
@@ -34,8 +38,10 @@ const galleryItems = [
         alt: 'user profile settings screen where users can customize their avatar and bio',
         caption: (
             <>
-                <b>stand out from the crowd with a custom profile.</b> upload
-                your own avatar, write a bio, and more
+                <b>stand out from the crowd.</b> upload an image to represent
+                your custom avatar, write a personalized bio for yourself, and
+                choose a banner color for your profile. view anyone's profile by
+                clicking on their username or avatar
             </>
         ),
         slug: 'custom-profile',
@@ -45,7 +51,9 @@ const galleryItems = [
         alt: 'login screen for logging in to an existing account or using a guest account',
         caption: (
             <>
-                <b>login</b> with your email and password or use a guest account
+                <b>register your custom username</b> by creating an account with
+                an email and password you can use to login, or use a temporary
+                guest account for quick access with restricted privileges
             </>
         ),
         slug: 'login',

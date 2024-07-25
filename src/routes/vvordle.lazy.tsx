@@ -14,7 +14,9 @@ const galleryItems = [
         caption: (
             <>
                 <b>use hints and clever letter placement</b> to figure out the
-                secret word and win
+                secret word. gray letters are not in the secret word, yellow
+                letters are in the secret word, but in a different position, and
+                green letters are in the secret word and in the correct position
             </>
         ),
         slug: 'use-hints-to-win',
@@ -24,8 +26,9 @@ const galleryItems = [
         alt: 'new game screen with a fresh puzzle',
         caption: (
             <>
-                <b>think carefully and plan ahead to win!</b> can you figure out
-                the 5 letter word in just 6 guesses?
+                <b>solve the secret word to win!</b> can you figure out the 5
+                letter word in just 6 guesses? think carefully and plan ahead...
+                it's more difficult than it sounds. good luck have fun!
             </>
         ),
         slug: 'guess-the-word',
@@ -35,8 +38,8 @@ const galleryItems = [
         alt: 'game screen on the verge of being won with a correct guess',
         caption: (
             <>
-                a lucky break is all it takes to achieve{' '}
-                <b>sweet, sweet victory</b>!
+                a couple good guesses is all you need for that lucky break to
+                achieve <b>sweet, sweet victory</b>!
             </>
         ),
         slug: 'sweet-victory',
@@ -46,8 +49,9 @@ const galleryItems = [
         alt: 'victory screen showing the correctly guessed word',
         caption: (
             <>
-                <b>a new VVordle every day</b>, come back for a new puzzle to
-                tease your brain
+                there's a <b>new VVordle every day</b>! share your daily results
+                in a spoiler free emojified format and come back tomorrow for a
+                new puzzle to tease your brain
             </>
         ),
         slug: 'new-VVordle-every-day',
