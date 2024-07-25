@@ -1,15 +1,15 @@
 interface CaretProps {
-    disabled?: boolean
     onClick?: React.MouseEventHandler
+    disabled?: boolean
     className?: string
 }
 
-function Caret({ disabled, onClick, className }: CaretProps) {
+function Caret({ onClick, disabled, className }: CaretProps) {
     return (
         <button
-            disabled={disabled}
             onClick={onClick}
-            className="rounded-full bg-neutral-600/70 transition-colors disabled:bg-neutral-600/35 group-hover:bg-neutral-600"
+            disabled={disabled}
+            className="group rounded-full bg-neutral-600/70 transition-colors hover:bg-neutral-600 disabled:bg-neutral-600/35"
         >
             <svg
                 width="5"
