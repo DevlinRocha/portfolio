@@ -106,7 +106,7 @@ function vvordle() {
                 </aside>
 
                 <section className="flex w-full flex-col items-center gap-8 bg-green-100 py-16">
-                    <header className="w-full px-3 xs:px-4 sm:px-5 md:px-[3lvw] lg:px-[5lvw] xl:px-[13lvw] 2xl:px-[19lvw] 3xl:px-[24lvw] 4xl:px-[34lvw]">
+                    <header className="w-full px-7 2xs:px-8 xs:px-10 sm:px-12 md:order-2 md:px-[12lvw] xl:px-[calc(50%-490px)]">
                         <h2 className="font-serif text-xl font-semibold md:text-2xl lg:text-3xl">
                             explore features
                         </h2>
