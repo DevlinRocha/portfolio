@@ -63,7 +63,7 @@ function Project({
                             height={720}
                             draggable={false}
                             alt={alt}
-                            className="rounded-lg object-contain text-transparent drop-shadow-lg"
+                            className="rounded-lg bg-neutral-600 object-contain text-transparent drop-shadow-lg"
                         />
                     </div>
                 </div>
