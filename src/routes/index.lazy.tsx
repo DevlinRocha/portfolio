@@ -30,14 +30,18 @@ function Index() {
                 className="flex w-full scroll-mt-16 flex-col items-center gap-3"
             >
                 {Object.entries(projects).map(
-                    ([key, { name, description, link, color, slug, alt }]) => {
+                    ([
+                        key,
+                        { name, description, src, alt, url, slug, color },
+                    ]) => {
                         return (
                             <Project
                                 name={name}
                                 description={description}
-                                link={link}
-                                slug={slug}
+                                src={src}
                                 alt={alt}
+                                url={url}
+                                slug={slug}
                                 key={key}
                                 className={color}
                             />
