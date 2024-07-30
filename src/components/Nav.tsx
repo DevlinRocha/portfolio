@@ -115,7 +115,7 @@ function Nav() {
 
                     <li className="xs:h-full">
                         <a
-                            href="https://drive.google.com/file/d/1AQuKWazKGYZ6mJPmL_zbzTByiwk24ElV/view?usp=sharing"
+                            href="https://drive.google.com/file/d/1Qbrjy7o_HkxuGYKRsB2ZuNPf0uYZzmYD/view?usp=sharing"
                             target="_blank"
                             rel="noopener"
                             onClick={handleClick}
