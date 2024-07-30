@@ -1,4 +1,5 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
+import { about } from '@/assets'
 
 export const Route = createLazyFileRoute('/about')({
     component: About,
@@ -33,7 +34,7 @@ function About() {
 
             <figure className="flex w-[87.5lvw] select-none flex-col items-center">
                 <img
-                    src="about.png"
+                    src={about}
                     width={1280}
                     height={720}
                     draggable={false}
