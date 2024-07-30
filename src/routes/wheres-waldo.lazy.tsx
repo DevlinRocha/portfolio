@@ -1,6 +1,7 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
 import ProjectsNav from '@/components/ProjectsNav'
+import { levelSelect, game, scores, characters } from '@/assets/wheres-waldo'
 import {
     typeScript,
     react,
@@ -15,7 +16,7 @@ export const Route = createLazyFileRoute('/wheres-waldo')({
 
 const galleryItems = [
     {
-        src: 'wheres-waldo.png',
+        src: levelSelect,
         alt: 'level selection screen with six different levels from the book series',
         caption: (
             <>
@@ -28,7 +29,7 @@ const galleryItems = [
         slug: 'choose-a-level',
     },
     {
-        src: 'wheres-waldo-guess.png',
+        src: game,
         alt: 'game screen displaying the "Beach" level',
         caption: (
             <>
@@ -41,7 +42,7 @@ const galleryItems = [
         slug: 'find-Waldo',
     },
     {
-        src: 'wheres-waldo-scores.png',
+        src: scores,
         alt: 'high scores screen for the "Gobbling Gluttons" level',
         caption: (
             <>
@@ -53,7 +54,7 @@ const galleryItems = [
         slug: 'high-scores',
     },
     {
-        src: 'wheres-waldo-bottom.png',
+        src: characters,
         alt: 'screen showing the five different characters to find in each level',
         caption: (
             <>
