@@ -36,9 +36,9 @@ function Index() {
                                 name={name}
                                 description={description}
                                 link={link}
-                                key={key}
                                 slug={slug}
                                 alt={alt}
+                                key={key}
                                 className={color}
                             />
                         )
