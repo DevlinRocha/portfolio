@@ -1,36 +1,45 @@
+import { chat as banterSrc } from '@/assets/banter'
+import { game as vvordleSrc } from '@/assets/vvordle'
+import { game as pokemonSrc } from '@/assets/pokemon-roulette'
+import { levelSelect as waldoSrc } from '@/assets/wheres-waldo'
+
 export const projects = {
     banter: {
         name: 'Banter',
         description: 'feature-rich fullstack open-source Discord clone',
-        link: 'https://banter-kappa.vercel.app/',
-        color: 'bg-sky-300',
-        slug: '/banter',
+        src: banterSrc,
         alt: 'Banter: interact with people from across the world. send text messages, images, GIFs, links and more',
+        url: 'https://banter-kappa.vercel.app/',
+        slug: '/banter',
+        color: 'bg-sky-300',
     },
     vvordle: {
         name: 'VVordle',
         description: 'open-source Wordle clone',
-        link: 'https://vvordle.vercel.app/',
-        color: 'bg-green-500',
-        slug: '/vvordle',
+        src: vvordleSrc,
         alt: 'VVordle: use clever letter placement to figure out the secret word',
+        url: 'https://vvordle.vercel.app/',
+        slug: '/vvordle',
+        color: 'bg-green-500',
     },
     pokemonRoulette: {
         name: 'Pokémon Roulette',
         description: 'open-source web version of "who\'s that Pokémon?"',
-        link: 'https://pokemon-roulette.vercel.app/',
-        color: 'bg-amber-400',
-        slug: '/pokemon-roulette',
+        src: pokemonSrc,
         alt: 'Pokémon Roulette: choose a difficulty, filter by generation, record your longest streak, and track your fastest correct answer',
+        url: 'https://pokemon-roulette.vercel.app/',
+        slug: '/pokemon-roulette',
+        color: 'bg-amber-400',
     },
     wheresWaldo: {
         name: "Where's Waldo?",
         description:
             'fullstack open-source web version of the iconic book series',
-        link: 'https://devlinrocha.github.io/wheres-waldo/',
-        color: 'bg-red-600',
-        slug: '/wheres-waldo',
+        src: waldoSrc,
         alt: "Where's Waldo?: six different levels from the iconic book series",
+        url: 'https://devlinrocha.github.io/wheres-waldo/',
+        slug: '/wheres-waldo',
+        color: 'bg-red-600',
     },
 }
 
