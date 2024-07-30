@@ -5,7 +5,7 @@ interface ProjectProps {
     description?: string
     link?: string
     slug?: string
-    alt?: string
+    alt: string
     className?: string
 }
 
@@ -58,7 +58,7 @@ function Project({
 
                     <div className="max-w-[480px] md:max-w-[672px] lg:max-w-[720px]">
                         <img
-                            src={slug && `${slug}.png`}
+                            src={`${slug}.png`}
                             width={1280}
                             height={720}
                             draggable={false}
