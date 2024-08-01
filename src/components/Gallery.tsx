@@ -91,7 +91,7 @@ function Gallery({ items }: GalleryProps) {
                                             height={1080}
                                             draggable={false}
                                             alt={alt}
-                                            className="max-w-[87.5lvw] rounded-2xl object-contain text-transparent md:max-w-[768px] lg:max-w-[896px]"
+                                            className="max-w-[87.5lvw] rounded-2xl bg-neutral-600 object-contain text-transparent md:max-w-[768px] lg:max-w-[896px]"
                                         />
 
                                         <figcaption

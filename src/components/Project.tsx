@@ -3,18 +3,20 @@ import { Link } from '@tanstack/react-router'
 interface ProjectProps {
     name: string
     description: string
-    link?: string
-    slug: string
+    src: string
     alt: string
+    url?: string
+    slug?: string
     className?: string
 }
 
 function Project({
+    src,
+    alt,
     name,
     description,
-    link,
     slug,
-    alt,
+    url,
     className,
 }: ProjectProps) {
     return (
@@ -43,9 +45,9 @@ function Project({
                             learn more
                         </Link>
 
-                        {link && (
+                        {url && (
                             <a
-                                href={link}
+                                href={url}
                                 target="_blank"
                                 rel="noopener"
                                 onClick={(e) => e.stopPropagation()}
@@ -58,12 +60,12 @@ function Project({
 
                     <div className="max-w-[480px] md:max-w-[672px] lg:max-w-[720px]">
                         <img
-                            src={`${slug}.png`}
+                            src={src}
                             width={1280}
                             height={720}
                             draggable={false}
                             alt={alt}
-                            className="rounded-lg object-contain text-transparent drop-shadow-lg"
+                            className="rounded-lg bg-neutral-600 object-contain text-transparent drop-shadow-lg"
                         />
                     </div>
                 </div>
