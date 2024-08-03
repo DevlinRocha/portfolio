@@ -17,9 +17,9 @@ function DefaultNotFound() {
         'ᕕ( ᐛ )ᕗ',
         '(Ͼ˳Ͽ)',
         '(￣(ｴ)￣)',
-    ]
+    ] as const
 
-    function getRandomElement(array: string[]) {
+    function getRandomElement(array: readonly string[]) {
         const randomIndex = Math.floor(Math.random() * array.length)
 
         return array[randomIndex]
