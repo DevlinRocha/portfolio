@@ -10,7 +10,7 @@ const sansFonts = [
     'Arial',
     'sans-serif',
     ...defaultTheme.fontFamily.sans,
-]
+] as const
 
 const serifFonts = [
     'Montserrat',
@@ -22,7 +22,7 @@ const serifFonts = [
     'DejaVu Serif',
     'serif',
     ...defaultTheme.fontFamily.serif,
-]
+] as const
 
 const displayFonts = [
     'Righteous',
@@ -30,7 +30,7 @@ const displayFonts = [
     'Segoe UI',
     'Ubuntu',
     ...serifFonts,
-]
+] as const
 
 const monoFonts = [
     'Menlo',
@@ -41,7 +41,7 @@ const monoFonts = [
     'DejaVu Sans Mono',
     'monospace',
     ...defaultTheme.fontFamily.mono,
-]
+] as const
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -72,4 +72,4 @@ export default {
         },
     },
     plugins: [],
-}
+} as const
