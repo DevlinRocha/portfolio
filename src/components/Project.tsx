@@ -10,7 +10,7 @@ interface ProjectProps {
     className?: string
 }
 
-function Project({
+export default function Project({
     src,
     alt,
     name,
@@ -73,5 +73,3 @@ function Project({
         </Link>
     )
 }
-
-export default Project

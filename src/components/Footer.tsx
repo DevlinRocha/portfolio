@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 
-function Footer() {
+export default function Footer() {
     return (
         <footer className="flex h-full flex-col items-center justify-center gap-4 p-4 text-xs text-black/80">
             <nav className="flex select-none flex-wrap justify-center gap-4 text-balance">
@@ -56,5 +56,3 @@ function Footer() {
         </footer>
     )
 }
-
-export default Footer

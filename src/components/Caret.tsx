@@ -4,7 +4,7 @@ interface CaretProps {
     className?: string
 }
 
-function Caret({ onClick, disabled, className }: CaretProps) {
+export default function Caret({ onClick, disabled, className }: CaretProps) {
     return (
         <button
             onClick={onClick}
@@ -29,5 +29,3 @@ function Caret({ onClick, disabled, className }: CaretProps) {
         </button>
     )
 }
-
-export default Caret
