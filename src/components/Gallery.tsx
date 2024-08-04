@@ -13,7 +13,7 @@ interface GalleryItem {
     slug: string
 }
 
-function Gallery({ items }: GalleryProps) {
+export default function Gallery({ items }: GalleryProps) {
     const [activeIndex, setActiveIndex] = useState(0)
     const captionsRef = useRef<(HTMLElement | null)[]>([])
 
@@ -127,5 +127,3 @@ function Gallery({ items }: GalleryProps) {
         </>
     )
 }
-
-export default Gallery

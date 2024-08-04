@@ -5,7 +5,7 @@ interface ProjectProps {
     filter?: string
 }
 
-function ProjectsNav({ filter }: ProjectProps) {
+export default function ProjectsNav({ filter }: ProjectProps) {
     return (
         <section className="flex w-full flex-col items-center gap-9 py-24 md:gap-16 md:py-32 lg:py-36">
             <header className="w-[87.5lvw] max-w-prose">
@@ -33,5 +33,3 @@ function ProjectsNav({ filter }: ProjectProps) {
         </section>
     )
 }
-
-export default ProjectsNav
