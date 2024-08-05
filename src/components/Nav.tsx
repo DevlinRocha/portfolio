@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { Link } from '@tanstack/react-router'
 
-function Nav() {
+export default function Nav() {
     const menu = useRef<HTMLInputElement>(null)
 
     function handleClick() {
@@ -129,5 +129,3 @@ function Nav() {
         </header>
     )
 }
-
-export default Nav

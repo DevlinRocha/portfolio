@@ -43,7 +43,7 @@ export const projects = {
     },
 } as const
 
-export const glossary = {
+const glossary = {
     figma: 'collaborative application for interface design',
     firebase:
         'set of backend cloud computing services and application development platforms, it hosts databases, services, authentication, and integration',
@@ -86,5 +86,3 @@ export const {
     vite,
     vue,
 } = glossary
-
-export default glossary

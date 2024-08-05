@@ -1,6 +1,6 @@
 import { useRouter, Link } from '@tanstack/react-router'
 
-function DefaultNotFound() {
+export default function DefaultNotFound() {
     const router = useRouter()
 
     const faces = [
@@ -59,5 +59,3 @@ function DefaultNotFound() {
         </main>
     )
 }
-
-export default DefaultNotFound
