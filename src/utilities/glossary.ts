@@ -41,9 +41,9 @@ export const projects = {
         slug: '/wheres-waldo',
         color: 'bg-red-600',
     },
-}
+} as const
 
-export const glossary = {
+const glossary = {
     figma: 'collaborative application for interface design',
     firebase:
         'set of backend cloud computing services and application development platforms, it hosts databases, services, authentication, and integration',
@@ -67,7 +67,7 @@ export const glossary = {
         'open-source programming language that adds static typing with optional type annotations to JavaScript',
     vite: 'local development server with support for TypeScript and JSX',
     vue: 'open-source model–view–viewmodel frontend JavaScript framework for building user interfaces and single-page applications',
-}
+} as const
 
 export const {
     figma,
@@ -86,5 +86,3 @@ export const {
     vite,
     vue,
 } = glossary
-
-export default glossary

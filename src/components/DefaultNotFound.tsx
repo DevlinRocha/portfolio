@@ -1,6 +1,6 @@
 import { useRouter, Link } from '@tanstack/react-router'
 
-function DefaultNotFound() {
+export default function DefaultNotFound() {
     const router = useRouter()
 
     const faces = [
@@ -17,9 +17,9 @@ function DefaultNotFound() {
         'ᕕ( ᐛ )ᕗ',
         '(Ͼ˳Ͽ)',
         '(￣(ｴ)￣)',
-    ]
+    ] as const
 
-    function getRandomElement(array: string[]) {
+    function getRandomElement(array: readonly string[]) {
         const randomIndex = Math.floor(Math.random() * array.length)
 
         return array[randomIndex]
@@ -59,5 +59,3 @@ function DefaultNotFound() {
         </main>
     )
 }
-
-export default DefaultNotFound
