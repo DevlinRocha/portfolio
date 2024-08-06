@@ -2,11 +2,16 @@ import defaultTheme from 'tailwindcss/defaultTheme'
 
 const sansFonts = [
     'Inter',
+    'system-ui',
+    'ui-sans-serif',
     '-apple-system',
     'BlinkMacSystemFont',
-    '"Segoe UI"',
+    'Segoe UI',
     'Roboto',
-    '"Helvetica Neue"',
+    'Helvetica Neue',
+    'Oxygen-Sans',
+    'Ubuntu',
+    'Cantarell',
     'Arial',
     'sans-serif',
     ...defaultTheme.fontFamily.sans,
