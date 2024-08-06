@@ -19,11 +19,11 @@ const sansFonts = [
 
 const serifFonts = [
     'Montserrat',
+    'ui-serif',
+    '-apple-system-ui-serif',
     'Georgia',
     'Times',
-    '"Times New Roman"',
-    'Cambria',
-    'Liberation Serif',
+    'Times New Roman',
     'DejaVu Serif',
     'serif',
     ...defaultTheme.fontFamily.serif,
