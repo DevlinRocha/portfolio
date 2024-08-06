@@ -33,18 +33,17 @@ const serifFonts = [
 const displayFonts = [
     'Righteous',
     'San Francisco Display',
-    'Segoe UI',
-    'Ubuntu',
     ...serifFonts,
 ] as const
 
 const monoFonts = [
+    'ui-monospace',
+    'SFMono-Regular',
     'Menlo',
-    'Monaco',
     'Consolas',
-    '"Courier New"',
-    '"Liberation Mono"',
+    'Ubuntu Mono',
     'DejaVu Sans Mono',
+    'Liberation Mono',
     'monospace',
     ...defaultTheme.fontFamily.mono,
 ] as const
