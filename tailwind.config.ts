@@ -2,11 +2,17 @@ import defaultTheme from 'tailwindcss/defaultTheme'
 
 const sansFonts = [
     'Inter',
+    'system-ui',
+    'ui-sans-serif',
     '-apple-system',
     'BlinkMacSystemFont',
-    '"Segoe UI"',
+    'Segoe UI',
     'Roboto',
-    '"Helvetica Neue"',
+    'Helvetica Neue',
+    'Ubuntu',
+    'Cantarell',
+    'Noto Sans',
+    'Oxygen Sans',
     'Arial',
     'sans-serif',
     ...defaultTheme.fontFamily.sans,
@@ -14,11 +20,11 @@ const sansFonts = [
 
 const serifFonts = [
     'Montserrat',
+    'ui-serif',
+    '-apple-system-ui-serif',
     'Georgia',
     'Times',
-    '"Times New Roman"',
-    'Cambria',
-    'Liberation Serif',
+    'Times New Roman',
     'DejaVu Serif',
     'serif',
     ...defaultTheme.fontFamily.serif,
@@ -27,18 +33,17 @@ const serifFonts = [
 const displayFonts = [
     'Righteous',
     'San Francisco Display',
-    'Segoe UI',
-    'Ubuntu',
     ...serifFonts,
 ] as const
 
 const monoFonts = [
+    'ui-monospace',
+    'SFMono-Regular',
     'Menlo',
-    'Monaco',
     'Consolas',
-    '"Courier New"',
-    '"Liberation Mono"',
+    'Ubuntu Mono',
     'DejaVu Sans Mono',
+    'Liberation Mono',
     'monospace',
     ...defaultTheme.fontFamily.mono,
 ] as const
@@ -53,6 +58,15 @@ export default {
                 xs: '528px',
                 '3xl': '1840px',
                 '4xl': '2208px',
+            },
+            animation: {
+                loading: 'loading 2s linear infinite',
+            },
+            keyframes: {
+                loading: {
+                    '0%, 100%': { 'background-color': 'rgb(82, 82, 82, 1)' },
+                    '50%': { 'background-color': 'rgb(82, 82, 82, 0.5)' },
+                },
             },
             fontFamily: {
                 sans: sansFonts,

@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import { useRef } from 'react'
 
 interface ProjectProps {
     name: string
@@ -19,6 +20,12 @@ export default function Project({
     url,
     className,
 }: ProjectProps) {
+    const imgRef = useRef<HTMLImageElement>(null)
+
+    function handleLoad() {
+        imgRef.current?.classList.toggle('animate-loading', false)
+    }
+
     return (
         <Link
             to={slug}
@@ -65,7 +72,9 @@ export default function Project({
                             height={720}
                             draggable={false}
                             alt={alt}
-                            className="rounded-lg bg-neutral-600 object-contain text-transparent drop-shadow-lg"
+                            onLoad={handleLoad}
+                            ref={imgRef}
+                            className="animate-loading rounded-lg bg-neutral-600 object-contain text-transparent drop-shadow-lg"
                         />
                     </div>
                 </div>
