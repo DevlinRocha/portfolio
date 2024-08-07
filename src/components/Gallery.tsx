@@ -16,6 +16,7 @@ interface GalleryItem {
 export default function Gallery({ items }: GalleryProps) {
     const [activeIndex, setActiveIndex] = useState(0)
     const captionsRef = useRef<(HTMLElement | null)[]>([])
+    const imgRef = useRef<HTMLImageElement>(null)
 
     const handleClick = useCallback(
         (e: React.MouseEvent | null, direction: 'left' | 'right') => {
@@ -72,6 +73,10 @@ export default function Gallery({ items }: GalleryProps) {
         }
     }, [observerCallback])
 
+    function handleLoad() {
+        imgRef.current?.classList.toggle('animate-loading', false)
+    }
+
     return (
         <>
             <ul className="scrollbar-hide flex h-auto w-full snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth px-7 2xs:px-8 xs:px-10 sm:px-12 md:order-2 md:px-[12lvw] xl:px-[calc(50%-490px)]">
@@ -91,7 +96,9 @@ export default function Gallery({ items }: GalleryProps) {
                                             height={1080}
                                             draggable={false}
                                             alt={alt}
-                                            className="max-w-[87.5lvw] rounded-2xl bg-neutral-600 object-contain text-transparent md:max-w-[768px] lg:max-w-[896px]"
+                                            onLoad={handleLoad}
+                                            ref={imgRef}
+                                            className="animate-loading max-w-[87.5lvw] rounded-2xl bg-neutral-600 object-contain text-transparent md:max-w-[768px] lg:max-w-[896px]"
                                         />
 
                                         <figcaption
