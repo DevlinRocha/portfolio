@@ -59,6 +59,15 @@ export default {
                 '3xl': '1840px',
                 '4xl': '2208px',
             },
+            animation: {
+                loading: 'loading 2s linear infinite',
+            },
+            keyframes: {
+                loading: {
+                    '0%, 100%': { 'background-color': 'rgb(82, 82, 82, 1)' },
+                    '50%': { 'background-color': 'rgb(82, 82, 82, 0.5)' },
+                },
+            },
             fontFamily: {
                 sans: sansFonts,
                 serif: serifFonts,
