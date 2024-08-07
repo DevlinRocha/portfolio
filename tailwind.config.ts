@@ -2,11 +2,17 @@ import defaultTheme from 'tailwindcss/defaultTheme'
 
 const sansFonts = [
     'Inter',
+    'system-ui',
+    'ui-sans-serif',
     '-apple-system',
     'BlinkMacSystemFont',
-    '"Segoe UI"',
+    'Segoe UI',
     'Roboto',
-    '"Helvetica Neue"',
+    'Helvetica Neue',
+    'Ubuntu',
+    'Cantarell',
+    'Noto Sans',
+    'Oxygen Sans',
     'Arial',
     'sans-serif',
     ...defaultTheme.fontFamily.sans,
@@ -14,11 +20,11 @@ const sansFonts = [
 
 const serifFonts = [
     'Montserrat',
+    'ui-serif',
+    '-apple-system-ui-serif',
     'Georgia',
     'Times',
-    '"Times New Roman"',
-    'Cambria',
-    'Liberation Serif',
+    'Times New Roman',
     'DejaVu Serif',
     'serif',
     ...defaultTheme.fontFamily.serif,
@@ -27,18 +33,17 @@ const serifFonts = [
 const displayFonts = [
     'Righteous',
     'San Francisco Display',
-    'Segoe UI',
-    'Ubuntu',
     ...serifFonts,
 ] as const
 
 const monoFonts = [
+    'ui-monospace',
+    'SFMono-Regular',
     'Menlo',
-    'Monaco',
     'Consolas',
-    '"Courier New"',
-    '"Liberation Mono"',
+    'Ubuntu Mono',
     'DejaVu Sans Mono',
+    'Liberation Mono',
     'monospace',
     ...defaultTheme.fontFamily.mono,
 ] as const
