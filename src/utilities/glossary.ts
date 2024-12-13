@@ -37,7 +37,7 @@ export const projects = {
             'fullstack open-source web version of the iconic book series',
         src: waldoSrc,
         alt: "Where's Waldo?: six different levels from the iconic book series",
-        url: 'https://devlinrocha.github.io/wheres-waldo/',
+        url: 'https://wheres-waldo.devlinrocha.com',
         slug: '/wheres-waldo',
         color: 'bg-red-600',
     },
