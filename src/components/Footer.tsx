@@ -7,7 +7,7 @@ export default function Footer() {
                 <a
                     href="https://www.twitch.tv/DevlinRochaa"
                     target="_blank"
-                    rel="noopener"
+                    rel="noreferrer"
                     className="transition-text hover:text-black hover:underline"
                 >
                     Twitch
@@ -15,7 +15,7 @@ export default function Footer() {
                 <a
                     href="https://www.youtube.com/@DevlinRochaa"
                     target="_blank"
-                    rel="noopener"
+                    rel="noreferrer"
                     className="transition-text hover:text-black hover:underline"
                 >
                     YouTube
@@ -23,7 +23,7 @@ export default function Footer() {
                 <a
                     href="https://twitter.com/DevlinRocha"
                     target="_blank"
-                    rel="noopener"
+                    rel="noreferrer"
                     className="transition-text hover:text-black hover:underline"
                 >
                     Twitter
@@ -31,7 +31,7 @@ export default function Footer() {
                 <a
                     href="https://github.com/DevlinRocha"
                     target="_blank"
-                    rel="noopener"
+                    rel="noreferrer"
                     className="transition-text hover:text-black hover:underline"
                 >
                     GitHub
@@ -39,7 +39,7 @@ export default function Footer() {
                 <a
                     href="https://www.linkedin.com/in/DevlinRocha"
                     target="_blank"
-                    rel="noopener"
+                    rel="noreferrer"
                     className="transition-text hover:text-black hover:underline"
                 >
                     LinkedIn

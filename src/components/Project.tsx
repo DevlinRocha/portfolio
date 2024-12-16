@@ -56,7 +56,7 @@ export default function Project({
                             <a
                                 href={url}
                                 target="_blank"
-                                rel="noopener"
+                                rel="noreferrer"
                                 onClick={(e) => e.stopPropagation()}
                                 className="flex items-center rounded-full border border-black/80 px-4 py-2 text-center text-black/80 hover:bg-black/80 hover:text-white md:px-5 md:py-2.5"
                             >
