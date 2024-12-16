@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { Link } from '@tanstack/react-router'
+import { projects } from '@/utilities/glossary'
 
 export default function Nav() {
     const menu = useRef<HTMLInputElement>(null)
@@ -61,45 +62,21 @@ export default function Nav() {
                         </Link>
 
                         <ul className="flex-col overflow-hidden border-0 bg-white/80 backdrop-blur transition-height duration-500 ease-in xs:absolute xs:max-h-0 group-hover:xs:max-h-96 group-hover:xs:border-x group-hover:xs:border-b">
-                            <li className="flex">
-                                <Link
-                                    to="/banter"
-                                    onClick={handleClick}
-                                    className="w-full py-2 pl-16 pr-12 transition-text hover:text-black xs:p-4 [&.active]:font-semibold"
-                                >
-                                    Banter
-                                </Link>
-                            </li>
-
-                            <li className="flex">
-                                <Link
-                                    to="/vvordle"
-                                    onClick={handleClick}
-                                    className="w-full py-2 pl-16 pr-12 transition-text hover:text-black xs:p-4 [&.active]:font-semibold"
-                                >
-                                    VVordle
-                                </Link>
-                            </li>
-
-                            <li className="flex">
-                                <Link
-                                    to="/pokemon-roulette"
-                                    onClick={handleClick}
-                                    className="w-full py-2 pl-16 pr-12 transition-text hover:text-black xs:p-4 [&.active]:font-semibold"
-                                >
-                                    Pokémon Roulette
-                                </Link>
-                            </li>
-
-                            <li className="flex">
-                                <Link
-                                    to="/wheres-waldo"
-                                    onClick={handleClick}
-                                    className="w-full py-2 pl-16 pr-12 transition-text hover:text-black xs:p-4 [&.active]:font-semibold"
-                                >
-                                    Where's Waldo?
-                                </Link>
-                            </li>
+                            {Object.entries(projects).map(
+                                ([key, { name, slug }]) => {
+                                    return (
+                                        <li key={key} className="flex">
+                                            <Link
+                                                to={slug}
+                                                onClick={handleClick}
+                                                className="w-full py-2 pl-16 pr-12 transition-text hover:text-black xs:p-4 [&.active]:font-semibold"
+                                            >
+                                                {name}
+                                            </Link>
+                                        </li>
+                                    )
+                                }
+                            )}
                         </ul>
                     </li>
 
@@ -117,7 +94,7 @@ export default function Nav() {
                         <a
                             href="https://drive.google.com/file/d/1Qbrjy7o_HkxuGYKRsB2ZuNPf0uYZzmYD/view?usp=sharing"
                             target="_blank"
-                            rel="noopener"
+                            rel="noreferrer"
                             onClick={handleClick}
                             className="flex items-center px-12 py-2 transition-text hover:text-black xs:h-full xs:px-2 xs:py-0"
                         >

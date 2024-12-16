@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from 'react'
+import { useEffect, useState, useRef, useCallback, ReactNode } from 'react'
 import { Link } from '@tanstack/react-router'
 import Caret from './Caret'
 
@@ -9,7 +9,7 @@ interface GalleryProps {
 interface GalleryItem {
     src: string
     alt: string
-    caption: JSX.Element
+    caption: ReactNode
     slug: string
 }
 
@@ -98,14 +98,14 @@ export default function Gallery({ items }: GalleryProps) {
                                             alt={alt}
                                             onLoad={handleLoad}
                                             ref={imgRef}
-                                            className="animate-loading max-w-[87.5lvw] rounded-2xl bg-neutral-600 object-contain text-transparent md:max-w-[768px] lg:max-w-[896px]"
+                                            className="max-w-[87.5lvw] animate-loading rounded-2xl bg-neutral-600 object-contain text-transparent md:max-w-[768px] lg:max-w-[896px]"
                                         />
 
                                         <figcaption
-                                            ref={(item) =>
-                                                (captionsRef.current[index] =
-                                                    item)
-                                            }
+                                            ref={(item) => {
+                                                captionsRef.current[index] =
+                                                    item
+                                            }}
                                             className="max-w-prose text-pretty text-sm transition-opacity duration-500 ease-out lg:text-base"
                                         >
                                             {caption}
