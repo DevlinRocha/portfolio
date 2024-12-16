@@ -102,10 +102,10 @@ export default function Gallery({ items }: GalleryProps) {
                                         />
 
                                         <figcaption
-                                            ref={(item) =>
-                                                (captionsRef.current[index] =
-                                                    item)
-                                            }
+                                            ref={(item) => {
+                                                captionsRef.current[index] =
+                                                    item
+                                            }}
                                             className="max-w-prose text-pretty text-sm transition-opacity duration-500 ease-out lg:text-base"
                                         >
                                             {caption}
