@@ -6,6 +6,7 @@ export const wheresWaldo = {
     src: waldoSrc,
     alt: "Where's Waldo?: six different levels from the iconic book series",
     url: 'https://wheres-waldo.devlinrocha.com',
+    source: 'https://github.com/DevlinRocha/wheres-waldo',
     slug: '/wheres-waldo',
     color: 'bg-red-600',
 } as const

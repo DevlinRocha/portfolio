@@ -6,6 +6,7 @@ export const pokemonRoulette = {
     src: pokemonSrc,
     alt: 'Pokémon Roulette: choose a difficulty, filter by generation, record your longest streak, and track your fastest correct answer',
     url: 'https://pokemon-roulette.devlinrocha.com',
+    source: 'https://github.com/DevlinRocha/pokemon-roulette',
     slug: '/pokemon-roulette',
     color: 'bg-amber-400',
 } as const

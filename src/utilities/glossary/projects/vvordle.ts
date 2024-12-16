@@ -6,6 +6,7 @@ export const vvordle = {
     src: vvordleSrc,
     alt: 'VVordle: use clever letter placement to figure out the secret word',
     url: 'https://vvordle.devlinrocha.com',
+    source: 'https://github.com/DevlinRocha/vvordle',
     slug: '/vvordle',
     color: 'bg-green-500',
 } as const
