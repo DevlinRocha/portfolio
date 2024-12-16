@@ -98,7 +98,7 @@ export default function Gallery({ items }: GalleryProps) {
                                             alt={alt}
                                             onLoad={handleLoad}
                                             ref={imgRef}
-                                            className="animate-loading max-w-[87.5lvw] rounded-2xl bg-neutral-600 object-contain text-transparent md:max-w-[768px] lg:max-w-[896px]"
+                                            className="max-w-[87.5lvw] animate-loading rounded-2xl bg-neutral-600 object-contain text-transparent md:max-w-[768px] lg:max-w-[896px]"
                                         />
 
                                         <figcaption
