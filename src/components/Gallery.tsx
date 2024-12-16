@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from 'react'
+import { useEffect, useState, useRef, useCallback, ReactNode } from 'react'
 import { Link } from '@tanstack/react-router'
 import Caret from './Caret'
 
@@ -9,7 +9,7 @@ interface GalleryProps {
 interface GalleryItem {
     src: string
     alt: string
-    caption: JSX.Element
+    caption: ReactNode
     slug: string
 }
 
