@@ -8,7 +8,7 @@ import {
     reactRouter,
     styledComponents,
     firebase,
-} from '@/utilities/glossary'
+} from '@/utilities/glossary/terms'
 
 export const Route = createLazyFileRoute('/wheres-waldo')({
     component: wheresWaldo,

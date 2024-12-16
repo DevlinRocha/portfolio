@@ -2,7 +2,13 @@ import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
 import ProjectsNav from '@/components/ProjectsNav'
 import { game, loss, guess, win } from '@/assets/pokemon-roulette'
-import { typeScript, vue, vite, pinia, pokeApi } from '@/utilities/glossary'
+import {
+    typeScript,
+    vue,
+    vite,
+    pinia,
+    pokeApi,
+} from '@/utilities/glossary/terms'
 
 export const Route = createLazyFileRoute('/pokemon-roulette')({
     component: pokemonRoulette,

@@ -12,7 +12,7 @@ import {
     styledComponents,
     tenorApi,
     figma,
-} from '@/utilities/glossary'
+} from '@/utilities/glossary/terms'
 
 export const Route = createLazyFileRoute('/banter')({
     component: banter,

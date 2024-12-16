@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { projects } from '@/utilities/glossary'
+import * as projects from '@/utilities/glossary/projects'
 
 interface ProjectProps {
     filter?: string
