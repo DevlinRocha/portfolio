@@ -20,5 +20,10 @@ export default [
     pluginJs.configs.recommended,
     ...tseslint.configs.recommended,
     pluginReactConfig,
-    { rules: { 'react/react-in-jsx-scope': 0 } },
+    {
+        rules: {
+            'react/react-in-jsx-scope': 0,
+            'react/no-unescaped-entities': 0,
+        },
+    },
 ]
