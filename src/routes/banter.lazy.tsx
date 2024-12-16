@@ -2,7 +2,7 @@ import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
 import ProjectsNav from '@/components/ProjectsNav'
 import { chat, userSettings, login } from '@/assets/banter'
-import { banter as project } from '@/utilities/glossary/projects'
+import { url, source } from '@/utilities/glossary/projects/banter'
 import {
     typeScript,
     react,
@@ -101,7 +101,7 @@ function banter() {
 
                     <aside className="flex justify-center gap-2.5 py-6 text-sm md:text-base">
                         <a
-                            href={project.url}
+                            href={url}
                             target="_blank"
                             rel="noreferrer"
                             className="flex items-center rounded-full bg-black px-4 py-2 text-center text-white hover:bg-black/80 md:px-5 md:py-2.5"
@@ -110,7 +110,7 @@ function banter() {
                         </a>
 
                         <a
-                            href={project.source}
+                            href={source}
                             target="_blank"
                             rel="noreferrer"
                             className="flex items-center rounded-full border border-black/80 px-4 py-2 text-center text-black/80 hover:bg-black/80 hover:text-white md:px-5 md:py-2.5"
