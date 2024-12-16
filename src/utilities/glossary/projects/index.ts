@@ -1,4 +1,4 @@
-export { banter } from './banter'
-export { pokemonRoulette } from './pokemon-roulette'
-export { vvordle } from './vvordle'
-export { wheresWaldo } from './wheres-waldo'
+export * as banter from './banter'
+export * as pokemonRoulette from './pokemon-roulette'
+export * as vvordle from './vvordle'
+export * as wheresWaldo from './wheres-waldo'
