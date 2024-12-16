@@ -1,6 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Project from '@/components/Project'
-import { projects } from '@/utilities/glossary'
+import * as projects from '@/utilities/glossary/projects'
 
 export const Route = createLazyFileRoute('/')({
     component: Index,
