@@ -7,7 +7,7 @@
         "dev": "vite",
         "build": "tsc --build && vite build",
         "typecheck": "tsc --build",
-        "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+        "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
         "prettier": "prettier . --write",
         "prettier:check": "prettier . --check",
         "cleanup": "pnpm lint --fix && pnpm prettier",
