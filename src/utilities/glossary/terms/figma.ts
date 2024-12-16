@@ -1,1 +1,1 @@
-export const figma = 'collaborative application for interface design'
+export const figma = 'collaborative application for interface design' as const
