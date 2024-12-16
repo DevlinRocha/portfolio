@@ -94,7 +94,7 @@ function vvordle() {
                     <a
                         href="https://vvordle.vercel.app/"
                         target="_blank"
-                        rel="noopener"
+                        rel="noreferrer"
                         className="flex items-center rounded-full bg-black px-4 py-2 text-center text-white hover:bg-black/80 md:px-5 md:py-2.5"
                     >
                         view project
@@ -103,7 +103,7 @@ function vvordle() {
                     <a
                         href="https://github.com/DevlinRocha/vvordle"
                         target="_blank"
-                        rel="noopener"
+                        rel="noreferrer"
                         className="flex items-center rounded-full border border-black/80 px-4 py-2 text-center text-black/80 hover:bg-black/80 hover:text-white md:px-5 md:py-2.5"
                     >
                         source code

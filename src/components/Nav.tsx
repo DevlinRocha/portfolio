@@ -117,7 +117,7 @@ export default function Nav() {
                         <a
                             href="https://drive.google.com/file/d/1Qbrjy7o_HkxuGYKRsB2ZuNPf0uYZzmYD/view?usp=sharing"
                             target="_blank"
-                            rel="noopener"
+                            rel="noreferrer"
                             onClick={handleClick}
                             className="flex items-center px-12 py-2 transition-text hover:text-black xs:h-full xs:px-2 xs:py-0"
                         >
