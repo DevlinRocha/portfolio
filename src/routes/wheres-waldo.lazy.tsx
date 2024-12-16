@@ -2,6 +2,7 @@ import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
 import ProjectsNav from '@/components/ProjectsNav'
 import { levelSelect, game, scores, characters } from '@/assets/wheres-waldo'
+import { wheresWaldo as project } from '@/utilities/glossary/projects'
 import {
     typeScript,
     react,
@@ -102,7 +103,7 @@ function wheresWaldo() {
 
                 <aside className="flex justify-center gap-2.5 py-6 text-sm md:text-base">
                     <a
-                        href="https://devlinrocha.github.io/wheres-waldo/"
+                        href={project.url}
                         target="_blank"
                         rel="noreferrer"
                         className="flex items-center rounded-full bg-black px-4 py-2 text-center text-white hover:bg-black/80 md:px-5 md:py-2.5"
@@ -111,7 +112,7 @@ function wheresWaldo() {
                     </a>
 
                     <a
-                        href="https://github.com/DevlinRocha/wheres-waldo"
+                        href={project.source}
                         target="_blank"
                         rel="noreferrer"
                         className="flex items-center rounded-full border border-black/80 px-4 py-2 text-center text-black/80 hover:bg-black/80 hover:text-white md:px-5 md:py-2.5"

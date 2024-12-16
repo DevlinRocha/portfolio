@@ -2,6 +2,7 @@ import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
 import ProjectsNav from '@/components/ProjectsNav'
 import { game, loss, guess, win } from '@/assets/pokemon-roulette'
+import { pokemonRoulette as project } from '@/utilities/glossary/projects'
 import {
     typeScript,
     vue,
@@ -105,7 +106,7 @@ function pokemonRoulette() {
 
                 <aside className="flex justify-center gap-2.5 py-6 text-sm md:text-base">
                     <a
-                        href="https://pokemon-roulette.vercel.app/"
+                        href={project.url}
                         target="_blank"
                         rel="noreferrer"
                         className="flex items-center rounded-full bg-black px-4 py-2 text-center text-white hover:bg-black/80 md:px-5 md:py-2.5"
@@ -114,7 +115,7 @@ function pokemonRoulette() {
                     </a>
 
                     <a
-                        href="https://github.com/DevlinRocha/pokemon-roulette"
+                        href={project.source}
                         target="_blank"
                         rel="noreferrer"
                         className="flex items-center rounded-full border border-black/80 px-4 py-2 text-center text-black/80 hover:bg-black/80 hover:text-white md:px-5 md:py-2.5"
