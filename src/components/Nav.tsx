@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { Link } from '@tanstack/react-router'
-import * as projects from '@/utilities/glossary/projects'
+import { projects } from '@/utilities/glossary'
 
 export default function Nav() {
     const menu = useRef<HTMLInputElement>(null)

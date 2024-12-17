@@ -2,8 +2,7 @@ import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
 import ProjectsNav from '@/components/ProjectsNav'
 import { game, newGame, guess, win } from '@/assets/vvordle'
-import { url, source } from '@/utilities/glossary/projects/vvordle'
-import { typeScript, vue, vite } from '@/utilities/glossary/terms'
+import { typeScript, vue, vite } from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/vvordle')({
     component: vvordle,
@@ -93,7 +92,7 @@ function vvordle() {
 
                 <aside className="flex justify-center gap-2.5 py-6 text-sm md:text-base">
                     <a
-                        href={url}
+                        href="https://vvordle.vercel.app/"
                         target="_blank"
                         rel="noreferrer"
                         className="flex items-center rounded-full bg-black px-4 py-2 text-center text-white hover:bg-black/80 md:px-5 md:py-2.5"
@@ -102,7 +101,7 @@ function vvordle() {
                     </a>
 
                     <a
-                        href={source}
+                        href="https://github.com/DevlinRocha/vvordle"
                         target="_blank"
                         rel="noreferrer"
                         className="flex items-center rounded-full border border-black/80 px-4 py-2 text-center text-black/80 hover:bg-black/80 hover:text-white md:px-5 md:py-2.5"
