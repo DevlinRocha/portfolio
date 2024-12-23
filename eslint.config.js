@@ -10,7 +10,7 @@ export default [
         },
     },
     { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
-    { ignores: ['dist/'] },
+    { ignores: ['**/dist'] },
     {
         languageOptions: {
             parserOptions: { ecmaFeatures: { jsx: true } },
