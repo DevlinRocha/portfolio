@@ -1,0 +1,16 @@
+{
+    "name": "@portfolio/api",
+    "version": "1.0.0",
+    "scripts": {
+        "push": "pnpm dlx prisma db push",
+        "migrate": "pnpm dlx prisma migrate dev"
+    },
+    "devDependencies": {
+        "@types/node": "^22.10.2",
+        "prisma": "^6.1.0",
+        "typescript": "^5.7.2"
+    },
+    "dependencies": {
+        "@prisma/client": "6.1.0"
+    }
+}
