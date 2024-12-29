@@ -1,5 +1,11 @@
 {
     "name": "Devlin Rocha's portfolio",
+    "short_name": "Devlin",
+    "start_url": "/",
+    "theme_color": "#000000",
+    "background_color": "#FFFFFF",
+    "display": "standalone",
+    "orientation": "any",
     "icons": [
         { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
         { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
