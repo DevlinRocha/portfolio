@@ -15,36 +15,45 @@ const ASSETS_TO_CACHE = [
 ]
 
 addEventListener('install', (event) => {
-    event.waitUntil(async () => {
-        return await caches.open(CACHE_NAME).addAll(ASSETS_TO_CACHE)
-    })
+    event.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => {
+            return cache.addAll(ASSETS_TO_CACHE)
+        })
+    )
 })
 
 addEventListener('activate', (event) => {
-    event.waitUntil(async () => {
-        const cacheNames = await caches.keys()
-
-        return Promise.all(
-            cacheNames.map(async (cacheName) => {
-                if (cacheName !== CACHE_NAME) {
-                    return await caches.delete(cacheName)
-                }
-            })
-        )
-    })
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cacheName) => {
+                    if (cacheName !== CACHE_NAME) {
+                        return caches.delete(cacheName)
+                    }
+                })
+            )
+        })
+    )
 })
 
 addEventListener('fetch', (event) => {
-    event.respondWith(async () => {
-        const cachedResponse = await caches.match(event.request)
+    event.respondWith(
+        caches.match(event.request).then((cachedResponse) => {
+            if (cachedResponse) return cachedResponse
 
-        if (cachedResponse) return cachedResponse
-
-        try {
-            return await fetch(event.request)
-        } catch (error) {
-            console.error('Failed to fetch:', error)
-            return new Response('Offline', { status: 503 })
-        }
-    })
+            return fetch(event.request)
+                .then((networkResponse) => {
+                    if (networkResponse && networkResponse.status === 200) {
+                        caches.open(CACHE_NAME).then((cache) => {
+                            cache.put(event.request, networkResponse.clone())
+                        })
+                    }
+                    return networkResponse
+                })
+                .catch((error) => {
+                    console.error('Failed to fetch:', error)
+                    return new Response('Offline', { status: 503 })
+                })
+        })
+    )
 })
