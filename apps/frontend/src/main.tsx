@@ -6,6 +6,16 @@ import { routeTree } from './routeTree.gen'
 import DefaultNotFound from './components/DefaultNotFound'
 import './index.css'
 
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', async () => {
+        try {
+            await navigator.serviceWorker.register('/service-worker.js')
+        } catch (error) {
+            console.error('Service Worker registration failed:', error)
+        }
+    })
+}
+
 const router = createRouter({
     defaultNotFoundComponent: DefaultNotFound,
     routeTree,
