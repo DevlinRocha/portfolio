@@ -6,6 +6,9 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react(), TanStackRouterVite()],
+    build: {
+        manifest: true,
+    },
     base: '/',
     resolve: {
         alias: {
