@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "tsc --build && vite build",
+        "build": "tsc --build && vite build && node scripts/generateAssetList.js",
         "typecheck": "tsc --build",
         "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
         "prettier": "prettier . --write",
