@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 importScripts('/asset-list.js')
 
-const CACHE_NAME = 'portfolio-cache-v1'
+const CACHE_NAME = 'devlin-frontend-v1'
 
 addEventListener('install', (event) => {
     event.waitUntil(
