@@ -73,3 +73,8 @@ The script will continue running even if errors occur. By default, errors will c
     ```bash
     pnpm build --typecheck-projects=packages/api --ignore-projects=apps/frontend
     ```
+
+## Development
+
+- [TypeScript](https://www.typescriptlang.org/)
+- [ESLint](https://eslint.org/)
