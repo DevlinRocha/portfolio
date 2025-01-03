@@ -39,10 +39,10 @@ jobs:
                   pnpm audit
 
             - name: Prettier
-              run: pnpm prettier . --write
+              run: pnpm prettier
 
             - name: Typecheck
-              run: pnpm tsc --build --verbose
+              run: pnpm typecheck --verbose && node scripts/build.js
 
             - name: Lint
               run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
