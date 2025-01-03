@@ -10,5 +10,5 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true
     },
-    "references": [{ "path": "./apps/frontend" }]
+    "references": [{ "path": "./packages/api" }, { "path": "./apps/frontend" }]
 }
