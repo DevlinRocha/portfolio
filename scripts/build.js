@@ -9,11 +9,20 @@ const flags = args.filter((arg) => arg.startsWith('--'))
 const projects = args.filter((arg) => !flags.includes(arg))
 const ignoreErrors = flags.includes('--ignore-errors')
 
-if (ignoreErrors) console.log('Ignoring errors...')
-
-const excludedProjects = ['packages/api'].map((project) =>
+const typecheckProjects = parseFlag('--typecheck-projects').map((project) =>
     resolve(join(cwd(), project))
 )
+
+const ignoreProjects = parseFlag('--ignore-projects').map((project) =>
+    resolve(join(cwd(), project))
+)
+
+if (ignoreErrors) console.log('Ignoring errors...')
+
+function parseFlag(flagName) {
+    const flag = flags.find((flag) => flag.startsWith(`${flagName}=`))
+    return flag ? flag.replace(`${flagName}=`, '').split(',') : []
+}
 
 function getProjects(directory) {
     const dirPath = join(resolve(), directory)
@@ -21,25 +30,37 @@ function getProjects(directory) {
 
     return readdirSync(dirPath)
         .map((project) => join(dirPath, project))
-        .filter(
-            (projectPath) =>
-                existsSync(join(projectPath, 'package.json')) &&
-                !excludedProjects.includes(projectPath)
-        )
+        .filter((projectPath) => existsSync(join(projectPath, 'package.json')))
 }
 
 function buildProject(projectPath) {
-    try {
-        console.log(`Building ${projectPath}...`)
-        execSync('pnpm run build', {
-            stdio: 'inherit',
-            cwd: projectPath,
-        })
-        console.log(`✅ Successfully built ${projectPath}`)
-    } catch (error) {
-        console.error(`❌ Error building ${projectPath}: ${error.message}`)
-        if (!ignoreErrors) {
-            exit(1)
+    if (ignoreProjects.includes(projectPath))
+        return console.log(`Skipping ${projectPath} (ignored)`)
+
+    const typecheckOnly = typecheckProjects.includes(projectPath)
+
+    if (!typecheckOnly) {
+        try {
+            console.log(`Building ${projectPath}...`)
+            execSync('pnpm build', { stdio: 'inherit', cwd: projectPath })
+            console.log(`✅ Successfully built ${projectPath}`)
+        } catch (error) {
+            console.error(`❌ Error building ${projectPath}: ${error.message}`)
+            if (!ignoreErrors) exit(1)
+        }
+    } else if (typecheckOnly) {
+        try {
+            console.log(`Typechecking ${projectPath}...`)
+            execSync('pnpm typecheck', {
+                stdio: 'inherit',
+                cwd: projectPath,
+            })
+            console.log(`✅ Successfully typechecked ${projectPath}`)
+        } catch (error) {
+            console.error(
+                `❌ Error typechecking ${projectPath}: ${error.message}`
+            )
+            if (!ignoreErrors) exit(1)
         }
     }
 }
@@ -59,9 +80,7 @@ if (projects.length === 0) {
             buildProject(projectPath)
         } else {
             console.error(`Project '${name}' not found.`)
-            if (!ignoreErrors) {
-                exit(1)
-            }
+            if (!ignoreErrors) exit(1)
         }
     })
 }
