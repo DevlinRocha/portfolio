@@ -3,12 +3,17 @@ logs
 *.log
 pnpm-debug.log*
 
+# Build
 node_modules
 dist
 dist-ssr
 *.local
+*.tsbuildinfo
 
-# Editor directories and files
+# Environment
+*.env
+
+# Editor
 .vscode/*
 !.vscode/extensions.json
 .idea

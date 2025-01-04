@@ -1,0 +1,21 @@
+{
+    "name": "@portfolio/api",
+    "version": "1.0.0",
+    "scripts": {
+        "typecheck": "tsc --build",
+        "push": "pnpm exec drizzle-kit push",
+        "generate": "pnpm exec drizzle-kit generate",
+        "migrate": "pnpm exec drizzle-kit migrate",
+        "studio": "pnpm drizzle-kit studio"
+    },
+    "dependencies": {
+        "dotenv": "^16.4.7",
+        "drizzle-orm": "^0.38.3",
+        "pg": "^8.13.1"
+    },
+    "devDependencies": {
+        "@types/pg": "^8.11.10",
+        "drizzle-kit": "^0.30.1",
+        "tsx": "^4.19.2"
+    }
+}

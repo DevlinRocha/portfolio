@@ -9,7 +9,6 @@ export default defineConfig({
     build: {
         manifest: true,
     },
-    base: '/',
     resolve: {
         alias: {
             '@': path.resolve(__dirname, 'src'),

@@ -1,7 +1,14 @@
 {
-    "files": [],
-    "references": [
-        { "path": "./tsconfig.app.json" },
-        { "path": "./tsconfig.node.json" }
-    ]
+    "include": ["*.ts", "*.tsx"],
+    "compilerOptions": {
+        "skipLibCheck": true,
+
+        /** Linting */
+        "strict": true,
+        "allowJs": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true
+    },
+    "references": [{ "path": "./packages/api" }, { "path": "./apps/frontend" }]
 }
