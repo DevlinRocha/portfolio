@@ -1,11 +1,11 @@
 import 'dotenv/config'
 import { drizzle } from 'drizzle-orm/node-postgres'
 import * as schema from './db/schema'
-import { InferSelectModel, eq } from 'drizzle-orm'
+import { eq, InferSelectModel } from 'drizzle-orm'
 
 type Post = InferSelectModel<typeof schema.posts>
 
-type PostWithRelations = Partial<Post> & {
+type CreatePostArgs = Partial<Post> & {
     categories?: string[]
     tags?: string[]
 }
@@ -18,9 +18,13 @@ const db = drizzle({
     casing: 'snake_case',
 })
 
-export async function createPost(data: PostWithRelations) {
-    const { title, content, categories = [], tags = [], ...rest } = data
-
+export async function createPost({
+    title,
+    content,
+    categories = [],
+    tags = [],
+    ...additionalFields
+}: CreatePostArgs) {
     if (!title || !content) {
         throw new Error('Missing title and/or content')
     }
@@ -31,7 +35,7 @@ export async function createPost(data: PostWithRelations) {
             .values({
                 title,
                 content,
-                ...rest,
+                ...additionalFields,
             })
             .returning({ id: schema.posts.id })
 
