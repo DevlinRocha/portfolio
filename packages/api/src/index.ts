@@ -10,6 +10,17 @@ type CreatePostArgs = Partial<Post> & {
     tags?: string[]
 }
 
+type GetPostsArgs = {
+    id?: number
+    title?: string
+    content?: string
+    withRelations?: true
+    categories?: true
+    tags?: true
+    limit?: number
+    offset?: number
+}
+
 const db = drizzle({
     connection: {
         connectionString: process.env.DATABASE_URL,
@@ -100,6 +111,34 @@ export async function createPost({
         }
 
         return newPost
+    })
+
+    return result
+}
+
+export async function getPosts({
+    id,
+    title,
+    content,
+    withRelations,
+    categories,
+    tags,
+    limit = 10,
+    offset,
+}: GetPostsArgs) {
+    const result = await db.query.posts.findMany({
+        where: (posts, { eq, ilike, and }) => {
+            const conditions = []
+            if (id) conditions.push(eq(posts.id, id))
+            if (title) conditions.push(ilike(posts.title, `%${title}%`))
+            if (content) conditions.push(ilike(posts.content, `%${content}%`))
+            return and(...conditions)
+        },
+        with: withRelations
+            ? { postsToCategories: true, postsToTags: true }
+            : { postsToCategories: categories, postsToTags: tags },
+        limit,
+        offset,
     })
 
     return result
