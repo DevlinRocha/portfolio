@@ -42,83 +42,89 @@ export async function createPost({
     ...additionalFields
 }: CreatePostArgs) {
     if (!title || !content) {
+        console.error('Missing title and/or content')
         throw new Error('Missing title and/or content')
     }
 
-    const result = await db.transaction(async (tx) => {
-        const [newPost] = await tx
-            .insert(schema.posts)
-            .values({
-                title,
-                content,
-                ...additionalFields,
-            })
-            .returning({ id: schema.posts.id })
-
-        const postId = newPost.id
-
-        if (categories.length > 0) {
-            const categoryIds = await Promise.all(
-                categories.map(async (categoryName) => {
-                    const [category] = await tx
-                        .select({ id: schema.categories.id })
-                        .from(schema.categories)
-                        .where(eq(schema.categories.name, categoryName))
-
-                    if (category) {
-                        return category.id
-                    }
-
-                    const [newCategory] = await tx
-                        .insert(schema.categories)
-                        .values({ name: categoryName })
-                        .returning({ id: schema.categories.id })
-
-                    return newCategory.id
+    try {
+        const result = await db.transaction(async (tx) => {
+            const [newPost] = await tx
+                .insert(schema.posts)
+                .values({
+                    title,
+                    content,
+                    ...additionalFields,
                 })
-            )
+                .returning({ id: schema.posts.id })
 
-            await tx.insert(schema.postsToCategories).values(
-                categoryIds.map((categoryId) => ({
-                    postId,
-                    categoryId,
-                }))
-            )
-        }
+            const postId = newPost.id
 
-        if (tags.length > 0) {
-            const tagIds = await Promise.all(
-                tags.map(async (tagName) => {
-                    const [tag] = await tx
-                        .select({ id: schema.tags.id })
-                        .from(schema.tags)
-                        .where(eq(schema.tags.name, tagName))
+            if (categories.length > 0) {
+                const categoryIds = await Promise.all(
+                    categories.map(async (categoryName) => {
+                        const [category] = await tx
+                            .select({ id: schema.categories.id })
+                            .from(schema.categories)
+                            .where(eq(schema.categories.name, categoryName))
 
-                    if (tag) {
-                        return tag.id
-                    }
+                        if (category) {
+                            return category.id
+                        }
 
-                    const [newTag] = await tx
-                        .insert(schema.tags)
-                        .values({ name: tagName })
-                        .returning({ id: schema.tags.id })
+                        const [newCategory] = await tx
+                            .insert(schema.categories)
+                            .values({ name: categoryName })
+                            .returning({ id: schema.categories.id })
 
-                    return newTag.id
-                })
-            )
+                        return newCategory.id
+                    })
+                )
 
-            await tx.insert(schema.postsToTags).values(
-                tagIds.map((tagId) => ({
-                    postId,
-                    tagId,
-                }))
-            )
-        }
+                await tx.insert(schema.postsToCategories).values(
+                    categoryIds.map((categoryId) => ({
+                        postId,
+                        categoryId,
+                    }))
+                )
+            }
 
-        return newPost
-    })
+            if (tags.length > 0) {
+                const tagIds = await Promise.all(
+                    tags.map(async (tagName) => {
+                        const [tag] = await tx
+                            .select({ id: schema.tags.id })
+                            .from(schema.tags)
+                            .where(eq(schema.tags.name, tagName))
 
-    return result
+                        if (tag) {
+                            return tag.id
+                        }
+
+                        const [newTag] = await tx
+                            .insert(schema.tags)
+                            .values({ name: tagName })
+                            .returning({ id: schema.tags.id })
+
+                        return newTag.id
+                    })
+                )
+
+                await tx.insert(schema.postsToTags).values(
+                    tagIds.map((tagId) => ({
+                        postId,
+                        tagId,
+                    }))
+                )
+            }
+
+            return newPost
+        })
+
+        return result
+    } catch (error) {
+        console.log('Failed to create post', { error })
+        throw new Error('Failed to create post')
+    }
 }
 
 export async function getPosts({
@@ -131,22 +137,28 @@ export async function getPosts({
     limit = 10,
     offset,
 }: GetPostsArgs = {}) {
-    const result = await db.query.posts.findMany({
-        where: (posts, { eq, ilike, and }) => {
-            const conditions = []
-            if (id) conditions.push(eq(posts.id, id))
-            if (title) conditions.push(ilike(posts.title, `%${title}%`))
-            if (content) conditions.push(ilike(posts.content, `%${content}%`))
-            return and(...conditions)
-        },
-        with: withRelations
-            ? { postsToCategories: true, postsToTags: true }
-            : { postsToCategories: categories, postsToTags: tags },
-        limit,
-        offset,
-    })
+    try {
+        const result = await db.query.posts.findMany({
+            where: (posts, { eq, ilike, and }) => {
+                const conditions = []
+                if (id) conditions.push(eq(posts.id, id))
+                if (title) conditions.push(ilike(posts.title, `%${title}%`))
+                if (content)
+                    conditions.push(ilike(posts.content, `%${content}%`))
+                return and(...conditions)
+            },
+            with: withRelations
+                ? { postsToCategories: true, postsToTags: true }
+                : { postsToCategories: categories, postsToTags: tags },
+            limit,
+            offset,
+        })
 
-    return result
+        return result
+    } catch (error) {
+        console.error('Failed to get post(s)', { error })
+        throw new Error('Failed to get post(s)')
+    }
 }
 
 export async function updatePost({ id, data }: UpdatePostArgs) {
