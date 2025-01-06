@@ -21,6 +21,11 @@ type GetPostsArgs = {
     offset?: number
 }
 
+type UpdatePostArgs = {
+    id: number
+    data: CreatePostArgs
+}
+
 const db = drizzle({
     connection: {
         connectionString: process.env.DATABASE_URL,
@@ -142,4 +147,16 @@ export async function getPosts({
     })
 
     return result
+}
+
+export async function updatePost({ id, data }: UpdatePostArgs) {
+    try {
+        return await db
+            .update(schema.posts)
+            .set({ title: data.title })
+            .where(eq(schema.posts.id, id))
+    } catch (error) {
+        console.error('Failed to update post', { error })
+        throw new Error('Failed to update post')
+    }
 }
