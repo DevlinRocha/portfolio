@@ -125,7 +125,7 @@ export async function getPosts({
     tags,
     limit = 10,
     offset,
-}: GetPostsArgs) {
+}: GetPostsArgs = {}) {
     const result = await db.query.posts.findMany({
         where: (posts, { eq, ilike, and }) => {
             const conditions = []
