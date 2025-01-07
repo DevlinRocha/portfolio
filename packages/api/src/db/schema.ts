@@ -1,5 +1,12 @@
 import { relations } from 'drizzle-orm'
-import { pgTable, integer, text, boolean, timestamp } from 'drizzle-orm/pg-core'
+import {
+    boolean,
+    foreignKey,
+    integer,
+    pgTable,
+    text,
+    timestamp,
+} from 'drizzle-orm/pg-core'
 
 export const posts = pgTable('posts', {
     id: integer().primaryKey().generatedByDefaultAsIdentity(),
@@ -36,7 +43,20 @@ export const postsToCategories = pgTable(
             .notNull()
             .references(() => categories.id),
     },
-    (table) => [table.postId, table.categoryId]
+    (table) => [
+        foreignKey({
+            columns: [table.postId],
+            foreignColumns: [posts.id],
+        })
+            .onUpdate('cascade')
+            .onDelete('cascade'),
+        foreignKey({
+            columns: [table.categoryId],
+            foreignColumns: [categories.id],
+        })
+            .onUpdate('cascade')
+            .onDelete('cascade'),
+    ]
 )
 
 export const postsToCategoriesRelations = relations(
@@ -73,7 +93,20 @@ export const postsToTags = pgTable(
             .notNull()
             .references(() => tags.id),
     },
-    (table) => [table.postId, table.tagId]
+    (table) => [
+        foreignKey({
+            columns: [table.postId],
+            foreignColumns: [posts.id],
+        })
+            .onUpdate('cascade')
+            .onDelete('cascade'),
+        foreignKey({
+            columns: [table.tagId],
+            foreignColumns: [tags.id],
+        })
+            .onUpdate('cascade')
+            .onDelete('cascade'),
+    ]
 )
 
 export const postsToTagsRelations = relations(postsToTags, ({ one }) => ({
@@ -97,7 +130,20 @@ export const tagsToCategories = pgTable(
             .notNull()
             .references(() => categories.id),
     },
-    (table) => [table.tagId, table.categoryId]
+    (table) => [
+        foreignKey({
+            columns: [table.categoryId],
+            foreignColumns: [categories.id],
+        })
+            .onUpdate('cascade')
+            .onDelete('cascade'),
+        foreignKey({
+            columns: [table.tagId],
+            foreignColumns: [tags.id],
+        })
+            .onUpdate('cascade')
+            .onDelete('cascade'),
+    ]
 )
 
 export const tagsToCategoriesRelations = relations(
