@@ -1,8 +1,9 @@
 import 'dotenv/config'
 import { drizzle } from 'drizzle-orm/node-postgres'
 import * as schema from './db/schema'
-import { eq, InferSelectModel } from 'drizzle-orm'
+import { eq, inArray, InferSelectModel } from 'drizzle-orm'
 
+type Models = keyof Pick<typeof schema, 'posts' | 'categories' | 'tags'>
 type Post = InferSelectModel<typeof schema.posts>
 
 type CreatePostArgs = Partial<Post> & {
@@ -170,5 +171,16 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
     } catch (error) {
         console.error('Failed to update post', { error })
         throw new Error('Failed to update post')
+    }
+}
+
+export async function deleteRecords(table: Models, ids: number[]) {
+    const model = schema[table]
+
+    try {
+        return await db.delete(model).where(inArray(model.id, ids))
+    } catch (error) {
+        console.error('Failed to delete post(s)', { error })
+        throw new Error('Failed to delete post(s)')
     }
 }
