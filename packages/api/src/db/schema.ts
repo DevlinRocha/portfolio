@@ -1,12 +1,5 @@
 import { relations } from 'drizzle-orm'
-import {
-    boolean,
-    foreignKey,
-    integer,
-    pgTable,
-    text,
-    timestamp,
-} from 'drizzle-orm/pg-core'
+import { boolean, integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
 export const posts = pgTable('posts', {
     id: integer().primaryKey().generatedByDefaultAsIdentity(),
@@ -38,25 +31,18 @@ export const postsToCategories = pgTable(
     {
         postId: integer()
             .notNull()
-            .references(() => posts.id),
+            .references(() => posts.id, {
+                onUpdate: 'cascade',
+                onDelete: 'cascade',
+            }),
         categoryId: integer()
             .notNull()
-            .references(() => categories.id),
+            .references(() => categories.id, {
+                onUpdate: 'cascade',
+                onDelete: 'cascade',
+            }),
     },
-    (table) => [
-        foreignKey({
-            columns: [table.postId],
-            foreignColumns: [posts.id],
-        })
-            .onUpdate('cascade')
-            .onDelete('cascade'),
-        foreignKey({
-            columns: [table.categoryId],
-            foreignColumns: [categories.id],
-        })
-            .onUpdate('cascade')
-            .onDelete('cascade'),
-    ]
+    (table) => [table.postId, table.categoryId]
 )
 
 export const postsToCategoriesRelations = relations(
@@ -88,25 +74,18 @@ export const postsToTags = pgTable(
     {
         postId: integer()
             .notNull()
-            .references(() => posts.id),
+            .references(() => posts.id, {
+                onUpdate: 'cascade',
+                onDelete: 'cascade',
+            }),
         tagId: integer()
             .notNull()
-            .references(() => tags.id),
+            .references(() => tags.id, {
+                onUpdate: 'cascade',
+                onDelete: 'cascade',
+            }),
     },
-    (table) => [
-        foreignKey({
-            columns: [table.postId],
-            foreignColumns: [posts.id],
-        })
-            .onUpdate('cascade')
-            .onDelete('cascade'),
-        foreignKey({
-            columns: [table.tagId],
-            foreignColumns: [tags.id],
-        })
-            .onUpdate('cascade')
-            .onDelete('cascade'),
-    ]
+    (table) => [table.postId, table.tagId]
 )
 
 export const postsToTagsRelations = relations(postsToTags, ({ one }) => ({
@@ -130,20 +109,7 @@ export const tagsToCategories = pgTable(
             .notNull()
             .references(() => categories.id),
     },
-    (table) => [
-        foreignKey({
-            columns: [table.categoryId],
-            foreignColumns: [categories.id],
-        })
-            .onUpdate('cascade')
-            .onDelete('cascade'),
-        foreignKey({
-            columns: [table.tagId],
-            foreignColumns: [tags.id],
-        })
-            .onUpdate('cascade')
-            .onDelete('cascade'),
-    ]
+    (table) => [table.tagId, table.categoryId]
 )
 
 export const tagsToCategoriesRelations = relations(
