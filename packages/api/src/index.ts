@@ -123,7 +123,7 @@ export async function createPost({
 
         return result
     } catch (error) {
-        console.log('Failed to create post', { error })
+        console.error('Failed to create post', { error })
         throw new Error('Failed to create post')
     }
 }
