@@ -164,10 +164,65 @@ export async function getPosts({
 
 export async function updatePost({ id, data }: UpdatePostArgs) {
     try {
-        return await db
-            .update(schema.posts)
-            .set({ title: data.title })
-            .where(eq(schema.posts.id, id))
+        const { categories, tags, ...additionalFields } = data
+        const postsSchema = schema.posts
+
+        if (!categories && !tags)
+            return await db
+                .update(postsSchema)
+                .set({ ...additionalFields })
+                .where(eq(postsSchema.id, id))
+
+        return await db.transaction(async (tx) => {
+            if (categories && categories.length > 0) {
+                const allCategories = await tx.query.categories.findMany({
+                    where: (table, { inArray }) =>
+                        inArray(table.name, categories),
+                })
+
+                const notFoundCategories = categories.filter(
+                    (category) =>
+                        !new Set(
+                            allCategories.map((category) => category.name)
+                        ).has(category)
+                )
+
+                if (notFoundCategories && notFoundCategories.length > 0) {
+                    allCategories.push(
+                        ...(await tx
+                            .insert(schema.categories)
+                            .values(
+                                notFoundCategories.map((name) => ({ name }))
+                            )
+                            .returning({
+                                id: schema.categories.id,
+                                name: schema.categories.name,
+                            }))
+                    )
+                }
+
+                await tx.insert(schema.postsToCategories).values(
+                    allCategories.map((category) => ({
+                        postId: id,
+                        categoryId: category.id,
+                    }))
+                )
+
+                await tx
+                    .update(postsSchema)
+                    .set({
+                        ...additionalFields,
+                        ...allCategories,
+                    })
+                    .where(eq(postsSchema.id, id))
+            }
+
+            if (tags) {
+                return
+            }
+
+            return await tx.update(postsSchema).set({ ...additionalFields })
+        })
     } catch (error) {
         console.error('Failed to update post', { error })
         throw new Error('Failed to update post')
