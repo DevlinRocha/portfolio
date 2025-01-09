@@ -217,8 +217,41 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                     .where(eq(postsSchema.id, id))
             }
 
-            if (tags) {
-                return
+            if (tags && tags.length > 0) {
+                const allTags = await tx.query.tags.findMany({
+                    where: (table, { inArray }) => inArray(table.name, tags),
+                })
+
+                const notFoundTags = tags.filter(
+                    (tag) => !new Set(allTags.map((tag) => tag.name)).has(tag)
+                )
+
+                if (notFoundTags && notFoundTags.length > 0) {
+                    allTags.push(
+                        ...(await tx
+                            .insert(schema.tags)
+                            .values(notFoundTags.map((name) => ({ name })))
+                            .returning({
+                                id: schema.tags.id,
+                                name: schema.tags.name,
+                            }))
+                    )
+                }
+
+                await tx.insert(schema.postsToTags).values(
+                    allTags.map((tag) => ({
+                        postId: id,
+                        tagId: tag.id,
+                    }))
+                )
+
+                await tx
+                    .update(postsSchema)
+                    .set({
+                        ...additionalFields,
+                        ...allTags,
+                    })
+                    .where(eq(postsSchema.id, id))
             }
 
             return await tx.update(postsSchema).set({ ...additionalFields })
