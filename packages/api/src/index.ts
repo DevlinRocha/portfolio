@@ -5,6 +5,8 @@ import { eq, inArray, InferSelectModel } from 'drizzle-orm'
 
 type Models = keyof Pick<typeof schema, 'posts' | 'categories' | 'tags'>
 type Post = InferSelectModel<typeof schema.posts>
+type Category = InferSelectModel<typeof schema.categories>
+type Tag = InferSelectModel<typeof schema.tags>
 
 type CreatePostArgs = Partial<Post> & {
     categories?: string[]
@@ -165,20 +167,22 @@ export async function getPosts({
 export async function updatePost({ id, data }: UpdatePostArgs) {
     try {
         const { categories, tags, ...additionalFields } = data
-        const postsSchema = schema.posts
 
         if (!categories && !tags)
             return await db
-                .update(postsSchema)
+                .update(schema.posts)
                 .set({ ...additionalFields })
-                .where(eq(postsSchema.id, id))
+                .where(eq(schema.posts.id, id))
 
         return await db.transaction(async (tx) => {
+            const allCategories: Category[] = []
             if (categories && categories.length > 0) {
-                const allCategories = await tx.query.categories.findMany({
-                    where: (table, { inArray }) =>
-                        inArray(table.name, categories),
-                })
+                allCategories.push(
+                    ...(await tx.query.categories.findMany({
+                        where: (table, { inArray }) =>
+                            inArray(table.name, categories),
+                    }))
+                )
 
                 const notFoundCategories = categories.filter(
                     (category) =>
@@ -207,20 +211,16 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                         categoryId: category.id,
                     }))
                 )
-
-                await tx
-                    .update(postsSchema)
-                    .set({
-                        ...additionalFields,
-                        ...allCategories,
-                    })
-                    .where(eq(postsSchema.id, id))
             }
 
+            const allTags: Tag[] = []
             if (tags && tags.length > 0) {
-                const allTags = await tx.query.tags.findMany({
-                    where: (table, { inArray }) => inArray(table.name, tags),
-                })
+                allTags.push(
+                    ...(await tx.query.tags.findMany({
+                        where: (table, { inArray }) =>
+                            inArray(table.name, tags),
+                    }))
+                )
 
                 const notFoundTags = tags.filter(
                     (tag) => !new Set(allTags.map((tag) => tag.name)).has(tag)
@@ -244,17 +244,50 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                         tagId: tag.id,
                     }))
                 )
-
-                await tx
-                    .update(postsSchema)
-                    .set({
-                        ...additionalFields,
-                        ...allTags,
-                    })
-                    .where(eq(postsSchema.id, id))
             }
 
-            return await tx.update(postsSchema).set({ ...additionalFields })
+            const existingTagCategoryLinks = await tx
+                .select({
+                    tagId: schema.tagsToCategories.tagId,
+                    categoryId: schema.tagsToCategories.categoryId,
+                })
+                .from(schema.tagsToCategories)
+                .where(
+                    inArray(
+                        schema.tagsToCategories.tagId,
+                        allTags.map((tag) => tag.id)
+                    )
+                )
+
+            const existingLinksSet = new Set(
+                existingTagCategoryLinks.map(
+                    (link) => `${link.tagId}-${link.categoryId}`
+                )
+            )
+
+            const newTagCategoryLinks = []
+            for (const tag of allTags) {
+                for (const category of allCategories) {
+                    const linkKey = `${tag.id}-${category.id}`
+                    if (!existingLinksSet.has(linkKey)) {
+                        newTagCategoryLinks.push({
+                            tagId: tag.id,
+                            categoryId: category.id,
+                        })
+                    }
+                }
+            }
+
+            if (newTagCategoryLinks.length > 0) {
+                await tx
+                    .insert(schema.tagsToCategories)
+                    .values(newTagCategoryLinks)
+            }
+
+            return await tx
+                .update(schema.posts)
+                .set({ ...additionalFields })
+                .where(eq(schema.posts.id, id))
         })
     } catch (error) {
         console.error('Failed to update post', { error })
