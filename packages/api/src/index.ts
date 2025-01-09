@@ -168,14 +168,45 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
     try {
         const { categories, tags, ...additionalFields } = data
 
-        if (!categories && !tags)
+        if (!categories && !tags) {
             return await db
                 .update(schema.posts)
                 .set({ ...additionalFields })
                 .where(eq(schema.posts.id, id))
+        }
 
         return await db.transaction(async (tx) => {
             const allCategories: Category[] = []
+            const allTags: Tag[] = []
+
+            if (categories) {
+                await tx
+                    .delete(schema.postsToCategories)
+                    .where(eq(schema.postsToCategories.postId, id))
+            }
+
+            if (tags) {
+                await tx
+                    .delete(schema.postsToTags)
+                    .where(eq(schema.postsToTags.postId, id))
+            }
+
+            if (categories && tags) {
+                const tagIds = await tx
+                    .select({ tagId: schema.postsToTags.tagId })
+                    .from(schema.postsToTags)
+                    .where(eq(schema.postsToTags.postId, id))
+
+                if (tagIds.length > 0) {
+                    await tx.delete(schema.tagsToCategories).where(
+                        inArray(
+                            schema.tagsToCategories.tagId,
+                            tagIds.map((t) => t.tagId)
+                        )
+                    )
+                }
+            }
+
             if (categories && categories.length > 0) {
                 allCategories.push(
                     ...(await tx.query.categories.findMany({
@@ -191,7 +222,7 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                         ).has(category)
                 )
 
-                if (notFoundCategories && notFoundCategories.length > 0) {
+                if (notFoundCategories.length > 0) {
                     allCategories.push(
                         ...(await tx
                             .insert(schema.categories)
@@ -213,7 +244,6 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                 )
             }
 
-            const allTags: Tag[] = []
             if (tags && tags.length > 0) {
                 allTags.push(
                     ...(await tx.query.tags.findMany({
@@ -226,7 +256,7 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                     (tag) => !new Set(allTags.map((tag) => tag.name)).has(tag)
                 )
 
-                if (notFoundTags && notFoundTags.length > 0) {
+                if (notFoundTags.length > 0) {
                     allTags.push(
                         ...(await tx
                             .insert(schema.tags)
@@ -246,42 +276,44 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                 )
             }
 
-            const existingTagCategoryLinks = await tx
-                .select({
-                    tagId: schema.tagsToCategories.tagId,
-                    categoryId: schema.tagsToCategories.categoryId,
-                })
-                .from(schema.tagsToCategories)
-                .where(
-                    inArray(
-                        schema.tagsToCategories.tagId,
-                        allTags.map((tag) => tag.id)
+            if (allCategories.length > 0 && allTags.length > 0) {
+                const existingTagCategoryLinks = await tx
+                    .select({
+                        tagId: schema.tagsToCategories.tagId,
+                        categoryId: schema.tagsToCategories.categoryId,
+                    })
+                    .from(schema.tagsToCategories)
+                    .where(
+                        inArray(
+                            schema.tagsToCategories.tagId,
+                            allTags.map((tag) => tag.id)
+                        )
+                    )
+
+                const existingLinksSet = new Set(
+                    existingTagCategoryLinks.map(
+                        (link) => `${link.tagId}-${link.categoryId}`
                     )
                 )
 
-            const existingLinksSet = new Set(
-                existingTagCategoryLinks.map(
-                    (link) => `${link.tagId}-${link.categoryId}`
-                )
-            )
-
-            const newTagCategoryLinks = []
-            for (const tag of allTags) {
-                for (const category of allCategories) {
-                    const linkKey = `${tag.id}-${category.id}`
-                    if (!existingLinksSet.has(linkKey)) {
-                        newTagCategoryLinks.push({
-                            tagId: tag.id,
-                            categoryId: category.id,
-                        })
+                const newTagCategoryLinks = []
+                for (const tag of allTags) {
+                    for (const category of allCategories) {
+                        const linkKey = `${tag.id}-${category.id}`
+                        if (!existingLinksSet.has(linkKey)) {
+                            newTagCategoryLinks.push({
+                                tagId: tag.id,
+                                categoryId: category.id,
+                            })
+                        }
                     }
                 }
-            }
 
-            if (newTagCategoryLinks.length > 0) {
-                await tx
-                    .insert(schema.tagsToCategories)
-                    .values(newTagCategoryLinks)
+                if (newTagCategoryLinks.length > 0) {
+                    await tx
+                        .insert(schema.tagsToCategories)
+                        .values(newTagCategoryLinks)
+                }
             }
 
             return await tx
