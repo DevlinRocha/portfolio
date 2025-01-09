@@ -62,26 +62,25 @@ export async function createPost({
 
             const postId = newPost.id
 
+            const categoryIds: number[] = []
             if (categories.length > 0) {
-                const categoryIds = await Promise.all(
-                    categories.map(async (categoryName) => {
-                        const [category] = await tx
-                            .select({ id: schema.categories.id })
-                            .from(schema.categories)
-                            .where(eq(schema.categories.name, categoryName))
+                for (const categoryName of categories) {
+                    const [category] = await tx
+                        .select({ id: schema.categories.id })
+                        .from(schema.categories)
+                        .where(eq(schema.categories.name, categoryName))
 
-                        if (category) {
-                            return category.id
-                        }
-
+                    if (category) {
+                        categoryIds.push(category.id)
+                    } else {
                         const [newCategory] = await tx
                             .insert(schema.categories)
                             .values({ name: categoryName })
                             .returning({ id: schema.categories.id })
 
-                        return newCategory.id
-                    })
-                )
+                        categoryIds.push(newCategory.id)
+                    }
+                }
 
                 await tx.insert(schema.postsToCategories).values(
                     categoryIds.map((categoryId) => ({
@@ -91,26 +90,25 @@ export async function createPost({
                 )
             }
 
+            const tagIds: number[] = []
             if (tags.length > 0) {
-                const tagIds = await Promise.all(
-                    tags.map(async (tagName) => {
-                        const [tag] = await tx
-                            .select({ id: schema.tags.id })
-                            .from(schema.tags)
-                            .where(eq(schema.tags.name, tagName))
+                for (const tagName of tags) {
+                    const [tag] = await tx
+                        .select({ id: schema.tags.id })
+                        .from(schema.tags)
+                        .where(eq(schema.tags.name, tagName))
 
-                        if (tag) {
-                            return tag.id
-                        }
-
+                    if (tag) {
+                        tagIds.push(tag.id)
+                    } else {
                         const [newTag] = await tx
                             .insert(schema.tags)
                             .values({ name: tagName })
                             .returning({ id: schema.tags.id })
 
-                        return newTag.id
-                    })
-                )
+                        tagIds.push(newTag.id)
+                    }
+                }
 
                 await tx.insert(schema.postsToTags).values(
                     tagIds.map((tagId) => ({
@@ -118,6 +116,36 @@ export async function createPost({
                         tagId,
                     }))
                 )
+            }
+
+            if (tags.length > 0 && categories.length > 0) {
+                const existingLinks = await tx
+                    .select({
+                        tagId: schema.tagsToCategories.tagId,
+                        categoryId: schema.tagsToCategories.categoryId,
+                    })
+                    .from(schema.tagsToCategories)
+                    .where(inArray(schema.tagsToCategories.tagId, tagIds))
+
+                const existingLinksSet = new Set(
+                    existingLinks.map(
+                        (link) => `${link.tagId}-${link.categoryId}`
+                    )
+                )
+
+                const newLinks = []
+                for (const tagId of tagIds) {
+                    for (const categoryId of categoryIds) {
+                        const linkKey = `${tagId}-${categoryId}`
+                        if (!existingLinksSet.has(linkKey)) {
+                            newLinks.push({ tagId, categoryId })
+                        }
+                    }
+                }
+
+                if (newLinks.length > 0) {
+                    await tx.insert(schema.tagsToCategories).values(newLinks)
+                }
             }
 
             return newPost
