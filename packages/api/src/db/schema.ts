@@ -104,10 +104,16 @@ export const tagsToCategories = pgTable(
     {
         tagId: integer()
             .notNull()
-            .references(() => tags.id),
+            .references(() => tags.id, {
+                onUpdate: 'cascade',
+                onDelete: 'cascade',
+            }),
         categoryId: integer()
             .notNull()
-            .references(() => categories.id),
+            .references(() => categories.id, {
+                onUpdate: 'cascade',
+                onDelete: 'cascade',
+            }),
     },
     (table) => [table.tagId, table.categoryId]
 )
