@@ -1,12 +1,24 @@
 import 'dotenv/config'
-import { drizzle } from 'drizzle-orm/node-postgres'
+import { drizzle, NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
 import * as schema from './db/schema'
-import { eq, inArray, InferSelectModel } from 'drizzle-orm'
+import {
+    eq,
+    ExtractTablesWithRelations,
+    inArray,
+    InferSelectModel,
+} from 'drizzle-orm'
+import { PgTransaction } from 'drizzle-orm/pg-core'
 
 type Models = keyof Pick<typeof schema, 'posts' | 'categories' | 'tags'>
 type Post = InferSelectModel<typeof schema.posts>
 type Category = InferSelectModel<typeof schema.categories>
 type Tag = InferSelectModel<typeof schema.tags>
+
+type LinkField = {
+    postId: number
+    categoryId?: number
+    tagId?: number
+}
 
 type CreatePostArgs = Partial<Post> & {
     categories?: string[]
@@ -37,6 +49,51 @@ const db = drizzle({
     casing: 'snake_case',
 })
 
+async function findOrCreateEntities<T extends { id: number; name: string }>(
+    tx: PgTransaction<
+        NodePgQueryResultHKT,
+        typeof schema,
+        ExtractTablesWithRelations<typeof schema>
+    >,
+    entityTable: typeof schema.categories | typeof schema.tags,
+    names: string[]
+): Promise<T[]> {
+    const existingEntities = await tx
+        .select({ id: entityTable.id, name: entityTable.name })
+        .from(entityTable)
+        .where(inArray(entityTable.name, names))
+
+    const existingEntityNames = new Set(existingEntities.map((e) => e.name))
+
+    const newEntityNames = names.filter(
+        (name) => !existingEntityNames.has(name)
+    )
+    if (newEntityNames.length === 0) return existingEntities as T[]
+
+    const newEntities = await tx
+        .insert(entityTable)
+        .values(newEntityNames.map((name) => ({ name })))
+        .returning({ id: entityTable.id, name: entityTable.name })
+
+    return [...existingEntities, ...newEntities] as T[]
+}
+
+async function linkPostToEntities(
+    tx: PgTransaction<
+        NodePgQueryResultHKT,
+        typeof schema,
+        ExtractTablesWithRelations<typeof schema>
+    >,
+    linkFields: LinkField[],
+    table: typeof schema.postsToCategories | typeof schema.postsToTags
+) {
+    if (!linkFields || linkFields.length === 0) {
+        throw new Error('linkFields cannot be empty')
+    }
+
+    await tx.insert(table).values(linkFields)
+}
+
 export async function createPost({
     title,
     content,
@@ -50,108 +107,64 @@ export async function createPost({
     }
 
     try {
-        const result = await db.transaction(async (tx) => {
+        return await db.transaction(async (tx) => {
             const [newPost] = await tx
                 .insert(schema.posts)
-                .values({
-                    title,
-                    content,
-                    ...additionalFields,
-                })
+                .values({ title, content, ...additionalFields })
                 .returning({ id: schema.posts.id })
 
             const postId = newPost.id
 
-            const categoryIds: number[] = []
+            const categoryEntities: Category[] = []
+            const tagEntities: Tag[] = []
+
             if (categories.length > 0) {
-                for (const categoryName of categories) {
-                    const [category] = await tx
-                        .select({ id: schema.categories.id })
-                        .from(schema.categories)
-                        .where(eq(schema.categories.name, categoryName))
-
-                    if (category) {
-                        categoryIds.push(category.id)
-                    } else {
-                        const [newCategory] = await tx
-                            .insert(schema.categories)
-                            .values({ name: categoryName })
-                            .returning({ id: schema.categories.id })
-
-                        categoryIds.push(newCategory.id)
-                    }
-                }
-
-                await tx.insert(schema.postsToCategories).values(
-                    categoryIds.map((categoryId) => ({
+                categoryEntities.push(
+                    ...(await findOrCreateEntities(
+                        tx,
+                        schema.categories,
+                        categories
+                    ))
+                )
+                await linkPostToEntities(
+                    tx,
+                    categoryEntities.map((category) => ({
                         postId,
-                        categoryId,
-                    }))
+                        categoryId: category.id,
+                    })),
+                    schema.postsToCategories
                 )
             }
 
-            const tagIds: number[] = []
             if (tags.length > 0) {
-                for (const tagName of tags) {
-                    const [tag] = await tx
-                        .select({ id: schema.tags.id })
-                        .from(schema.tags)
-                        .where(eq(schema.tags.name, tagName))
-
-                    if (tag) {
-                        tagIds.push(tag.id)
-                    } else {
-                        const [newTag] = await tx
-                            .insert(schema.tags)
-                            .values({ name: tagName })
-                            .returning({ id: schema.tags.id })
-
-                        tagIds.push(newTag.id)
-                    }
-                }
-
-                await tx.insert(schema.postsToTags).values(
-                    tagIds.map((tagId) => ({
+                tagEntities.push(
+                    ...(await findOrCreateEntities(tx, schema.tags, tags))
+                )
+                await linkPostToEntities(
+                    tx,
+                    tagEntities.map((tag) => ({
                         postId,
-                        tagId,
-                    }))
+                        tagId: tag.id,
+                    })),
+                    schema.postsToTags
                 )
             }
 
-            if (tags.length > 0 && categories.length > 0) {
-                const existingLinks = await tx
-                    .select({
-                        tagId: schema.tagsToCategories.tagId,
-                        categoryId: schema.tagsToCategories.categoryId,
-                    })
-                    .from(schema.tagsToCategories)
-                    .where(inArray(schema.tagsToCategories.tagId, tagIds))
-
-                const existingLinksSet = new Set(
-                    existingLinks.map(
-                        (link) => `${link.tagId}-${link.categoryId}`
-                    )
+            if (categoryEntities.length > 0 && tagEntities.length > 0) {
+                const tagsToCategoriesLinks = tagEntities.flatMap((tag) =>
+                    categoryEntities.map((category) => ({
+                        tagId: tag.id,
+                        categoryId: category.id,
+                    }))
                 )
 
-                const newLinks = []
-                for (const tagId of tagIds) {
-                    for (const categoryId of categoryIds) {
-                        const linkKey = `${tagId}-${categoryId}`
-                        if (!existingLinksSet.has(linkKey)) {
-                            newLinks.push({ tagId, categoryId })
-                        }
-                    }
-                }
-
-                if (newLinks.length > 0) {
-                    await tx.insert(schema.tagsToCategories).values(newLinks)
-                }
+                await tx
+                    .insert(schema.tagsToCategories)
+                    .values(tagsToCategoriesLinks)
             }
 
             return newPost
         })
-
-        return result
     } catch (error) {
         console.error('Failed to create post', { error })
         throw new Error('Failed to create post')
@@ -196,158 +209,77 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
     try {
         const { categories, tags, ...additionalFields } = data
 
-        if (!categories && !tags) {
-            return await db
-                .update(schema.posts)
-                .set({ ...additionalFields })
-                .where(eq(schema.posts.id, id))
-        }
-
         return await db.transaction(async (tx) => {
-            const allCategories: Category[] = []
-            const allTags: Tag[] = []
+            if (Object.keys(additionalFields).length > 0) {
+                await tx
+                    .update(schema.posts)
+                    .set(additionalFields)
+                    .where(eq(schema.posts.id, id))
+            }
+
+            const categoryEntities: Category[] = []
+            const tagEntities: Tag[] = []
 
             if (categories) {
                 await tx
                     .delete(schema.postsToCategories)
                     .where(eq(schema.postsToCategories.postId, id))
+
+                if (categories.length > 0) {
+                    categoryEntities.push(
+                        ...(await findOrCreateEntities(
+                            tx,
+                            schema.categories,
+                            categories
+                        ))
+                    )
+                    await linkPostToEntities(
+                        tx,
+                        categoryEntities.map((category) => ({
+                            postId: id,
+                            categoryId: category.id,
+                        })),
+                        schema.postsToCategories
+                    )
+                }
             }
 
             if (tags) {
                 await tx
                     .delete(schema.postsToTags)
                     .where(eq(schema.postsToTags.postId, id))
-            }
 
-            if (categories && tags) {
-                const tagIds = await tx
-                    .select({ tagId: schema.postsToTags.tagId })
-                    .from(schema.postsToTags)
-                    .where(eq(schema.postsToTags.postId, id))
-
-                if (tagIds.length > 0) {
-                    await tx.delete(schema.tagsToCategories).where(
-                        inArray(
-                            schema.tagsToCategories.tagId,
-                            tagIds.map((t) => t.tagId)
-                        )
+                if (tags.length > 0) {
+                    tagEntities.push(
+                        ...(await findOrCreateEntities(tx, schema.tags, tags))
+                    )
+                    await linkPostToEntities(
+                        tx,
+                        tagEntities.map((tag) => ({
+                            postId: id,
+                            tagId: tag.id,
+                        })),
+                        schema.postsToTags
                     )
                 }
             }
 
-            if (categories && categories.length > 0) {
-                allCategories.push(
-                    ...(await tx.query.categories.findMany({
-                        where: (table, { inArray }) =>
-                            inArray(table.name, categories),
-                    }))
-                )
-
-                const notFoundCategories = categories.filter(
-                    (category) =>
-                        !new Set(
-                            allCategories.map((category) => category.name)
-                        ).has(category)
-                )
-
-                if (notFoundCategories.length > 0) {
-                    allCategories.push(
-                        ...(await tx
-                            .insert(schema.categories)
-                            .values(
-                                notFoundCategories.map((name) => ({ name }))
-                            )
-                            .returning({
-                                id: schema.categories.id,
-                                name: schema.categories.name,
-                            }))
-                    )
-                }
-
-                await tx.insert(schema.postsToCategories).values(
-                    allCategories.map((category) => ({
-                        postId: id,
-                        categoryId: category.id,
-                    }))
-                )
-            }
-
-            if (tags && tags.length > 0) {
-                allTags.push(
-                    ...(await tx.query.tags.findMany({
-                        where: (table, { inArray }) =>
-                            inArray(table.name, tags),
-                    }))
-                )
-
-                const notFoundTags = tags.filter(
-                    (tag) => !new Set(allTags.map((tag) => tag.name)).has(tag)
-                )
-
-                if (notFoundTags.length > 0) {
-                    allTags.push(
-                        ...(await tx
-                            .insert(schema.tags)
-                            .values(notFoundTags.map((name) => ({ name })))
-                            .returning({
-                                id: schema.tags.id,
-                                name: schema.tags.name,
-                            }))
-                    )
-                }
-
-                await tx.insert(schema.postsToTags).values(
-                    allTags.map((tag) => ({
-                        postId: id,
-                        tagId: tag.id,
-                    }))
-                )
-            }
-
-            if (allCategories.length > 0 && allTags.length > 0) {
-                const existingTagCategoryLinks = await tx
-                    .select({
-                        tagId: schema.tagsToCategories.tagId,
-                        categoryId: schema.tagsToCategories.categoryId,
-                    })
-                    .from(schema.tagsToCategories)
-                    .where(
-                        inArray(
-                            schema.tagsToCategories.tagId,
-                            allTags.map((tag) => tag.id)
-                        )
+            if (categoryEntities.length > 0 || tagEntities.length > 0) {
+                if (categoryEntities.length > 0 && tagEntities.length > 0) {
+                    const tagsToCategoriesLinks = tagEntities.flatMap((tag) =>
+                        categoryEntities.map((category) => ({
+                            tagId: tag.id,
+                            categoryId: category.id,
+                        }))
                     )
 
-                const existingLinksSet = new Set(
-                    existingTagCategoryLinks.map(
-                        (link) => `${link.tagId}-${link.categoryId}`
-                    )
-                )
-
-                const newTagCategoryLinks = []
-                for (const tag of allTags) {
-                    for (const category of allCategories) {
-                        const linkKey = `${tag.id}-${category.id}`
-                        if (!existingLinksSet.has(linkKey)) {
-                            newTagCategoryLinks.push({
-                                tagId: tag.id,
-                                categoryId: category.id,
-                            })
-                        }
-                    }
-                }
-
-                if (newTagCategoryLinks.length > 0) {
                     await tx
                         .insert(schema.tagsToCategories)
-                        .values(newTagCategoryLinks)
+                        .values(tagsToCategoriesLinks)
                 }
             }
 
-            return await tx
-                .update(schema.posts)
-                .set({ ...additionalFields })
-                .where(eq(schema.posts.id, id))
+            return { id }
         })
     } catch (error) {
         console.error('Failed to update post', { error })
