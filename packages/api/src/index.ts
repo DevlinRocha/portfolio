@@ -9,16 +9,12 @@ import {
 } from 'drizzle-orm'
 import { PgTransaction } from 'drizzle-orm/pg-core'
 
-type Models = keyof Pick<typeof schema, 'posts' | 'categories' | 'tags'>
+type TableKeys = keyof Pick<typeof schema, 'posts' | 'categories' | 'tags'>
+type RelationalTableKeys = keyof Pick<typeof schema, 'categories' | 'tags'>
+
 type Post = InferSelectModel<typeof schema.posts>
 type Category = InferSelectModel<typeof schema.categories>
 type Tag = InferSelectModel<typeof schema.tags>
-
-type LinkField = {
-    postId: number
-    categoryId?: number
-    tagId?: number
-}
 
 type CreatePostArgs = Partial<Post> & {
     categories?: string[]
@@ -41,6 +37,32 @@ type UpdatePostArgs = {
     data: CreatePostArgs
 }
 
+type DeleteRecordsArgs = { tableKey: TableKeys; ids: number[] }
+
+type FindOrCreateRecordsArgs = {
+    tx: Transaction
+    tableKey: RelationalTableKeys
+    names: string[]
+}
+
+type RelatePostToRecordsArgs = {
+    tx: Transaction
+    postRelationFields: PostRelationFields[]
+    table: typeof schema.postsToCategories | typeof schema.postsToTags
+}
+
+type PostRelationFields = {
+    postId: number
+    categoryId?: number
+    tagId?: number
+}
+
+type Transaction = PgTransaction<
+    NodePgQueryResultHKT,
+    typeof schema,
+    ExtractTablesWithRelations<typeof schema>
+>
+
 const db = drizzle({
     connection: {
         connectionString: process.env.DATABASE_URL,
@@ -49,49 +71,45 @@ const db = drizzle({
     casing: 'snake_case',
 })
 
-async function findOrCreateEntities<T extends { id: number; name: string }>(
-    tx: PgTransaction<
-        NodePgQueryResultHKT,
-        typeof schema,
-        ExtractTablesWithRelations<typeof schema>
-    >,
-    entityTable: typeof schema.categories | typeof schema.tags,
-    names: string[]
-): Promise<T[]> {
-    const existingEntities = await tx
-        .select({ id: entityTable.id, name: entityTable.name })
-        .from(entityTable)
-        .where(inArray(entityTable.name, names))
+async function findOrCreateRecords({
+    tx,
+    tableKey,
+    names,
+}: FindOrCreateRecordsArgs) {
+    const table = schema[tableKey]
 
-    const existingEntityNames = new Set(existingEntities.map((e) => e.name))
+    const existingRecords = await tx
+        .select({ id: table.id, name: table.name })
+        .from(table)
+        .where(inArray(table.name, names))
 
-    const newEntityNames = names.filter(
-        (name) => !existingEntityNames.has(name)
+    const existingRecordNames = new Set(existingRecords.map((e) => e.name))
+
+    const newRecordNames = names.filter(
+        (name) => !existingRecordNames.has(name)
     )
-    if (newEntityNames.length === 0) return existingEntities as T[]
 
-    const newEntities = await tx
-        .insert(entityTable)
-        .values(newEntityNames.map((name) => ({ name })))
-        .returning({ id: entityTable.id, name: entityTable.name })
+    if (newRecordNames.length === 0) return existingRecords
 
-    return [...existingEntities, ...newEntities] as T[]
+    const newRecords = await tx
+        .insert(table)
+        .values(newRecordNames.map((name) => ({ name })))
+        .onConflictDoNothing({ target: table.name })
+        .returning({ id: table.id, name: table.name })
+
+    return [...existingRecords, ...newRecords]
 }
 
-async function linkPostToEntities(
-    tx: PgTransaction<
-        NodePgQueryResultHKT,
-        typeof schema,
-        ExtractTablesWithRelations<typeof schema>
-    >,
-    linkFields: LinkField[],
-    table: typeof schema.postsToCategories | typeof schema.postsToTags
-) {
-    if (!linkFields || linkFields.length === 0) {
-        throw new Error('linkFields cannot be empty')
+async function relatePostToRecords({
+    tx,
+    postRelationFields,
+    table,
+}: RelatePostToRecordsArgs) {
+    if (!postRelationFields?.length) {
+        throw new Error('postRelationFields cannot be empty')
     }
 
-    await tx.insert(table).values(linkFields)
+    await tx.insert(table).values(postRelationFields)
 }
 
 export async function createPost({
@@ -115,44 +133,49 @@ export async function createPost({
 
             const postId = newPost.id
 
-            const categoryEntities: Category[] = []
-            const tagEntities: Tag[] = []
+            const categoryRecords: Category[] = []
+            const tagRecords: Tag[] = []
 
             if (categories.length > 0) {
-                categoryEntities.push(
-                    ...(await findOrCreateEntities(
+                categoryRecords.push(
+                    ...(await findOrCreateRecords({
                         tx,
-                        schema.categories,
-                        categories
-                    ))
+                        tableKey: 'categories',
+                        names: categories,
+                    }))
                 )
-                await linkPostToEntities(
+                await relatePostToRecords({
                     tx,
-                    categoryEntities.map((category) => ({
+                    postRelationFields: categoryRecords.map((category) => ({
                         postId,
                         categoryId: category.id,
                     })),
-                    schema.postsToCategories
-                )
+                    table: schema.postsToCategories,
+                })
             }
 
             if (tags.length > 0) {
-                tagEntities.push(
-                    ...(await findOrCreateEntities(tx, schema.tags, tags))
+                tagRecords.push(
+                    ...(await findOrCreateRecords({
+                        tx,
+                        tableKey: 'tags',
+                        names: tags,
+                    }))
                 )
-                await linkPostToEntities(
+
+                await relatePostToRecords({
                     tx,
-                    tagEntities.map((tag) => ({
+                    postRelationFields: tagRecords.map((tag) => ({
                         postId,
                         tagId: tag.id,
                     })),
-                    schema.postsToTags
-                )
+                    table: schema.postsToTags,
+                })
             }
 
-            if (categoryEntities.length > 0 && tagEntities.length > 0) {
-                const tagsToCategoriesLinks = tagEntities.flatMap((tag) =>
-                    categoryEntities.map((category) => ({
+            if (categoryRecords.length > 0 && tagRecords.length > 0) {
+                const tagsToCategoriesRelations = tagRecords.flatMap((tag) =>
+                    categoryRecords.map((category) => ({
                         tagId: tag.id,
                         categoryId: category.id,
                     }))
@@ -160,7 +183,7 @@ export async function createPost({
 
                 await tx
                     .insert(schema.tagsToCategories)
-                    .values(tagsToCategoriesLinks)
+                    .values(tagsToCategoriesRelations)
             }
 
             return newPost
@@ -179,7 +202,7 @@ export async function getPosts({
     categories,
     tags,
     limit = 10,
-    offset,
+    offset = 0,
 }: GetPostsArgs = {}) {
     try {
         const result = await db.query.posts.findMany({
@@ -189,7 +212,7 @@ export async function getPosts({
                 if (title) conditions.push(ilike(posts.title, `%${title}%`))
                 if (content)
                     conditions.push(ilike(posts.content, `%${content}%`))
-                return and(...conditions)
+                return conditions.length > 0 ? and(...conditions) : undefined
             },
             with: withRelations
                 ? { postsToCategories: true, postsToTags: true }
@@ -207,18 +230,18 @@ export async function getPosts({
 
 export async function updatePost({ id, data }: UpdatePostArgs) {
     try {
-        const { categories, tags, ...additionalFields } = data
-
         return await db.transaction(async (tx) => {
+            const { categories, tags, ...additionalFields } = data
+
             if (Object.keys(additionalFields).length > 0) {
                 await tx
                     .update(schema.posts)
-                    .set(additionalFields)
+                    .set({ ...additionalFields, updated_at: new Date() })
                     .where(eq(schema.posts.id, id))
             }
 
-            const categoryEntities: Category[] = []
-            const tagEntities: Tag[] = []
+            const categoryRecords: Category[] = []
+            const tagRecords: Tag[] = []
 
             if (categories) {
                 await tx
@@ -226,21 +249,21 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                     .where(eq(schema.postsToCategories.postId, id))
 
                 if (categories.length > 0) {
-                    categoryEntities.push(
-                        ...(await findOrCreateEntities(
+                    categoryRecords.push(
+                        ...(await findOrCreateRecords({
                             tx,
-                            schema.categories,
-                            categories
-                        ))
+                            tableKey: 'categories',
+                            names: categories,
+                        }))
                     )
-                    await linkPostToEntities(
+                    await relatePostToRecords({
                         tx,
-                        categoryEntities.map((category) => ({
+                        postRelationFields: categoryRecords.map((category) => ({
                             postId: id,
                             categoryId: category.id,
                         })),
-                        schema.postsToCategories
-                    )
+                        table: schema.postsToCategories,
+                    })
                 }
             }
 
@@ -250,33 +273,34 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                     .where(eq(schema.postsToTags.postId, id))
 
                 if (tags.length > 0) {
-                    tagEntities.push(
-                        ...(await findOrCreateEntities(tx, schema.tags, tags))
+                    tagRecords.push(
+                        ...(await findOrCreateRecords({
+                            tx,
+                            tableKey: 'tags',
+                            names: tags,
+                        }))
                     )
-                    await linkPostToEntities(
+                    await relatePostToRecords({
                         tx,
-                        tagEntities.map((tag) => ({
+                        postRelationFields: tagRecords.map((tag) => ({
                             postId: id,
                             tagId: tag.id,
                         })),
-                        schema.postsToTags
-                    )
+                        table: schema.postsToTags,
+                    })
                 }
             }
 
-            if (categoryEntities.length > 0 || tagEntities.length > 0) {
-                if (categoryEntities.length > 0 && tagEntities.length > 0) {
-                    const tagsToCategoriesLinks = tagEntities.flatMap((tag) =>
-                        categoryEntities.map((category) => ({
-                            tagId: tag.id,
-                            categoryId: category.id,
-                        }))
-                    )
-
-                    await tx
-                        .insert(schema.tagsToCategories)
-                        .values(tagsToCategoriesLinks)
-                }
+            if (categoryRecords.length > 0 && tagRecords.length > 0) {
+                const tagsToCategories = tagRecords.flatMap((tag) =>
+                    categoryRecords.map((category) => ({
+                        tagId: tag.id,
+                        categoryId: category.id,
+                    }))
+                )
+                await tx
+                    .insert(schema.tagsToCategories)
+                    .values(tagsToCategories)
             }
 
             return { id }
@@ -287,13 +311,13 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
     }
 }
 
-export async function deleteRecords(table: Models, ids: number[]) {
-    const model = schema[table]
+export async function deleteRecords({ tableKey, ids }: DeleteRecordsArgs) {
+    const table = schema[tableKey]
 
     try {
-        return await db.delete(model).where(inArray(model.id, ids))
+        return await db.delete(table).where(inArray(table.id, ids))
     } catch (error) {
-        console.error('Failed to delete post(s)', { error })
-        throw new Error('Failed to delete post(s)')
+        console.error('Failed to delete record(s)', { error })
+        throw new Error('Failed to delete record(s)')
     }
 }
