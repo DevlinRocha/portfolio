@@ -1,6 +1,5 @@
 import 'dotenv/config'
 import { drizzle, NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
-import * as schema from './db/schema'
 import {
     eq,
     ExtractTablesWithRelations,
@@ -8,7 +7,11 @@ import {
     InferSelectModel,
 } from 'drizzle-orm'
 import { PgTransaction } from 'drizzle-orm/pg-core'
+import * as schema from './db/schema'
 
+/** ===========================
+ *        TYPE DEFINITIONS
+ *  =========================== */
 type TableKeys = keyof Pick<typeof schema, 'posts' | 'categories' | 'tags'>
 type RelationalTableKeys = keyof Pick<typeof schema, 'categories' | 'tags'>
 
@@ -63,6 +66,9 @@ type Transaction = PgTransaction<
     ExtractTablesWithRelations<typeof schema>
 >
 
+/** ===========================
+ *      DRIZZLE INSTANCE
+ *  =========================== */
 const db = drizzle({
     connection: {
         connectionString: process.env.DATABASE_URL,
@@ -71,6 +77,14 @@ const db = drizzle({
     casing: 'snake_case',
 })
 
+/** ===========================
+ *    HELPER FUNCTIONS
+ *  =========================== */
+
+/**
+ * `findOrCreateRecords`
+ * Finds existing records by name. If some names don't exist, inserts them.
+ */
 async function findOrCreateRecords({
     tx,
     tableKey,
@@ -83,8 +97,9 @@ async function findOrCreateRecords({
         .from(table)
         .where(inArray(table.name, names))
 
-    const existingRecordNames = new Set(existingRecords.map((e) => e.name))
-
+    const existingRecordNames = new Set(
+        existingRecords.map((record) => record.name)
+    )
     const newRecordNames = names.filter(
         (name) => !existingRecordNames.has(name)
     )
@@ -100,6 +115,10 @@ async function findOrCreateRecords({
     return [...existingRecords, ...newRecords]
 }
 
+/**
+ * `relatePostToRecords`
+ * Inserts bridging rows between posts and categories/tags.
+ */
 async function relatePostToRecords({
     tx,
     postRelationFields,
@@ -108,10 +127,18 @@ async function relatePostToRecords({
     if (!postRelationFields?.length) {
         throw new Error('postRelationFields cannot be empty')
     }
-
     await tx.insert(table).values(postRelationFields)
 }
 
+/** ===========================
+ *       CRUD FUNCTIONS
+ *  =========================== */
+
+/**
+ * `createPost`
+ * Creates a new post, optionally with categories/tags.
+ * If both exist, also updates tags_to_categories bridging.
+ */
 export async function createPost({
     title,
     content,
@@ -132,9 +159,7 @@ export async function createPost({
                 .returning({ id: schema.posts.id })
 
             const postId = newPost.id
-
             const categoryRecords: Category[] = []
-            const tagRecords: Tag[] = []
 
             if (categories.length > 0) {
                 categoryRecords.push(
@@ -153,6 +178,8 @@ export async function createPost({
                     table: schema.postsToCategories,
                 })
             }
+
+            const tagRecords: Tag[] = []
 
             if (tags.length > 0) {
                 tagRecords.push(
@@ -194,6 +221,11 @@ export async function createPost({
     }
 }
 
+/**
+ * `getPosts`
+ * Retrieves posts optionally filtered by id/title/content,
+ * with optional bridging data included.
+ */
 export async function getPosts({
     id,
     title,
@@ -228,6 +260,10 @@ export async function getPosts({
     }
 }
 
+/**
+ * `updatePost`
+ * Updates the main post fields, replaces bridging rows if categories/tags are provided.
+ */
 export async function updatePost({ id, data }: UpdatePostArgs) {
     try {
         return await db.transaction(async (tx) => {
@@ -311,9 +347,12 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
     }
 }
 
+/**
+ * `deleteRecords`
+ * Deletes records by ID from a given table key.
+ */
 export async function deleteRecords({ tableKey, ids }: DeleteRecordsArgs) {
     const table = schema[tableKey]
-
     try {
         return await db.delete(table).where(inArray(table.id, ids))
     } catch (error) {
