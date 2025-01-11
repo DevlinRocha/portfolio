@@ -9,9 +9,10 @@ import {
 import { PgTransaction } from 'drizzle-orm/pg-core'
 import * as schema from './db/schema'
 
-/** ===========================
- *        TYPE DEFINITIONS
- *  =========================== */
+/** ============================
+ *       TYPE DEFINITIONS
+ *  ============================ */
+
 type TableKeys = keyof Pick<typeof schema, 'posts' | 'categories' | 'tags'>
 type RelationalTableKeys = keyof Pick<typeof schema, 'categories' | 'tags'>
 
@@ -66,9 +67,10 @@ type Transaction = PgTransaction<
     ExtractTablesWithRelations<typeof schema>
 >
 
-/** ===========================
- *      DRIZZLE INSTANCE
- *  =========================== */
+/** ============================
+ *       DRIZZLE INSTANCE
+ *  ============================ */
+
 const db = drizzle({
     connection: {
         connectionString: process.env.DATABASE_URL,
@@ -77,13 +79,19 @@ const db = drizzle({
     casing: 'snake_case',
 })
 
-/** ===========================
- *    HELPER FUNCTIONS
- *  =========================== */
+/** ============================
+ *      HELPER FUNCTIONS
+ *  ============================ */
 
 /**
  * `findOrCreateRecords`
- * Finds existing records by name. If some names don't exist, inserts them.
+ * Finds existing records by name and creates missing ones.
+ *
+ * @param tx The current database transaction
+ * @param tableKey The key of the table (e.g., `'categories'`, `'tags'`) to operate on
+ * @param names Array of string names to find or create
+ * @returns An array of all records matching the provided names
+ * @throws Error if the query fails
  */
 async function findOrCreateRecords({
     tx,
@@ -117,7 +125,13 @@ async function findOrCreateRecords({
 
 /**
  * `relatePostToRecords`
- * Inserts bridging rows between posts and categories/tags.
+ * Inserts bridging rows between a post and its `categories` or `tags`.
+ *
+ * @param tx The current database transaction
+ * @param postRelationFields Array of `post-to-category` or `post-to-tag` objects
+ * @param table Drizzle schema reference for either `postsToCategories` or `postsToTags`
+ * @returns The result of the insert operation (array of inserted rows, if any)
+ * @throws Error if `postRelationFields` is empty
  */
 async function relatePostToRecords({
     tx,
@@ -127,17 +141,25 @@ async function relatePostToRecords({
     if (!postRelationFields?.length) {
         throw new Error('postRelationFields cannot be empty')
     }
-    await tx.insert(table).values(postRelationFields)
+    return await tx.insert(table).values(postRelationFields)
 }
 
-/** ===========================
+/** ============================
  *       CRUD FUNCTIONS
- *  =========================== */
+ *  ============================ */
 
 /**
  * `createPost`
- * Creates a new post, optionally with categories/tags.
- * If both exist, also updates tags_to_categories bridging.
+ * Creates a new post, optionally with related `categories` or `tags`.
+ * Automatically bridges `tags-to-categories` if both are present.
+ *
+ * @param title The title of the post
+ * @param content The main content of the post
+ * @param categories Optional array of category names
+ * @param tags Optional array of tag names
+ * @param additionalFields Any additional fields for the post schema
+ * @returns The newly created post record
+ * @throws Error if `title` or `content` is missing, or if the DB insert fails
  */
 export async function createPost({
     title,
@@ -160,6 +182,7 @@ export async function createPost({
 
             const postId = newPost.id
             const categoryRecords: Category[] = []
+            const tagRecords: Tag[] = []
 
             if (categories.length > 0) {
                 categoryRecords.push(
@@ -179,8 +202,6 @@ export async function createPost({
                 })
             }
 
-            const tagRecords: Tag[] = []
-
             if (tags.length > 0) {
                 tagRecords.push(
                     ...(await findOrCreateRecords({
@@ -189,7 +210,6 @@ export async function createPost({
                         names: tags,
                     }))
                 )
-
                 await relatePostToRecords({
                     tx,
                     postRelationFields: tagRecords.map((tag) => ({
@@ -223,8 +243,19 @@ export async function createPost({
 
 /**
  * `getPosts`
- * Retrieves posts optionally filtered by id/title/content,
- * with optional bridging data included.
+ * Retrieves posts optionally filtered by `id`, `title`, or `content`.
+ * Includes bridging data if requested.
+ *
+ * @param id Optional numeric ID of the post
+ * @param title Optional title substring match
+ * @param content Optional content substring match
+ * @param withRelations If `true`, returns bridging info for both categories and tags
+ * @param categories If `true`, returns bridging info for categories only
+ * @param tags If `true`, returns bridging info for tags only
+ * @param limit Number of rows to return (default: `10`)
+ * @param offset Starting row offset (default: `0`)
+ * @returns An array of posts matching the given filters
+ * @throws Error if the DB query fails
  */
 export async function getPosts({
     id,
@@ -262,7 +293,12 @@ export async function getPosts({
 
 /**
  * `updatePost`
- * Updates the main post fields, replaces bridging rows if categories/tags are provided.
+ * Updates an existing post and replaces its bridging rows for `categories` or `tags`.
+ *
+ * @param id Unique ID of the post to update
+ * @param data Object containing any new post fields and optional `categories` or `tags`
+ * @returns An object containing the post `id` that was updated
+ * @throws Error if the DB update fails
  */
 export async function updatePost({ id, data }: UpdatePostArgs) {
     try {
@@ -349,7 +385,12 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
 
 /**
  * `deleteRecords`
- * Deletes records by ID from a given table key.
+ * Deletes records from a specified table by their IDs.
+ *
+ * @param tableKey The key of the table (e.g., `'posts'`, `'categories'`, `'tags'`) to operate on
+ * @param ids Array of numeric IDs to delete
+ * @returns The result of the delete operation (e.g., the number of rows deleted)
+ * @throws Error if the DB delete fails
  */
 export async function deleteRecords({ tableKey, ids }: DeleteRecordsArgs) {
     const table = schema[tableKey]
