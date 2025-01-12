@@ -1,10 +1,10 @@
 import fs from 'fs'
 import path from 'path'
-import { evaluate } from '@mdx-js/mdx'
+import { argv, cwd, exit } from 'process'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import * as runtime from 'react/jsx-runtime'
-import { argv, cwd, exit } from 'process'
+import { evaluate } from '@mdx-js/mdx'
 
 const components = {}
 
