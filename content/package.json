@@ -1,0 +1,15 @@
+{
+    "name": "@portfolio/content",
+    "private": true,
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "compile": "pnpm node compile-mdx.js blog"
+    },
+    "dependencies": {
+        "@mdx-js/mdx": "^3.1.0",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "@portfolio/api": "workspace:*"
+    }
+}
