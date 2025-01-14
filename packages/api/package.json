@@ -1,8 +1,16 @@
 {
     "name": "@portfolio/api",
+    "private": true,
     "version": "1.0.0",
+    "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "typecheck": "tsc --build",
+        "build": "tsc --build",
         "push": "pnpm exec drizzle-kit push",
         "generate": "pnpm exec drizzle-kit generate",
         "migrate": "pnpm exec drizzle-kit migrate",
