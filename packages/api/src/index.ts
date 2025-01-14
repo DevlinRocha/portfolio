@@ -7,7 +7,7 @@ import {
     InferSelectModel,
 } from 'drizzle-orm'
 import { PgTransaction } from 'drizzle-orm/pg-core'
-import * as schema from './db/schema'
+import * as schema from './db/schema.ts'
 
 /** ============================
  *       TYPE DEFINITIONS
