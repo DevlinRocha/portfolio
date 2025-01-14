@@ -88,21 +88,6 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3(@types/node@22.10.6)(jiti@1.21.7)(tsx@4.19.2)(yaml@2.6.1)
 
-  content:
-    dependencies:
-      '@mdx-js/mdx':
-        specifier: ^3.1.0
-        version: 3.1.0(acorn@8.14.0)
-      '@portfolio/api':
-        specifier: workspace:*
-        version: link:../packages/api
-      react:
-        specifier: ^19.0.0
-        version: 19.0.0
-      react-dom:
-        specifier: ^19.0.0
-        version: 19.0.0(react@19.0.0)
-
   packages/api:
     dependencies:
       dotenv:
@@ -124,6 +109,21 @@ importers:
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
+
+  packages/content:
+    dependencies:
+      '@mdx-js/mdx':
+        specifier: ^3.1.0
+        version: 3.1.0(acorn@8.14.0)
+      '@portfolio/api':
+        specifier: workspace:*
+        version: link:../api
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
 
 packages:
 
