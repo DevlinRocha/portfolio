@@ -11,10 +11,10 @@
     "scripts": {
         "typecheck": "tsc --build",
         "build": "tsc --build",
-        "push": "pnpm exec drizzle-kit push",
-        "generate": "pnpm exec drizzle-kit generate",
-        "migrate": "pnpm exec drizzle-kit migrate",
-        "studio": "pnpm drizzle-kit studio"
+        "push": "exec drizzle-kit push",
+        "generate": "exec drizzle-kit generate",
+        "migrate": "exec drizzle-kit migrate",
+        "studio": "drizzle-kit studio"
     },
     "dependencies": {
         "dotenv": "^16.4.7",
