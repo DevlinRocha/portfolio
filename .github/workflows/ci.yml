@@ -42,7 +42,7 @@ jobs:
               run: pnpm prettier
 
             - name: Typecheck
-              run: pnpm typecheck --verbose && node scripts/build.js --typecheck-projects=packages/api
+              run: pnpm typecheck --verbose && node scripts/build.js --ignore-projects=packages/content
 
             - name: Lint
               run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
