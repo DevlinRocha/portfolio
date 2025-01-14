@@ -13,17 +13,17 @@
         "cleanup": "pnpm lint --fix && pnpm prettier"
     },
     "devDependencies": {
-        "@eslint/js": "^9.17.0",
-        "@types/node": "^22.10.2",
-        "@typescript-eslint/eslint-plugin": "^8.18.0",
-        "@typescript-eslint/parser": "^8.18.0",
-        "eslint": "^9.17.0",
-        "eslint-plugin-react": "^7.37.2",
+        "@eslint/js": "^9.18.0",
+        "@types/node": "^22.10.6",
+        "@typescript-eslint/eslint-plugin": "^8.20.0",
+        "@typescript-eslint/parser": "^8.20.0",
+        "eslint": "^9.18.0",
+        "eslint-plugin-react": "^7.37.4",
         "eslint-plugin-react-hooks": "^5.1.0",
-        "eslint-plugin-react-refresh": "^0.4.16",
-        "globals": "^15.13.0",
+        "eslint-plugin-react-refresh": "^0.4.18",
+        "globals": "^15.14.0",
         "prettier": "3.4.2",
-        "typescript": "^5.7.2",
-        "typescript-eslint": "^8.18.0"
+        "typescript": "^5.7.3",
+        "typescript-eslint": "^8.20.0"
     }
 }
