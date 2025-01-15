@@ -5,7 +5,7 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import * as runtime from 'react/jsx-runtime'
 import { evaluate } from '@mdx-js/mdx'
-import { createPost } from '@portfolio/api'
+import { createPost, deleteRecords, updatePost } from '@portfolio/api'
 
 const components = {
     // MyButton: (props) => <button {...props} />,
@@ -37,8 +37,10 @@ async function mdxToHtml(filePath) {
 
         const {
             default: Content,
+            id,
             title,
             published,
+            action,
         } = await evaluate(mdxSource, {
             ...runtime,
             // remarkPlugins: [],
@@ -54,7 +56,7 @@ async function mdxToHtml(filePath) {
 
         const html = ReactDOMServer.renderToString(element)
 
-        return { html, title, published }
+        return { html, id, title, published, action }
     } catch (error) {
         throw new Error(`Error processing ${filePath}: ${error}`)
     }
@@ -93,15 +95,31 @@ async function mdxToHtml(filePath) {
         console.log(`Found ${mdxFiles.length} MDX file(s). Processing...`)
 
         for (const file of mdxFiles) {
-            const { html, title, published } = await mdxToHtml(file)
+            const { html, id, title, published, action } = await mdxToHtml(file)
 
-            try {
-                console.log(`\nRendered HTML for ${file}:\n`)
-                console.log(html)
+            console.log(`\nRendered HTML for ${file}:\n`)
+            console.log(`${html}\n`)
 
-                await createPost({ title, published, content: html })
-            } catch (error) {
-                console.error(error)
+            switch (action) {
+                case 'create':
+                    await createPost({ id, title, published, content: html })
+                    break
+                case 'update':
+                    await updatePost({
+                        id,
+                        data: { title, published, content: html },
+                    })
+                    break
+                case 'delete':
+                    await deleteRecords({ tableKey: 'posts', ids: [id] })
+                    break
+                case 'skip':
+                    console.log(`Skipping ${file}...`)
+                    break
+                default:
+                    console.error(
+                        `Invalid action "${action}" in ${file}. Value must be either 'create' or 'update'. Skipping...`
+                    )
             }
         }
 
