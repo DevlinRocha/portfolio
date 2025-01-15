@@ -39,6 +39,8 @@ async function mdxToHtml(filePath) {
             default: Content,
             id,
             title,
+            categories,
+            tags,
             published,
             action,
         } = await evaluate(mdxSource, {
@@ -56,7 +58,7 @@ async function mdxToHtml(filePath) {
 
         const html = ReactDOMServer.renderToString(element)
 
-        return { html, id, title, published, action }
+        return { html, id, title, categories, tags, published, action }
     } catch (error) {
         throw new Error(`Error processing ${filePath}: ${error}`)
     }
@@ -95,19 +97,33 @@ async function mdxToHtml(filePath) {
         console.log(`Found ${mdxFiles.length} MDX file(s). Processing...`)
 
         for (const file of mdxFiles) {
-            const { html, id, title, published, action } = await mdxToHtml(file)
+            const { html, id, title, categories, tags, published, action } =
+                await mdxToHtml(file)
 
             console.log(`\nRendered HTML for ${file}:\n`)
             console.log(`${html}\n`)
 
             switch (action) {
                 case 'create':
-                    await createPost({ id, title, published, content: html })
+                    await createPost({
+                        id,
+                        title,
+                        categories,
+                        tags,
+                        published,
+                        content: html,
+                    })
                     break
                 case 'update':
                     await updatePost({
                         id,
-                        data: { title, published, content: html },
+                        data: {
+                            title,
+                            categories,
+                            tags,
+                            published,
+                            content: html,
+                        },
                     })
                     break
                 case 'delete':
