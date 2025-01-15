@@ -5,7 +5,7 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import * as runtime from 'react/jsx-runtime'
 import { evaluate } from '@mdx-js/mdx'
-// import { createPost } from '@portfolio/api'
+import { createPost } from '@portfolio/api'
 
 const components = {
     // MyButton: (props) => <button {...props} />,
@@ -35,7 +35,11 @@ async function mdxToHtml(filePath) {
     try {
         const mdxSource = await fs.readFile(filePath, 'utf8')
 
-        const { default: Content } = await evaluate(mdxSource, {
+        const {
+            default: Content,
+            title,
+            published,
+        } = await evaluate(mdxSource, {
             ...runtime,
             // remarkPlugins: [],
             // rehypePlugins: [],
@@ -48,7 +52,9 @@ async function mdxToHtml(filePath) {
             React.createElement(Content, { components })
         )
 
-        return ReactDOMServer.renderToString(element)
+        const html = ReactDOMServer.renderToString(element)
+
+        return { html, title, published }
     } catch (error) {
         throw new Error(`Error processing ${filePath}: ${error}`)
     }
@@ -87,13 +93,13 @@ async function mdxToHtml(filePath) {
         console.log(`Found ${mdxFiles.length} MDX file(s). Processing...`)
 
         for (const file of mdxFiles) {
+            const { html, title, published } = await mdxToHtml(file)
+
             try {
-                const html = await mdxToHtml(file)
                 console.log(`\nRendered HTML for ${file}:\n`)
                 console.log(html)
 
-                // TODO: Update database
-                // await createPost({ title: 'Title', content: html })
+                await createPost({ title, published, content: html })
             } catch (error) {
                 console.error(error)
             }
