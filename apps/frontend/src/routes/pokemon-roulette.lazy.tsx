@@ -5,7 +5,7 @@ import { game, loss, guess, win } from '@/assets/pokemon-roulette'
 import { typeScript, vue, vite, pinia, pokeApi } from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/pokemon-roulette')({
-    component: pokemonRoulette,
+    component: PokemonRoulette,
 })
 
 const galleryItems = [
@@ -62,7 +62,7 @@ const galleryItems = [
     },
 ]
 
-function pokemonRoulette() {
+function PokemonRoulette() {
     return (
         <main className="flex flex-col items-center">
             <article className="flex h-full w-full flex-col items-center gap-8 pb-24 md:pb-32 lg:pb-36">

@@ -11,7 +11,7 @@ import {
 } from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/wheres-waldo')({
-    component: wheresWaldo,
+    component: WheresWaldo,
 })
 
 const galleryItems = [
@@ -67,7 +67,7 @@ const galleryItems = [
     },
 ]
 
-function wheresWaldo() {
+function WheresWaldo() {
     return (
         <main className="flex flex-col items-center">
             <article className="flex h-full w-full flex-col items-center gap-8 pb-24 md:pb-32 lg:pb-36">

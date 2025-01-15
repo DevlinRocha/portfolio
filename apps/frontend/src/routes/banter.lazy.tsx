@@ -15,7 +15,7 @@ import {
 } from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/banter')({
-    component: banter,
+    component: Banter,
 })
 
 const galleryItems = [
@@ -60,7 +60,7 @@ const galleryItems = [
     },
 ]
 
-function banter() {
+function Banter() {
     return (
         <main className="flex flex-col items-center">
             <article className="flex h-full w-full flex-col items-center gap-8 pb-24 md:pb-32 lg:pb-36">

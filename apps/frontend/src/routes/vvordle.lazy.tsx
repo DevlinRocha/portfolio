@@ -5,7 +5,7 @@ import { game, newGame, guess, win } from '@/assets/vvordle'
 import { typeScript, vue, vite } from '@/utilities/glossary'
 
 export const Route = createLazyFileRoute('/vvordle')({
-    component: vvordle,
+    component: Vvordle,
 })
 
 const galleryItems = [
@@ -59,7 +59,7 @@ const galleryItems = [
     },
 ]
 
-function vvordle() {
+function Vvordle() {
     return (
         <main className="flex flex-col items-center">
             <article className="flex h-full w-full flex-col items-center gap-8 pb-24 md:pb-32 lg:pb-36">
