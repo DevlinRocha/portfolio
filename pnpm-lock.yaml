@@ -90,6 +90,12 @@ importers:
 
   packages/api:
     dependencies:
+      '@trpc/client':
+        specifier: 11.0.0-rc.700
+        version: 11.0.0-rc.700(@trpc/server@11.0.0-rc.700(typescript@5.7.3))(typescript@5.7.3)
+      '@trpc/server':
+        specifier: 11.0.0-rc.700
+        version: 11.0.0-rc.700(typescript@5.7.3)
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
@@ -99,6 +105,9 @@ importers:
       pg:
         specifier: ^8.13.1
         version: 8.13.1
+      zod:
+        specifier: ^3.24.1
+        version: 3.24.1
     devDependencies:
       '@types/pg':
         specifier: ^8.11.10
@@ -1102,6 +1111,17 @@ packages:
   '@tanstack/virtual-file-routes@1.87.6':
     resolution: {integrity: sha512-PTpeM8SHL7AJM0pJOacFvHribbUODS51qe9NsMqku4mogh6BWObY1EeVmeGnp9o3VngAEsf+rJMs2zqIVz3WFA==}
     engines: {node: '>=12'}
+
+  '@trpc/client@11.0.0-rc.700':
+    resolution: {integrity: sha512-8yktSkK/jbDss4pA+3EwwDY972qBrvGN49Kpa7oA/0My40YohlEwrEwLLI5+rdICUi3MFv7jkqzKydgXHJJPRw==}
+    peerDependencies:
+      '@trpc/server': 11.0.0-rc.700+e5c0c1a82
+      typescript: '>=5.7.2'
+
+  '@trpc/server@11.0.0-rc.700':
+    resolution: {integrity: sha512-EmbaGj76YcZWsnujZrrJEYa/2a6ZncTMm1he99RlemWE/ZsZbN+I+KCz+VKIsUr+JLaQmQMElcXs2x0qLI6T5g==}
+    peerDependencies:
+      typescript: '>=5.7.2'
 
   '@types/acorn@4.0.6':
     resolution: {integrity: sha512-veQTnWP+1D/xbxVrPC3zHnCZRjSrKfhbMUlEA43iMZLu7EsnTtkJklIuwrCPbOi8YkvDQAiW05VQQFvvz9oieQ==}
@@ -3735,6 +3755,15 @@ snapshots:
   '@tanstack/store@0.6.0': {}
 
   '@tanstack/virtual-file-routes@1.87.6': {}
+
+  '@trpc/client@11.0.0-rc.700(@trpc/server@11.0.0-rc.700(typescript@5.7.3))(typescript@5.7.3)':
+    dependencies:
+      '@trpc/server': 11.0.0-rc.700(typescript@5.7.3)
+      typescript: 5.7.3
+
+  '@trpc/server@11.0.0-rc.700(typescript@5.7.3)':
+    dependencies:
+      typescript: 5.7.3
 
   '@types/acorn@4.0.6':
     dependencies:
