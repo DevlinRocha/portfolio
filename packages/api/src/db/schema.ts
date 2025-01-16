@@ -29,13 +29,13 @@ export const categoriesRelations = relations(categories, ({ many }) => ({
 export const postsToCategories = pgTable(
     'posts_to_categories',
     {
-        postId: integer()
+        postId: integer('post_id')
             .notNull()
             .references(() => posts.id, {
                 onUpdate: 'cascade',
                 onDelete: 'cascade',
             }),
-        categoryId: integer()
+        categoryId: integer('category_id')
             .notNull()
             .references(() => categories.id, {
                 onUpdate: 'cascade',
@@ -72,13 +72,13 @@ export const tagsRelations = relations(tags, ({ many }) => ({
 export const postsToTags = pgTable(
     'posts_to_tags',
     {
-        postId: integer()
+        postId: integer('post_id')
             .notNull()
             .references(() => posts.id, {
                 onUpdate: 'cascade',
                 onDelete: 'cascade',
             }),
-        tagId: integer()
+        tagId: integer('tag_id')
             .notNull()
             .references(() => tags.id, {
                 onUpdate: 'cascade',
@@ -102,13 +102,13 @@ export const postsToTagsRelations = relations(postsToTags, ({ one }) => ({
 export const tagsToCategories = pgTable(
     'tags_to_categories',
     {
-        tagId: integer()
+        tagId: integer('tag_id')
             .notNull()
             .references(() => tags.id, {
                 onUpdate: 'cascade',
                 onDelete: 'cascade',
             }),
-        categoryId: integer()
+        categoryId: integer('category_id')
             .notNull()
             .references(() => categories.id, {
                 onUpdate: 'cascade',
