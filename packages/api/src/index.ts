@@ -351,14 +351,29 @@ export async function getPosts({
                     conditions.push(ilike(posts.content, `%${content}%`))
                 return conditions.length > 0 ? and(...conditions) : undefined
             },
-            with: withRelations
-                ? { postsToCategories: true, postsToTags: true }
-                : { postsToCategories: categories, postsToTags: tags },
+            with: {
+                postsToCategories: (withRelations || categories) && {
+                    with: {
+                        category: true,
+                    },
+                },
+                postsToTags: (withRelations || tags) && {
+                    with: {
+                        tag: true,
+                    },
+                },
+            },
             limit,
             offset,
         })
 
-        return result
+        return result.map((post) => ({
+            ...post,
+            categories: post.postsToCategories.map(
+                (rel) => 'category' in rel && rel.category.name
+            ),
+            tags: post.postsToTags.map((rel) => 'tag' in rel && rel.tag.name),
+        }))
     } catch (error) {
         console.error('Failed to get post(s)', { error })
         throw new Error('Failed to get post(s)')
