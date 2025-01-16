@@ -8,6 +8,100 @@ import {
 } from 'drizzle-orm'
 import { PgTransaction } from 'drizzle-orm/pg-core'
 import * as schema from './db/schema.ts'
+import { z } from 'zod'
+import { initTRPC } from '@trpc/server'
+import { createHTTPServer } from '@trpc/server/adapters/standalone'
+
+export type AppRouter = typeof appRouter
+
+const t = initTRPC.create()
+
+const trueOrUndefined = z.custom<true | undefined>(
+    (val) => val === true || val === undefined,
+    {
+        message: 'Value must be either `true` or `undefined`',
+    }
+)
+
+export const appRouter = t.router({
+    get: t.procedure
+        .input(
+            z.object({
+                id: z.number().optional(),
+                title: z.string().optional(),
+                content: z.string().optional(),
+                withRelations: trueOrUndefined.optional(),
+                categories: trueOrUndefined.optional(),
+                tags: trueOrUndefined.optional(),
+                limit: z.number().default(10),
+                offset: z.number().default(0),
+            })
+        )
+        .query(async ({ input }) => {
+            return getPosts(input)
+        }),
+
+    create: t.procedure
+        .input(
+            z.object({
+                title: z.string(),
+                content: z.string(),
+                published: z.boolean().optional(),
+                categories: z.array(z.string()).optional(),
+                tags: z.array(z.string()).optional(),
+            })
+        )
+        .mutation(async ({ input }) => {
+            return createPost(input)
+        }),
+
+    update: t.procedure
+        .input(
+            z.object({
+                id: z.number(),
+                data: z.object({
+                    title: z.string().optional(),
+                    content: z.string().optional(),
+                    published: z.boolean().optional(),
+                    categories: z.array(z.string()).optional(),
+                    tags: z.array(z.string()).optional(),
+                }),
+            })
+        )
+        .mutation(async ({ input }) => {
+            return updatePost(input)
+        }),
+
+    delete: t.procedure
+        .input(z.object({ ids: z.array(z.number()) }))
+        .mutation(async ({ input }) => {
+            return deleteRecords({ tableKey: 'posts', ids: input.ids })
+        }),
+})
+
+const server = createHTTPServer({
+    router: appRouter,
+    middleware: (req, res, next) => {
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173')
+        // res.setHeader('Access-Control-Request-Method', 'GET, POST, OPTIONS')
+        // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        res.setHeader(
+            'Access-Control-Allow-Headers',
+            'Content-Type, Authorization'
+        )
+
+        if (req.method === 'OPTIONS') {
+            res.writeHead(204)
+            res.end()
+            return
+        }
+
+        next()
+    },
+})
+server.listen(3000, () => {
+    console.log('tRPC server running on http://localhost:3000')
+})
 
 /** ============================
  *       TYPE DEFINITIONS
