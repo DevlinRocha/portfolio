@@ -9,8 +9,9 @@
         "dist"
     ],
     "scripts": {
-        "typecheck": "tsc --build",
+        "dev": "node dist/index",
         "build": "tsc --build",
+        "typecheck": "tsc --build",
         "push": "exec drizzle-kit push",
         "generate": "exec drizzle-kit generate",
         "migrate": "exec drizzle-kit migrate",
