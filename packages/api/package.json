@@ -9,7 +9,7 @@
         "dist"
     ],
     "scripts": {
-        "dev": "node dist/index",
+        "dev": "tsx watch src/index",
         "build": "tsc --build",
         "typecheck": "tsc --build",
         "push": "exec drizzle-kit push",
