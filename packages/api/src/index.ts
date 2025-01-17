@@ -367,13 +367,33 @@ export async function getPosts({
             offset,
         })
 
-        return result.map((post) => ({
-            ...post,
-            categories: post.postsToCategories.map(
-                (rel) => 'category' in rel && rel.category.name
-            ),
-            tags: post.postsToTags.map((rel) => 'tag' in rel && rel.tag.name),
-        }))
+        return result.map((post) => {
+            const categories =
+                post.postsToCategories.length > 0
+                    ? post.postsToCategories
+                          .map((rel) =>
+                              'category' in rel && rel.category
+                                  ? rel.category.name
+                                  : false
+                          )
+                          .filter((name): name is string => Boolean(name))
+                    : false
+
+            const tags =
+                post.postsToTags.length > 0
+                    ? post.postsToTags
+                          .map((rel) =>
+                              'tag' in rel && rel.tag ? rel.tag.name : false
+                          )
+                          .filter((name): name is string => Boolean(name))
+                    : false
+
+            return {
+                ...post,
+                categories,
+                tags,
+            }
+        })
     } catch (error) {
         console.error('Failed to get post(s)', { error })
         throw new Error('Failed to get post(s)')
