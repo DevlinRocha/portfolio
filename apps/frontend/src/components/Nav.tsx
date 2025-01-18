@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { Link } from '@tanstack/react-router'
-import { projects } from '@/utilities/glossary'
+import { projects } from '@/data/glossary'
 
 export default function Nav() {
     const menu = useRef<HTMLInputElement>(null)
@@ -84,7 +84,7 @@ export default function Nav() {
                         <Link
                             to="/about"
                             onClick={handleClick}
-                            className="flex items-center px-12 py-2 transition-text hover:text-black xs:h-full xs:px-2 xs:py-0 [&.active]:font-semibold"
+                            className="transition-text xs:h-full xs:px-2 xs:py-0 flex items-center px-12 py-2 hover:text-black [&.active]:font-semibold"
                         >
                             about
                         </Link>
@@ -96,7 +96,7 @@ export default function Nav() {
                             target="_blank"
                             rel="noreferrer"
                             onClick={handleClick}
-                            className="flex items-center px-12 py-2 transition-text hover:text-black xs:h-full xs:px-2 xs:py-0"
+                            className="transition-text xs:h-full xs:px-2 xs:py-0 flex items-center px-12 py-2 hover:text-black"
                         >
                             résumé
                         </a>

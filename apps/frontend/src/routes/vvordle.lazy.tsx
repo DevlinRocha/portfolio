@@ -2,7 +2,7 @@ import { createLazyFileRoute } from '@tanstack/react-router'
 import Gallery from '@/components/Gallery'
 import ProjectsNav from '@/components/ProjectsNav'
 import { game, newGame, guess, win } from '@/assets/vvordle'
-import { typeScript, vue, vite } from '@/utilities/glossary'
+import { typeScript, vue, vite } from '@/data/glossary'
 
 export const Route = createLazyFileRoute('/vvordle')({
     component: Vvordle,
