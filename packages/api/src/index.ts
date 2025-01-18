@@ -1,6 +1,5 @@
 import 'dotenv/config'
 import { initTRPC } from '@trpc/server'
-import { createHTTPServer } from '@trpc/server/adapters/standalone'
 import { drizzle, NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
 import {
     eq,
@@ -510,30 +509,3 @@ export async function deleteRecords({ tableKey, ids }: DeleteRecordsArgs) {
         throw new Error('Failed to delete record(s)')
     }
 }
-
-/** ============================
- *       SERVER SETUP
- *  ============================ */
-
-const server = createHTTPServer({
-    router: appRouter,
-    middleware: (req, res, next) => {
-        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173')
-        res.setHeader(
-            'Access-Control-Allow-Headers',
-            'Content-Type, Authorization'
-        )
-
-        if (req.method === 'OPTIONS') {
-            res.writeHead(204)
-            res.end()
-            return
-        }
-
-        next()
-    },
-})
-
-server.listen(3000, () => {
-    console.log('tRPC server running on http://localhost:3000')
-})

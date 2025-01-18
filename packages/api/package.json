@@ -9,7 +9,7 @@
         "dist"
     ],
     "scripts": {
-        "dev": "tsx watch src/index",
+        "dev": "tsx watch scripts/start-server",
         "build": "tsc --build",
         "typecheck": "tsc --build",
         "push": "exec drizzle-kit push",
