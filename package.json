@@ -5,7 +5,7 @@
     "type": "module",
     "packageManager": "pnpm@9.15.0",
     "scripts": {
-        "build": "pnpm typecheck && node scripts/build.js --ignore-projects=packages/content",
+        "build": "pnpm typecheck && node scripts/build --ignore-projects=packages/content",
         "typecheck": "tsc --build",
         "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
         "prettier": "prettier . --write",

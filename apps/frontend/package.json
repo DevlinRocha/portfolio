@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "pnpm typecheck && vite build && node scripts/generate-resource-list.js",
+        "build": "pnpm typecheck && vite build && node scripts/generate-resource-list",
         "typecheck": "tsc --build",
         "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
         "prettier": "prettier . --write",
