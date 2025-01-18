@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { httpBatchLink } from '@trpc/client'
 
+import { trpc } from '@/api/trpcClient'
 import { routeTree } from './routeTree.gen'
 import DefaultNotFound from './components/DefaultNotFound'
 import './index.css'
@@ -27,8 +30,29 @@ declare module '@tanstack/react-router' {
     }
 }
 
+function App() {
+    const [queryClient] = useState(() => new QueryClient())
+
+    const [trpcClient] = useState(() =>
+        trpc.createClient({
+            links: [
+                httpBatchLink({
+                    url: 'http://localhost:3000',
+                }),
+            ],
+        })
+    )
+    return (
+        <trpc.Provider client={trpcClient} queryClient={queryClient}>
+            <QueryClientProvider client={queryClient}>
+                <RouterProvider router={router} />
+            </QueryClientProvider>
+        </trpc.Provider>
+    )
+}
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <App />
     </React.StrictMode>
 )
