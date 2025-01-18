@@ -64,7 +64,7 @@ async function mdxToHtml(filePath) {
     }
 }
 
-;(async () => {
+async function main() {
     const inputPath = argv[2]
 
     if (!inputPath) {
@@ -144,4 +144,6 @@ async function mdxToHtml(filePath) {
         console.error(`Error during processing: ${error}`)
         exit(1)
     }
-})()
+}
+
+main()
