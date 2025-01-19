@@ -104,7 +104,7 @@ const trueOrUndefined = z.custom<true | undefined>(
  *  ============================ */
 
 export const appRouter = t.router({
-    create: t.procedure
+    createPost: t.procedure
         .input(
             z.object({
                 title: z.string(),
@@ -118,7 +118,7 @@ export const appRouter = t.router({
             return createPost(input)
         }),
 
-    get: t.procedure
+    getPost: t.procedure
         .input(
             z.object({
                 id: z.number(),
@@ -135,7 +135,7 @@ export const appRouter = t.router({
             return getPost(input)
         }),
 
-    getMany: t.procedure
+    getPosts: t.procedure
         .input(
             z.object({
                 id: z.number().optional(),
@@ -152,7 +152,7 @@ export const appRouter = t.router({
             return getPosts(input)
         }),
 
-    update: t.procedure
+    updatePost: t.procedure
         .input(
             z.object({
                 id: z.number(),
@@ -169,10 +169,15 @@ export const appRouter = t.router({
             return updatePost(input)
         }),
 
-    delete: t.procedure
-        .input(z.object({ ids: z.array(z.number()) }))
+    deleteRecords: t.procedure
+        .input(
+            z.object({
+                tableKey: z.enum(['posts', 'categories', 'tags']),
+                ids: z.array(z.number()),
+            })
+        )
         .mutation(async ({ input }) => {
-            return deleteRecords({ tableKey: 'posts', ids: input.ids })
+            return deleteRecords({ tableKey: input.tableKey, ids: input.ids })
         }),
 })
 
