@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "type": "module",
     "scripts": {
-        "compile": "node scripts/compile-mdx.js blog"
+        "compile": "pnpx tsx scripts/compile-mdx blog"
     },
     "dependencies": {
         "@mdx-js/mdx": "^3.1.0",
