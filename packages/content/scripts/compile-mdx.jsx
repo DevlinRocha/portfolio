@@ -8,7 +8,20 @@ import { evaluate } from '@mdx-js/mdx'
 import { createPost, deleteRecords, updatePost } from '@portfolio/api'
 
 const components = {
-    // MyButton: (props) => <button {...props} />,
+    h1: () => <></>,
+    h2: (props) => (
+        <h2
+            className="font-serif text-xl font-semibold md:text-2xl lg:text-3xl"
+            {...props}
+        />
+    ),
+    h3: (props) => (
+        <h3
+            className="font-serif text-lg font-semibold md:text-xl lg:text-2xl"
+            {...props}
+        />
+    ),
+    p: (props) => <p className="w-[87.5lvw] max-w-prose" {...props} />,
 }
 
 async function getMdxFiles(directory) {
