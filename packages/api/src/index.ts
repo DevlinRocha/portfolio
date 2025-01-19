@@ -27,8 +27,15 @@ type CreatePostArgs = Partial<Post> & {
     tags?: string[]
 }
 
+type GetPostArgs = {
+    id: number
+    withRelations?: true
+    categories?: true
+    tags?: true
+}
+
 type GetPostsArgs = {
-    id?: number
+    ids?: number[]
     title?: string
     content?: string
     withRelations?: true
@@ -97,7 +104,38 @@ const trueOrUndefined = z.custom<true | undefined>(
  *  ============================ */
 
 export const appRouter = t.router({
+    create: t.procedure
+        .input(
+            z.object({
+                title: z.string(),
+                content: z.string(),
+                published: z.boolean().optional(),
+                categories: z.array(z.string()).optional(),
+                tags: z.array(z.string()).optional(),
+            })
+        )
+        .mutation(async ({ input }) => {
+            return createPost(input)
+        }),
+
     get: t.procedure
+        .input(
+            z.object({
+                id: z.number(),
+                title: z.string().optional(),
+                content: z.string().optional(),
+                withRelations: trueOrUndefined.optional(),
+                categories: trueOrUndefined.optional(),
+                tags: trueOrUndefined.optional(),
+                limit: z.number().default(10),
+                offset: z.number().default(0),
+            })
+        )
+        .query(async ({ input }) => {
+            return getPost(input)
+        }),
+
+    getMany: t.procedure
         .input(
             z.object({
                 id: z.number().optional(),
@@ -112,20 +150,6 @@ export const appRouter = t.router({
         )
         .query(async ({ input }) => {
             return getPosts(input)
-        }),
-
-    create: t.procedure
-        .input(
-            z.object({
-                title: z.string(),
-                content: z.string(),
-                published: z.boolean().optional(),
-                categories: z.array(z.string()).optional(),
-                tags: z.array(z.string()).optional(),
-            })
-        )
-        .mutation(async ({ input }) => {
-            return createPost(input)
         }),
 
     update: t.procedure
@@ -315,6 +339,77 @@ export async function createPost({
 }
 
 /**
+ * `getPost`
+ * Retrieves a single post by `id`.
+ * Includes bridging data if requested.
+ *
+ * @param id Numeric ID of the post
+ * @param title Optional title substring match
+ * @param content Optional content substring match
+ * @param withRelations If `true`, returns bridging info for both categories and tags
+ * @param categories If `true`, returns bridging info for categories only
+ * @param tags If `true`, returns bridging info for tags only
+ * @returns An array of posts matching the given filters
+ * @throws Error if the DB query fails
+ */
+export async function getPost({
+    id,
+    withRelations,
+    categories,
+    tags,
+}: GetPostArgs) {
+    try {
+        const result = await db.query.posts.findFirst({
+            where: (posts, { eq }) => eq(posts.id, id),
+            with: {
+                postsToCategories: (withRelations || categories) && {
+                    with: {
+                        category: true,
+                    },
+                },
+                postsToTags: (withRelations || tags) && {
+                    with: {
+                        tag: true,
+                    },
+                },
+            },
+        })
+
+        if (!result) return
+
+        const postCategories =
+            result.postsToCategories && result.postsToCategories.length > 0
+                ? result.postsToCategories
+                      .map(
+                          (rel) =>
+                              'category' in rel &&
+                              (rel.category ? rel.category.name : false)
+                      )
+                      .filter((name): name is string => Boolean(name))
+                : []
+
+        const postTags =
+            result.postsToTags && result.postsToTags.length > 0
+                ? result.postsToTags
+                      .map(
+                          (rel) =>
+                              'tag' in rel && (rel.tag ? rel.tag.name : false)
+                      )
+                      .filter((name): name is string => Boolean(name))
+                : []
+
+        return {
+            ...result,
+            categories: postCategories,
+            tags: postTags,
+        }
+    } catch (error) {
+        console.error('Failed to get post(s)', { error })
+        throw new Error('Failed to get post(s)')
+    }
+}
+
+/**
  * `getPosts`
  * Retrieves posts optionally filtered by `id`, `title`, or `content`.
  * Includes bridging data if requested.
@@ -331,7 +426,7 @@ export async function createPost({
  * @throws Error if the DB query fails
  */
 export async function getPosts({
-    id,
+    ids,
     title,
     content,
     withRelations,
@@ -342,9 +437,9 @@ export async function getPosts({
 }: GetPostsArgs = {}) {
     try {
         const result = await db.query.posts.findMany({
-            where: (posts, { eq, ilike, and }) => {
+            where: (posts, { and, ilike, inArray }) => {
                 const conditions = []
-                if (id) conditions.push(eq(posts.id, id))
+                if (ids) conditions.push(inArray(posts.id, ids))
                 if (title) conditions.push(ilike(posts.title, `%${title}%`))
                 if (content)
                     conditions.push(ilike(posts.content, `%${content}%`))
