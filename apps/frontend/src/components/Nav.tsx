@@ -82,6 +82,16 @@ export default function Nav() {
 
                     <li className="xs:h-full">
                         <Link
+                            to="/blog"
+                            onClick={handleClick}
+                            className="transition-text xs:h-full xs:px-2 xs:py-0 flex items-center px-12 py-2 hover:text-black [&.active]:font-semibold"
+                        >
+                            blog
+                        </Link>
+                    </li>
+
+                    <li className="xs:h-full">
+                        <Link
                             to="/about"
                             onClick={handleClick}
                             className="transition-text xs:h-full xs:px-2 xs:py-0 flex items-center px-12 py-2 hover:text-black [&.active]:font-semibold"
