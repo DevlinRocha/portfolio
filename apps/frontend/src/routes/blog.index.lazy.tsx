@@ -30,11 +30,11 @@ function Blog() {
                 <h1 className="font-display text-5xl text-white">Blog</h1>
             </header>
 
-            <ul className="flex w-[87.5lvw] flex-col flex-wrap gap-8 md:flex-row">
+            <ul className="flex w-[87.5lvw] max-w-[992px] flex-col flex-wrap gap-8 sm:flex-row">
                 {data.slice(0).map((post) => {
                     return (
                         <li
-                            className="group overflow-clip rounded-2xl bg-white md:h-[481px] md:w-[calc(50%-32px)]"
+                            className="group overflow-clip rounded-2xl bg-white sm:w-[calc(50%-16px)] lg:max-h-[538px]"
                             key={post.id}
                         >
                             <Link
@@ -49,11 +49,11 @@ function Blog() {
                                     draggable={false}
                                     // alt={post.image.alt}
                                     onLoad={handleLoad}
-                                    className={`group-hover:scale-101 h-40 rounded-t-2xl bg-neutral-600 object-contain transition-transform duration-500 md:h-[266px] ${loading ? 'animate-loading' : 'animate-none'}`}
+                                    className={`group-hover:scale-101 h-40 rounded-t-2xl bg-neutral-600 object-contain transition-transform duration-500 sm:h-[188px] lg:h-[270px] ${loading ? 'animate-loading' : 'animate-none'}`}
                                 />
 
-                                <div className="flex h-full w-full select-none flex-col gap-4 p-6 text-xs font-bold text-gray-500 md:p-8">
-                                    <div className="flex gap-1 md:gap-2">
+                                <div className="flex h-full w-full select-none flex-col gap-2 p-6 text-xs font-bold text-gray-500 lg:gap-3 lg:p-8 lg:text-sm">
+                                    <div className="flex gap-1">
                                         {Array.isArray(post.categories) &&
                                             post.categories.map(
                                                 (category, index) => (
@@ -69,11 +69,11 @@ function Blog() {
                                             ))}
                                     </div>
 
-                                    <h2 className="font-serif text-xl leading-6 text-black md:text-xl lg:text-2xl">
+                                    <h2 className="line-clamp-5 font-serif text-xl text-black lg:text-2xl">
                                         {post.title}
                                     </h2>
 
-                                    <span className="flex h-full items-end text-sm font-semibold leading-[1.125rem]">
+                                    <span className="mt-1 flex flex-1 items-end text-sm font-semibold leading-5 lg:text-base lg:leading-5">
                                         {new Date(
                                             post.created_at
                                         ).toLocaleDateString(undefined, {
