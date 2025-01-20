@@ -8,11 +8,12 @@ const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'))
 
 const routesToCache = [
     '/',
-    '/about',
     '/banter',
-    '/pokemon-roulette',
     '/vvordle',
+    '/pokemon-roulette',
     '/wheres-waldo',
+    '/about',
+    '/blog',
 ]
 
 const assetPaths = Object.values(manifest).flatMap((entry) => [
