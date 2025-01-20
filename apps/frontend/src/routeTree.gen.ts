@@ -22,6 +22,7 @@ const PokemonRouletteLazyImport = createFileRoute('/pokemon-roulette')()
 const BanterLazyImport = createFileRoute('/banter')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
+const BlogIndexLazyImport = createFileRoute('/blog/')()
 
 // Create/Update Routes
 
@@ -62,6 +63,12 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const BlogIndexLazyRoute = BlogIndexLazyImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/blog.index.lazy').then((d) => d.Route))
 
 // Populate the FileRoutesByPath interface
 
@@ -109,6 +116,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WheresWaldoLazyImport
       parentRoute: typeof rootRoute
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -121,6 +135,7 @@ export interface FileRoutesByFullPath {
   '/pokemon-roulette': typeof PokemonRouletteLazyRoute
   '/vvordle': typeof VvordleLazyRoute
   '/wheres-waldo': typeof WheresWaldoLazyRoute
+  '/blog': typeof BlogIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
@@ -130,6 +145,7 @@ export interface FileRoutesByTo {
   '/pokemon-roulette': typeof PokemonRouletteLazyRoute
   '/vvordle': typeof VvordleLazyRoute
   '/wheres-waldo': typeof WheresWaldoLazyRoute
+  '/blog': typeof BlogIndexLazyRoute
 }
 
 export interface FileRoutesById {
@@ -140,6 +156,7 @@ export interface FileRoutesById {
   '/pokemon-roulette': typeof PokemonRouletteLazyRoute
   '/vvordle': typeof VvordleLazyRoute
   '/wheres-waldo': typeof WheresWaldoLazyRoute
+  '/blog/': typeof BlogIndexLazyRoute
 }
 
 export interface FileRouteTypes {
@@ -151,6 +168,7 @@ export interface FileRouteTypes {
     | '/pokemon-roulette'
     | '/vvordle'
     | '/wheres-waldo'
+    | '/blog'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -159,6 +177,7 @@ export interface FileRouteTypes {
     | '/pokemon-roulette'
     | '/vvordle'
     | '/wheres-waldo'
+    | '/blog'
   id:
     | '__root__'
     | '/'
@@ -167,6 +186,7 @@ export interface FileRouteTypes {
     | '/pokemon-roulette'
     | '/vvordle'
     | '/wheres-waldo'
+    | '/blog/'
   fileRoutesById: FileRoutesById
 }
 
@@ -177,6 +197,7 @@ export interface RootRouteChildren {
   PokemonRouletteLazyRoute: typeof PokemonRouletteLazyRoute
   VvordleLazyRoute: typeof VvordleLazyRoute
   WheresWaldoLazyRoute: typeof WheresWaldoLazyRoute
+  BlogIndexLazyRoute: typeof BlogIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -186,6 +207,7 @@ const rootRouteChildren: RootRouteChildren = {
   PokemonRouletteLazyRoute: PokemonRouletteLazyRoute,
   VvordleLazyRoute: VvordleLazyRoute,
   WheresWaldoLazyRoute: WheresWaldoLazyRoute,
+  BlogIndexLazyRoute: BlogIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -203,7 +225,8 @@ export const routeTree = rootRoute
         "/banter",
         "/pokemon-roulette",
         "/vvordle",
-        "/wheres-waldo"
+        "/wheres-waldo",
+        "/blog/"
       ]
     },
     "/": {
@@ -223,6 +246,9 @@ export const routeTree = rootRoute
     },
     "/wheres-waldo": {
       "filePath": "wheres-waldo.lazy.tsx"
+    },
+    "/blog/": {
+      "filePath": "blog.index.lazy.tsx"
     }
   }
 }
