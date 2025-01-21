@@ -22,6 +22,8 @@ const components = {
         />
     ),
     p: (props) => <p className="w-[87.5lvw] max-w-prose" {...props} />,
+    a: (props) => <a className="text-sky-600 underline" {...props} />,
+    pre: (props) => <pre className="text-wrap" {...props} />,
 }
 
 async function getMdxFiles(directory) {
