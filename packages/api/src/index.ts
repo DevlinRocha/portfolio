@@ -84,8 +84,6 @@ export type AppRouter = typeof appRouter
 /** ============================
  *      INITIALIZATIONS
  *  ============================ */
-console.log('stuff')
-console.log(process.env.DATABASE_URL)
 const db = drizzle({
     connection: {
         connectionString: process.env.DATABASE_URL,
