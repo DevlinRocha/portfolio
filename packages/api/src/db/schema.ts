@@ -12,8 +12,50 @@ export const posts = pgTable('posts', {
 })
 
 export const postsRelations = relations(posts, ({ many }) => ({
+    postsToImages: many(postsToImages),
     postsToCategories: many(postsToCategories),
     postsToTags: many(postsToTags),
+}))
+
+export const images = pgTable('images', {
+    id: integer().primaryKey().generatedByDefaultAsIdentity(),
+    name: text().unique().notNull(),
+    src: text().unique().notNull(),
+    alt: text().notNull(),
+})
+
+export const imagesRelations = relations(images, ({ many }) => ({
+    postsToImages: many(postsToImages),
+}))
+
+export const postsToImages = pgTable(
+    'posts_to_images',
+    {
+        postId: integer('post_id')
+            .notNull()
+            .references(() => posts.id, {
+                onUpdate: 'cascade',
+                onDelete: 'cascade',
+            }),
+        imageId: integer('image_id')
+            .notNull()
+            .references(() => images.id, {
+                onUpdate: 'cascade',
+                onDelete: 'cascade',
+            }),
+    },
+    (table) => [table.postId, table.imageId]
+)
+
+export const postsToImagesRelations = relations(postsToImages, ({ one }) => ({
+    post: one(posts, {
+        fields: [postsToImages.postId],
+        references: [posts.id],
+    }),
+    image: one(images, {
+        fields: [postsToImages.imageId],
+        references: [images.id],
+    }),
 }))
 
 export const categories = pgTable('categories', {
