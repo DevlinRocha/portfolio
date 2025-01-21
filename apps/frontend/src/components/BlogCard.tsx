@@ -57,13 +57,13 @@ export default function BlogCard({
                     {title}
                 </h2>
 
-                <span className="mt-1 flex flex-1 items-end text-sm font-semibold leading-5 lg:text-base lg:leading-5">
+                <time className="mt-1 flex flex-1 items-end text-sm font-semibold leading-5 lg:text-base lg:leading-5">
                     {new Date(created_at).toLocaleDateString(undefined, {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric',
                     })}
-                </span>
+                </time>
             </div>
         </Link>
     )
