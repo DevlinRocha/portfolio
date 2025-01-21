@@ -25,14 +25,14 @@ function BlogPost() {
         <main className="flex flex-col">
             <article className="relative flex h-full w-full flex-col items-center gap-5 pb-24 md:pb-32 lg:pb-36">
                 <header className="flex w-full max-w-[2560px] justify-center bg-purple-600 py-14 text-center">
-                    <h1 className="font-display w-full max-w-[820px] text-pretty break-words px-8 text-3xl text-white">
+                    <h1 className="font-display w-full max-w-[820px] text-pretty break-words px-8 text-3xl text-white md:text-4xl lg:text-5xl">
                         {post.title}
                     </h1>
                 </header>
 
-                <div className="flex w-[87.5lvw] max-w-prose flex-col gap-5">
-                    <section className="mb-3 mt-3 flex flex-col gap-1 text-xs font-bold text-gray-500">
-                        <div className="flex h-full w-full gap-1 text-xs font-bold lg:gap-3 lg:text-sm">
+                <div className="mt-3 flex w-[87.5lvw] max-w-prose flex-col gap-8 md:mt-5 md:gap-9 lg:mt-8 lg:gap-11">
+                    <section className="flex flex-col gap-1 text-xs font-bold text-gray-500">
+                        <div className="flex h-full w-full gap-1 text-xs font-bold">
                             <ul className="flex gap-1">
                                 {Array.isArray(post.categories) &&
                                     post.categories.map((category, index) => (
@@ -48,7 +48,7 @@ function BlogPost() {
                             </ul>
                         </div>
 
-                        <time className="mt-1 flex flex-1 items-end text-sm font-semibold leading-5 lg:text-base lg:leading-5">
+                        <time className="flex flex-1 items-end text-sm font-semibold leading-5">
                             {new Date(post.created_at).toLocaleDateString(
                                 undefined,
                                 {
