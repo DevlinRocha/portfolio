@@ -34,6 +34,7 @@ function Blog() {
                         categories={firstPost.categories}
                         tags={firstPost.tags}
                         created_at={firstPost.created_at}
+                        featured
                     />
                 </li>
 
