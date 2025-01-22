@@ -40,7 +40,7 @@ function Blog() {
                 {data.slice(1).map((post) => {
                     return (
                         <li
-                            className="group overflow-clip rounded-2xl bg-white sm:w-[calc(50%-16px)] lg:max-h-[538px]"
+                            className="group overflow-clip rounded-2xl bg-white md:w-[calc(50%-16px)] lg:max-h-[538px]"
                             key={post.id}
                         >
                             <BlogCard
