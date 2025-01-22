@@ -18,14 +18,18 @@ import * as schema from './db/schema.ts'
  *       TYPE DEFINITIONS
  *  ============================ */
 
-type TableKeys = keyof Pick<typeof schema, 'posts' | 'categories' | 'tags'>
-type RelationalTableKeys = keyof Pick<typeof schema, 'categories' | 'tags'>
+type TableKeys = keyof Pick<
+    typeof schema,
+    'posts' | 'images' | 'categories' | 'tags'
+>
 
 type Post = InferSelectModel<typeof schema.posts>
+type Image = InferSelectModel<typeof schema.images>
 type Category = InferSelectModel<typeof schema.categories>
 type Tag = InferSelectModel<typeof schema.tags>
 
 type CreatePostArgs = Partial<Post> & {
+    images?: Omit<Image, 'id'>[]
     categories?: string[]
     tags?: string[]
 }
@@ -33,6 +37,7 @@ type CreatePostArgs = Partial<Post> & {
 type GetPostArgs = {
     id: number
     withRelations?: true
+    images?: true
     categories?: true
     tags?: true
 }
@@ -42,6 +47,7 @@ type GetPostsArgs = {
     title?: string
     content?: string
     withRelations?: true
+    images?: true
     categories?: true
     tags?: true
     limit?: number
@@ -55,20 +61,29 @@ type UpdatePostArgs = {
 
 type DeleteRecordsArgs = { tableKey: TableKeys; ids: number[] }
 
+type FindOrCreateImagesArgs = {
+    tx: Transaction
+    items: Omit<Image, 'id'>[]
+}
+
 type FindOrCreateRecordsArgs = {
     tx: Transaction
-    tableKey: RelationalTableKeys
-    names: string[]
+    tableKey: 'categories' | 'tags'
+    items: string[]
 }
 
 type RelatePostToRecordsArgs = {
     tx: Transaction
     postRelationFields: PostRelationFields[]
-    table: typeof schema.postsToCategories | typeof schema.postsToTags
+    table:
+        | typeof schema.postsToImages
+        | typeof schema.postsToCategories
+        | typeof schema.postsToTags
 }
 
 type PostRelationFields = {
     postId: number
+    imageId?: number
     categoryId?: number
     tagId?: number
 }
@@ -111,6 +126,15 @@ export const appRouter = t.router({
             z.object({
                 title: z.string(),
                 content: z.string(),
+                images: z
+                    .array(
+                        z.object({
+                            name: z.string(),
+                            src: z.string(),
+                            alt: z.string(),
+                        })
+                    )
+                    .optional(),
                 published: z.boolean().optional(),
                 categories: z.array(z.string()).optional(),
                 tags: z.array(z.string()).optional(),
@@ -161,6 +185,15 @@ export const appRouter = t.router({
                 data: z.object({
                     title: z.string().optional(),
                     content: z.string().optional(),
+                    images: z
+                        .array(
+                            z.object({
+                                name: z.string(),
+                                src: z.string(),
+                                alt: z.string(),
+                            })
+                        )
+                        .optional(),
                     published: z.boolean().optional(),
                     categories: z.array(z.string()).optional(),
                     tags: z.array(z.string()).optional(),
@@ -188,31 +221,80 @@ export const appRouter = t.router({
  *  ============================ */
 
 /**
+ * `findOrCreateImages`
+ * Finds existing images by name and creates missing ones.
+ *
+ * @param tx The current database transaction
+ * @param items Array of items to find or create
+ * @returns An array of all images matching the provided names
+ * @throws Error if the query fails
+ */
+async function findOrCreateImages({ tx, items }: FindOrCreateImagesArgs) {
+    const imagesTable = schema.images
+
+    const existingRecords = await tx
+        .select({
+            id: imagesTable.id,
+            name: imagesTable.name,
+            src: imagesTable.src,
+            alt: imagesTable.alt,
+        })
+        .from(imagesTable)
+        .where(
+            inArray(
+                imagesTable.name,
+                items.map((img) => img.name)
+            )
+        )
+
+    const existingNames = new Set(existingRecords.map((rec) => rec.name))
+
+    const newItems = items.filter((img) => !existingNames.has(img.name))
+
+    if (newItems.length === 0) {
+        return existingRecords
+    }
+
+    const newRecords = await tx
+        .insert(imagesTable)
+        .values(newItems)
+        .onConflictDoNothing({ target: [imagesTable.name, imagesTable.src] }) // or your desired constraint
+        .returning({
+            id: imagesTable.id,
+            name: imagesTable.name,
+            src: imagesTable.src,
+            alt: imagesTable.alt,
+        })
+
+    return [...existingRecords, ...newRecords]
+}
+
+/**
  * `findOrCreateRecords`
  * Finds existing records by name and creates missing ones.
  *
  * @param tx The current database transaction
  * @param tableKey The key of the table (e.g., `'categories'`, `'tags'`) to operate on
- * @param names Array of string names to find or create
+ * @param items Array of string names to find or create
  * @returns An array of all records matching the provided names
  * @throws Error if the query fails
  */
 async function findOrCreateRecords({
     tx,
     tableKey,
-    names,
+    items,
 }: FindOrCreateRecordsArgs) {
     const table = schema[tableKey]
 
     const existingRecords = await tx
         .select({ id: table.id, name: table.name })
         .from(table)
-        .where(inArray(table.name, names))
+        .where(inArray(table.name, items))
 
     const existingRecordNames = new Set(
         existingRecords.map((record) => record.name)
     )
-    const newRecordNames = names.filter(
+    const newRecordNames = items.filter(
         (name) => !existingRecordNames.has(name)
     )
 
@@ -268,6 +350,7 @@ async function relatePostToRecords({
 export async function createPost({
     title,
     content,
+    images = [],
     categories = [],
     tags = [],
     ...additionalFields
@@ -285,15 +368,34 @@ export async function createPost({
                 .returning({ id: schema.posts.id })
 
             const postId = newPost.id
+            const imageRecords: Image[] = []
             const categoryRecords: Category[] = []
             const tagRecords: Tag[] = []
+
+            if (images.length > 0) {
+                imageRecords.push(
+                    ...(await findOrCreateImages({
+                        tx,
+                        items: images,
+                    }))
+                )
+
+                await relatePostToRecords({
+                    tx,
+                    postRelationFields: imageRecords.map((image) => ({
+                        postId,
+                        imageId: image.id,
+                    })),
+                    table: schema.postsToImages,
+                })
+            }
 
             if (categories.length > 0) {
                 categoryRecords.push(
                     ...(await findOrCreateRecords({
                         tx,
                         tableKey: 'categories',
-                        names: categories,
+                        items: categories,
                     }))
                 )
                 await relatePostToRecords({
@@ -311,7 +413,7 @@ export async function createPost({
                     ...(await findOrCreateRecords({
                         tx,
                         tableKey: 'tags',
-                        names: tags,
+                        items: tags,
                     }))
                 )
                 await relatePostToRecords({
@@ -362,6 +464,7 @@ export async function createPost({
 export async function getPost({
     id,
     withRelations,
+    images,
     categories,
     tags,
 }: GetPostArgs) {
@@ -369,6 +472,11 @@ export async function getPost({
         const result = await db.query.posts.findFirst({
             where: (posts, { eq }) => eq(posts.id, id),
             with: {
+                postsToImages: (withRelations || images) && {
+                    with: {
+                        image: true,
+                    },
+                },
                 postsToCategories: (withRelations || categories) && {
                     with: {
                         category: true,
@@ -383,6 +491,23 @@ export async function getPost({
         })
 
         if (!result) return
+
+        const postImages =
+            result.postsToImages && result.postsToImages.length > 0
+                ? result.postsToImages
+                      .map(
+                          (rel) =>
+                              'image' in rel &&
+                              (rel.image
+                                  ? {
+                                        name: rel.image.name,
+                                        src: rel.image.src,
+                                        alt: rel.image.alt,
+                                    }
+                                  : false)
+                      )
+                      .filter((image): image is false => Boolean(image))
+                : []
 
         const postCategories =
             result.postsToCategories && result.postsToCategories.length > 0
@@ -407,6 +532,7 @@ export async function getPost({
 
         return {
             ...result,
+            images: postImages,
             categories: postCategories,
             tags: postTags,
         }
@@ -436,6 +562,7 @@ export async function getPosts({
     ids,
     title,
     content,
+    images,
     withRelations,
     categories,
     tags,
@@ -453,6 +580,11 @@ export async function getPosts({
                 return conditions.length > 0 ? and(...conditions) : undefined
             },
             with: {
+                postsToImages: (withRelations || images) && {
+                    with: {
+                        image: true,
+                    },
+                },
                 postsToCategories: (withRelations || categories) && {
                     with: {
                         category: true,
@@ -469,6 +601,23 @@ export async function getPosts({
         })
 
         return result.map((post) => {
+            const images =
+                post.postsToImages.length > 0
+                    ? post.postsToImages
+                          .map(
+                              (rel) =>
+                                  'image' in rel &&
+                                  (rel.image
+                                      ? {
+                                            name: rel.image.name,
+                                            src: rel.image.src,
+                                            alt: rel.image.alt,
+                                        }
+                                      : false)
+                          )
+                          .filter((image): image is false => Boolean(image))
+                    : false
+
             const categories =
                 post.postsToCategories.length > 0
                     ? post.postsToCategories
@@ -491,6 +640,7 @@ export async function getPosts({
 
             return {
                 ...post,
+                images,
                 categories,
                 tags,
             }
@@ -535,7 +685,7 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                         ...(await findOrCreateRecords({
                             tx,
                             tableKey: 'categories',
-                            names: categories,
+                            items: categories,
                         }))
                     )
                     await relatePostToRecords({
@@ -559,7 +709,7 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                         ...(await findOrCreateRecords({
                             tx,
                             tableKey: 'tags',
-                            names: tags,
+                            items: tags,
                         }))
                     )
                     await relatePostToRecords({
