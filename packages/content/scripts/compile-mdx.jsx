@@ -23,6 +23,7 @@ const components = {
     ),
     p: (props) => <p className="w-[87.5lvw] max-w-prose" {...props} />,
     a: (props) => <a className="text-sky-600 underline" {...props} />,
+    img: () => <></>,
     pre: (props) => <pre className="text-wrap" {...props} />,
 }
 
@@ -54,6 +55,7 @@ async function mdxToHtml(filePath) {
             default: Content,
             id,
             title,
+            images,
             categories,
             tags,
             published,
@@ -61,9 +63,6 @@ async function mdxToHtml(filePath) {
             action,
         } = await evaluate(mdxSource, {
             ...runtime,
-            // remarkPlugins: [],
-            // rehypePlugins: [],
-            // filepath: filePath,
         })
 
         const element = React.createElement(
@@ -78,6 +77,7 @@ async function mdxToHtml(filePath) {
             html,
             id,
             title,
+            images,
             categories,
             tags,
             published,
@@ -126,6 +126,7 @@ async function main() {
                 html,
                 id,
                 title,
+                images,
                 categories,
                 tags,
                 published,
@@ -141,6 +142,7 @@ async function main() {
                     await createPost({
                         id,
                         title,
+                        images,
                         categories,
                         tags,
                         published,
@@ -153,6 +155,7 @@ async function main() {
                         id,
                         data: {
                             title,
+                            images,
                             categories,
                             tags,
                             published,
