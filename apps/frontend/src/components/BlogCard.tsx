@@ -4,6 +4,7 @@ import { Link } from '@tanstack/react-router'
 type BlogCardProps = {
     id: number
     title: string
+    image?: string | null
     categories: boolean | string[]
     tags: boolean | string[]
     created_at: string
@@ -13,6 +14,7 @@ type BlogCardProps = {
 export default function BlogCard({
     id,
     title,
+    image,
     categories,
     tags,
     created_at,
@@ -31,15 +33,13 @@ export default function BlogCard({
             draggable={false}
         >
             <img
-                src="https://images.devlin.workers.dev/CSS-@media-queries.jpg"
-                // TODO: support images
-                // src={image.src}
+                src={image || undefined}
                 width={1920}
                 height={1080}
                 draggable={false}
                 // alt={image.alt}
                 onLoad={handleLoad}
-                className={`group-hover:scale-101 pattern-2 h-40 rounded-t-2xl bg-neutral-600 object-contain transition-transform duration-500 sm:h-[188px] ${loading ? 'animate-loading' : 'animate-none'} ${featured ? 'md:h-[255px] lg:h-[362px]' : 'lg:h-[270px]'}`}
+                className={`group-hover:scale-101 h-40 rounded-t-2xl bg-neutral-600 object-contain transition-transform duration-500 sm:h-[188px] ${loading && image ? 'animate-loading' : 'animate-none'} ${featured ? 'md:h-[255px] lg:h-[362px]' : 'lg:h-[270px]'}`}
             />
 
             <div className="flex h-full w-full select-none flex-col gap-2 p-6 text-xs font-bold text-gray-500 lg:gap-3 lg:p-8 lg:text-sm">
