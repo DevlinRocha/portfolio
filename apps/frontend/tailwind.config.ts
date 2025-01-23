@@ -53,7 +53,8 @@ export default {
     content: [
         './index.html',
         './src/**/*.{js,ts,jsx,tsx}',
-        '../../packages/content/**/*.{js,ts,jsx,tsx,mdx}',
+        '../../packages/content/blog/**/*.{js,ts,jsx,tsx,mdx}',
+        '../../packages/content/scripts/**/*.{js,ts,jsx,tsx,mdx}',
     ],
     theme: {
         extend: {
