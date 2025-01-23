@@ -111,9 +111,10 @@ export const appRouter = t.router({
             z.object({
                 title: z.string(),
                 content: z.string(),
-                published: z.boolean().optional(),
+                image: z.string(),
                 categories: z.array(z.string()).optional(),
                 tags: z.array(z.string()).optional(),
+                published: z.boolean().optional(),
             })
         )
         .mutation(async ({ input }) => {
@@ -124,13 +125,9 @@ export const appRouter = t.router({
         .input(
             z.object({
                 id: z.number(),
-                title: z.string().optional(),
-                content: z.string().optional(),
                 withRelations: trueOrUndefined.optional(),
                 categories: trueOrUndefined.optional(),
                 tags: trueOrUndefined.optional(),
-                limit: z.number().default(10),
-                offset: z.number().default(0),
             })
         )
         .query(async ({ input }) => {
@@ -161,6 +158,7 @@ export const appRouter = t.router({
                 data: z.object({
                     title: z.string().optional(),
                     content: z.string().optional(),
+                    image: z.string().optional(),
                     published: z.boolean().optional(),
                     categories: z.array(z.string()).optional(),
                     tags: z.array(z.string()).optional(),
@@ -268,6 +266,7 @@ async function relatePostToRecords({
 export async function createPost({
     title,
     content,
+    image,
     categories = [],
     tags = [],
     ...additionalFields
@@ -281,7 +280,7 @@ export async function createPost({
         return await db.transaction(async (tx) => {
             const [newPost] = await tx
                 .insert(schema.posts)
-                .values({ title, content, ...additionalFields })
+                .values({ title, content, image, ...additionalFields })
                 .returning({ id: schema.posts.id })
 
             const postId = newPost.id
@@ -351,8 +350,6 @@ export async function createPost({
  * Includes bridging data if requested.
  *
  * @param id Numeric ID of the post
- * @param title Optional title substring match
- * @param content Optional content substring match
  * @param withRelations If `true`, returns bridging info for both categories and tags
  * @param categories If `true`, returns bridging info for categories only
  * @param tags If `true`, returns bridging info for tags only
