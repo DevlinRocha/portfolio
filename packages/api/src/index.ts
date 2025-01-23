@@ -214,7 +214,7 @@ async function findOrCreateRecords({
         (name) => !existingRecordNames.has(name)
     )
 
-    if (newRecordNames.length === 0) return existingRecords
+    if (!newRecordNames.length) return existingRecords
 
     const newRecords = await tx
         .insert(table)

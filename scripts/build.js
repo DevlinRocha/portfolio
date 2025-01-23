@@ -65,7 +65,7 @@ function buildProject(projectPath) {
     }
 }
 
-if (projects.length === 0) {
+if (!projects.length) {
     directories.flatMap(getProjects).forEach(buildProject)
 } else {
     const projectPaths = directories.flatMap(getProjects)

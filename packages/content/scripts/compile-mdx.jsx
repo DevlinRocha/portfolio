@@ -117,7 +117,7 @@ async function main() {
     try {
         const mdxFiles = await getMdxFiles(absoluteInputPath)
 
-        if (mdxFiles.length === 0) {
+        if (!mdxFiles.length) {
             console.log('No MDX files found in the provided directory.')
             exit(0)
         }
