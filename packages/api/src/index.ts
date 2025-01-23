@@ -288,7 +288,7 @@ export async function createPost({
             const categoryRecords: Category[] = []
             const tagRecords: Tag[] = []
 
-            if (categories.length > 0) {
+            if (categories.length) {
                 categoryRecords.push(
                     ...(await findOrCreateRecords({
                         tx,
@@ -306,7 +306,7 @@ export async function createPost({
                 })
             }
 
-            if (tags.length > 0) {
+            if (tags.length) {
                 tagRecords.push(
                     ...(await findOrCreateRecords({
                         tx,
@@ -324,7 +324,7 @@ export async function createPost({
                 })
             }
 
-            if (categoryRecords.length > 0 && tagRecords.length > 0) {
+            if (categoryRecords.length && tagRecords.length) {
                 const tagsToCategoriesRelations = tagRecords.flatMap((tag) =>
                     categoryRecords.map((category) => ({
                         tagId: tag.id,
@@ -385,7 +385,7 @@ export async function getPost({
         if (!result) return
 
         const postCategories =
-            result.postsToCategories && result.postsToCategories.length > 0
+            result.postsToCategories && result.postsToCategories.length
                 ? result.postsToCategories
                       .map(
                           (rel) =>
@@ -396,7 +396,7 @@ export async function getPost({
                 : []
 
         const postTags =
-            result.postsToTags && result.postsToTags.length > 0
+            result.postsToTags && result.postsToTags.length
                 ? result.postsToTags
                       .map(
                           (rel) =>
@@ -450,7 +450,7 @@ export async function getPosts({
                 if (title) conditions.push(ilike(posts.title, `%${title}%`))
                 if (content)
                     conditions.push(ilike(posts.content, `%${content}%`))
-                return conditions.length > 0 ? and(...conditions) : undefined
+                return conditions.length ? and(...conditions) : undefined
             },
             with: {
                 postsToCategories: (withRelations || categories) && {
@@ -480,14 +480,13 @@ export async function getPosts({
                           .filter((name): name is string => Boolean(name))
                     : false
 
-            const tags =
-                post.postsToTags.length > 0
-                    ? post.postsToTags
-                          .map((rel) =>
-                              'tag' in rel && rel.tag ? rel.tag.name : false
-                          )
-                          .filter((name): name is string => Boolean(name))
-                    : false
+            const tags = post.postsToTags.length
+                ? post.postsToTags
+                      .map((rel) =>
+                          'tag' in rel && rel.tag ? rel.tag.name : false
+                      )
+                      .filter((name): name is string => Boolean(name))
+                : false
 
             return {
                 ...post,
@@ -515,7 +514,7 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
         return await db.transaction(async (tx) => {
             const { categories, tags, ...additionalFields } = data
 
-            if (Object.keys(additionalFields).length > 0) {
+            if (Object.keys(additionalFields).length) {
                 await tx
                     .update(schema.posts)
                     .set({ ...additionalFields, updated_at: new Date() })
@@ -530,7 +529,7 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                     .delete(schema.postsToCategories)
                     .where(eq(schema.postsToCategories.postId, id))
 
-                if (categories.length > 0) {
+                if (categories.length) {
                     categoryRecords.push(
                         ...(await findOrCreateRecords({
                             tx,
@@ -554,7 +553,7 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                     .delete(schema.postsToTags)
                     .where(eq(schema.postsToTags.postId, id))
 
-                if (tags.length > 0) {
+                if (tags.length) {
                     tagRecords.push(
                         ...(await findOrCreateRecords({
                             tx,
@@ -573,7 +572,7 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                 }
             }
 
-            if (categoryRecords.length > 0 && tagRecords.length > 0) {
+            if (categoryRecords.length && tagRecords.length) {
                 const tagsToCategories = tagRecords.flatMap((tag) =>
                     categoryRecords.map((category) => ({
                         tagId: tag.id,
