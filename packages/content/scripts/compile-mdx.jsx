@@ -23,6 +23,7 @@ const components = {
     ),
     p: (props) => <p className="w-[87.5lvw] max-w-prose" {...props} />,
     a: (props) => <a className="text-sky-600 underline" {...props} />,
+    img: () => <></>,
     pre: (props) => <pre className="text-wrap" {...props} />,
 }
 
@@ -54,6 +55,7 @@ async function mdxToHtml(filePath) {
             default: Content,
             id,
             title,
+            image,
             categories,
             tags,
             published,
@@ -78,6 +80,7 @@ async function mdxToHtml(filePath) {
             html,
             id,
             title,
+            image,
             categories,
             tags,
             published,
@@ -126,6 +129,7 @@ async function main() {
                 html,
                 id,
                 title,
+                image,
                 categories,
                 tags,
                 published,
@@ -133,14 +137,14 @@ async function main() {
                 action,
             } = await mdxToHtml(file)
 
-            console.log(`\nRendered HTML for ${file}:\n`)
-            console.log(`${html}\n`)
+            console.log(`\nRendered HTML for ${file}\n`)
 
             switch (action) {
                 case 'create':
                     await createPost({
                         id,
                         title,
+                        image,
                         categories,
                         tags,
                         published,
@@ -153,6 +157,7 @@ async function main() {
                         id,
                         data: {
                             title,
+                            image,
                             categories,
                             tags,
                             published,
@@ -165,16 +170,17 @@ async function main() {
                     await deleteRecords({ tableKey: 'posts', ids: [id] })
                     break
                 case 'skip':
-                    console.log(`Skipping ${file}...`)
+                    console.log(`Skipping ${file}...\n`)
                     break
                 default:
                     console.error(
                         `Invalid action "${action}" in ${file}. Value must be either 'create' or 'update'. Skipping...`
                     )
             }
+            console.log(`✅ Successfully processed ${action} for ${file}`)
         }
 
-        console.log('\nAll MDX files have been processed.')
+        console.log('\n✅ All MDX files have been processed.')
     } catch (error) {
         console.error(`Error during processing: ${error}`)
         exit(1)
