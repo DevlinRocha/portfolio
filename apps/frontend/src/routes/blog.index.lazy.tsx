@@ -31,6 +31,7 @@ function Blog() {
                     <BlogCard
                         id={firstPost.id}
                         title={firstPost.title}
+                        image={firstPost.image}
                         categories={firstPost.categories}
                         tags={firstPost.tags}
                         created_at={firstPost.created_at}
@@ -47,6 +48,7 @@ function Blog() {
                             <BlogCard
                                 id={post.id}
                                 title={post.title}
+                                image={post.image}
                                 categories={post.categories}
                                 tags={post.tags}
                                 created_at={post.created_at}
