@@ -66,10 +66,11 @@ process.on('uncaughtException', (err) => {
 })
 
 // Start the server
+const API_HOST = process.env.API_HOST
 const PORT = process.env.PORT
 server
     .listen(PORT, () => {
-        console.log(`tRPC server running on http://localhost:${PORT}`)
+        console.log(`tRPC server running on ${API_HOST}:${PORT}`)
     })
     .on('error', (error) => {
         console.error('Server encountered an error:', error)
