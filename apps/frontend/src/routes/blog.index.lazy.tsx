@@ -1,6 +1,7 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import { trpc } from '@/api/trpcClient'
 import BlogCard from '@/components/BlogCard'
+import DefaultNotFound from '@/components/DefaultNotFound'
 
 export const Route = createLazyFileRoute('/blog/')({
     component: Blog,
@@ -12,7 +13,7 @@ function Blog() {
     })
 
     if (isLoading) return <div>Loading...</div>
-    if (error) return <div>Error: {error.message}</div>
+    if (error) return <DefaultNotFound />
     if (!data) return <div>No data found</div>
 
     const firstPost = data[0]
