@@ -9,7 +9,7 @@
         "dist"
     ],
     "scripts": {
-        "dev": "pnpx tsx watch scripts/start-server",
+        "dev": "pnpx tsx watch src/server/start-server",
         "build": "tsc --build",
         "typecheck": "tsc --build",
         "push": "exec drizzle-kit push",
