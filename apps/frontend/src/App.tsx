@@ -26,7 +26,7 @@ export function App() {
         trpc.createClient({
             links: [
                 httpBatchLink({
-                    url: process.env.API_URL!,
+                    url: import.meta.env.VITE_API_URL,
                 }),
             ],
         })
