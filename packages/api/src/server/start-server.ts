@@ -1,5 +1,5 @@
 import { createHTTPServer } from '@trpc/server/adapters/standalone'
-import { appRouter } from '../index'
+import { appRouter } from '../index.ts'
 
 const server = createHTTPServer({
     router: appRouter,
