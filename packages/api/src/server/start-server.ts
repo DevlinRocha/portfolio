@@ -4,7 +4,11 @@ import { appRouter } from '../index.ts'
 const allowedOrigins =
     process.env.NODE_ENV === 'production'
         ? ['https://devlinrocha.com', 'https://staging.devlinrocha.com']
-        : ['http://localhost:5173', 'http://localhost:3000']
+        : [
+              'http://localhost:3000',
+              'http://localhost:4173',
+              'http://localhost:5173',
+          ]
 
 const server = createHTTPServer({
     router: appRouter,
@@ -67,9 +71,10 @@ process.on('uncaughtException', (err) => {
 
 // Start the server
 const API_URL = process.env.API_URL
-const PORT = process.env.PORT
+const PORT = Number(process.env.PORT)
+const HOSTNAME = process.env.HOSTNAME
 server
-    .listen(PORT, () => {
+    .listen(PORT, HOSTNAME, undefined, () => {
         console.log(`tRPC server running on ${API_URL}`)
     })
     .on('error', (error) => {
