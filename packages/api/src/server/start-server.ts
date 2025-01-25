@@ -39,6 +39,22 @@ const server = createHTTPServer({
             return
         }
 
+        if (req.url === '/') {
+            res.setHeader('Content-Type', 'application/json')
+            res.statusCode = 200
+            res.end(
+                JSON.stringify({
+                    name: 'miniCMS API',
+                    version: '1.0.0',
+                    description: 'A tRPC-powered API',
+                    uptime: process.uptime(),
+                    documentation:
+                        'https://github.com/DevlinRocha/portfolio/packages/api/README.md',
+                })
+            )
+            return
+        }
+
         next()
     },
 })
