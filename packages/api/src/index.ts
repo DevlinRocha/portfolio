@@ -106,6 +106,16 @@ const trueOrUndefined = z.custom<true | undefined>(
  *  ============================ */
 
 export const appRouter = t.router({
+    root: t.procedure.query(() => {
+        return {
+            name: 'miniCMS API',
+            version: '1.0.0',
+            description: 'A tRPC-powered API',
+            uptime: process.uptime(),
+            documentation:
+                'https://github.com/DevlinRocha/portfolio/packages/api/README.md',
+        }
+    }),
     health: t.procedure.query(async () => {
         return await healthCheck()
     }),
