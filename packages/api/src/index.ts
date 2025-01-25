@@ -106,6 +106,9 @@ const trueOrUndefined = z.custom<true | undefined>(
  *  ============================ */
 
 export const appRouter = t.router({
+    health: t.procedure.query(async () => {
+        return await healthCheck()
+    }),
     createPost: t.procedure
         .input(
             z.object({
@@ -184,6 +187,41 @@ export const appRouter = t.router({
 /** ============================
  *      HELPER FUNCTIONS
  *  ============================ */
+
+/**
+ * `healthCheck`
+ * Performs a health check for the application and its dependencies.
+ *
+ * @returns An object containing the health status, uptime, and dependencies status
+ */
+async function healthCheck() {
+    try {
+        const dbStatus = await db.query.posts
+            .findFirst()
+            .then(() => 'connected')
+            .catch(() => 'disconnected')
+
+        return {
+            status: dbStatus === 'connected' ? 'healthy' : 'unhealthy',
+            uptime: process.uptime(),
+            dependencies: {
+                database: dbStatus,
+            },
+            timestamp: new Date().toISOString(),
+        }
+    } catch (error) {
+        console.error('Health check error:', error)
+        return {
+            status: 'unhealthy',
+            uptime: process.uptime(),
+            dependencies: {
+                database: 'disconnected',
+            },
+            timestamp: new Date().toISOString(),
+            error,
+        }
+    }
+}
 
 /**
  * `findOrCreateRecords`
