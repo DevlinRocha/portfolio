@@ -107,7 +107,7 @@ const trueOrUndefined = z.custom<true | undefined>(
  *  ============================ */
 
 export const appRouter = t.router({
-    root: t.procedure.query(() => {
+    '': t.procedure.query(() => {
         return {
             name: 'miniCMS API',
             version: '1.0.0',
