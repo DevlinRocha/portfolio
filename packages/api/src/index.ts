@@ -217,9 +217,8 @@ export const createFetchHandler = () => {
  */
 async function healthCheck() {
     try {
-        const dbStatus = await getPosts()
-            .then(() => 'connected')
-            .catch(() => 'disconnected')
+        const post = await getPosts({ limit: 1 })
+        const dbStatus = post ? 'connected' : 'disconnected'
 
         return {
             status: dbStatus === 'connected' ? 'healthy' : 'unhealthy',
@@ -298,7 +297,7 @@ async function relatePostToRecords({
     postRelationFields,
     table,
 }: RelatePostToRecordsArgs) {
-    if (!postRelationFields?.length) {
+    if (!postRelationFields.length) {
         throw new Error('postRelationFields cannot be empty')
     }
     return await tx.insert(table).values(postRelationFields)
@@ -439,26 +438,23 @@ export async function getPost({
 
         if (!result) return
 
-        const postCategories =
-            result.postsToCategories && result.postsToCategories.length
-                ? result.postsToCategories
-                      .map(
-                          (rel) =>
-                              'category' in rel &&
-                              (rel.category ? rel.category.name : false)
-                      )
-                      .filter((name): name is string => Boolean(name))
-                : []
+        const postCategories = Array.isArray(result.postsToCategories)
+            ? result.postsToCategories
+                  .map(
+                      (rel) =>
+                          'category' in rel &&
+                          (rel.category ? rel.category.name : false)
+                  )
+                  .filter((name): name is string => Boolean(name))
+            : []
 
-        const postTags =
-            result.postsToTags && result.postsToTags.length
-                ? result.postsToTags
-                      .map(
-                          (rel) =>
-                              'tag' in rel && (rel.tag ? rel.tag.name : false)
-                      )
-                      .filter((name): name is string => Boolean(name))
-                : []
+        const postTags = Array.isArray(result.postsToTags)
+            ? result.postsToTags
+                  .map(
+                      (rel) => 'tag' in rel && (rel.tag ? rel.tag.name : false)
+                  )
+                  .filter((name): name is string => Boolean(name))
+            : []
 
         return {
             ...result,
@@ -523,19 +519,23 @@ export async function getPosts({
             offset,
         })
 
-        return result.map((post) => {
-            const categories =
-                post.postsToCategories.length > 0
-                    ? post.postsToCategories
-                          .map((rel) =>
-                              'category' in rel && rel.category
-                                  ? rel.category.name
-                                  : false
-                          )
-                          .filter((name): name is string => Boolean(name))
-                    : false
+        if (!result) {
+            console.error('Query returned no results.')
+            return []
+        }
 
-            const tags = post.postsToTags.length
+        return result.map((post) => {
+            const categories = Array.isArray(post.postsToCategories)
+                ? post.postsToCategories
+                      .map((rel) =>
+                          'category' in rel && rel.category
+                              ? rel.category.name
+                              : false
+                      )
+                      .filter((name): name is string => Boolean(name))
+                : false
+
+            const tags = Array.isArray(post.postsToTags)
                 ? post.postsToTags
                       .map((rel) =>
                           'tag' in rel && rel.tag ? rel.tag.name : false
@@ -584,7 +584,7 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                     .delete(schema.postsToCategories)
                     .where(eq(schema.postsToCategories.postId, id))
 
-                if (categories.length) {
+                if (Array.isArray(categories)) {
                     categoryRecords.push(
                         ...(await findOrCreateRecords({
                             tx,
@@ -608,7 +608,7 @@ export async function updatePost({ id, data }: UpdatePostArgs) {
                     .delete(schema.postsToTags)
                     .where(eq(schema.postsToTags.postId, id))
 
-                if (tags.length) {
+                if (Array.isArray(tags)) {
                     tagRecords.push(
                         ...(await findOrCreateRecords({
                             tx,
