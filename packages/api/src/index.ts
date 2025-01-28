@@ -3,7 +3,6 @@ if (!process.env.NODE_ENV) {
 }
 
 import { initTRPC } from '@trpc/server'
-import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 import { drizzle, NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
 import {
     eq,
@@ -195,15 +194,6 @@ export const appRouter = t.router({
             return deleteRecords({ tableKey: input.tableKey, ids: input.ids })
         }),
 })
-
-export const createFetchHandler = () => {
-    return (request: Request) =>
-        fetchRequestHandler({
-            endpoint: '/',
-            req: request,
-            router: appRouter,
-        })
-}
 
 /** ============================
  *      HELPER FUNCTIONS
