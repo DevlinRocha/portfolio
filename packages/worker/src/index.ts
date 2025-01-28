@@ -10,5 +10,8 @@ import { createFetchHandler } from '@portfolio/api'
 const fetchHandler = createFetchHandler()
 
 export default {
-	fetch: fetchHandler,
+	fetch: (request: Request, env: Record<string, string>) => {
+		process.env.DATABASE_URL = env.DATABASE_URL
+		return fetchHandler(request)
+	},
 }
