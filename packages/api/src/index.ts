@@ -88,6 +88,7 @@ export type AppRouter = typeof appRouter
 const db = drizzle({
     connection: {
         connectionString: process.env.DATABASE_URL,
+        ssl: true,
     },
     schema,
     casing: 'snake_case',
@@ -201,7 +202,6 @@ export const createFetchHandler = () => {
             endpoint: '/',
             req: request,
             router: appRouter,
-            createContext: () => ({}),
         })
 }
 
@@ -217,8 +217,7 @@ export const createFetchHandler = () => {
  */
 async function healthCheck() {
     try {
-        const dbStatus = await db.query.posts
-            .findFirst()
+        const dbStatus = await getPosts()
             .then(() => 'connected')
             .catch(() => 'disconnected')
 
