@@ -101,8 +101,10 @@ export const appRouter = t.router({
         return {
             name: 'miniCMS API',
             version: '1.0.0',
-            description: 'A tRPC-powered API',
+            description:
+                'A minimal Content Management System API for managing content and related operations.',
             uptime: process.uptime(),
+            health: `${process.env.API_URL}/health`,
             documentation:
                 'https://github.com/DevlinRocha/portfolio/packages/api/README.md',
         }
