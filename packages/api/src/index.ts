@@ -3,14 +3,8 @@ if (!process.env.NODE_ENV) {
 }
 
 import { initTRPC } from '@trpc/server'
-import { drizzle, NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
-import {
-    eq,
-    ExtractTablesWithRelations,
-    inArray,
-    InferSelectModel,
-} from 'drizzle-orm'
-import { PgTransaction } from 'drizzle-orm/pg-core'
+import { drizzle } from 'drizzle-orm/node-postgres'
+import { eq, inArray, InferSelectModel } from 'drizzle-orm'
 import { z } from 'zod'
 import * as schema from './db/schema.ts'
 
@@ -73,11 +67,7 @@ type PostRelationFields = {
     tagId?: number
 }
 
-type Transaction = PgTransaction<
-    NodePgQueryResultHKT,
-    typeof schema,
-    ExtractTablesWithRelations<typeof schema>
->
+export type Transaction = Parameters<Parameters<typeof db.transaction>[0]>[0]
 
 export type AppRouter = typeof appRouter
 
