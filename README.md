@@ -1,5 +1,7 @@
 # Portfolio
 
+This monorepo contains the **frontend**, **API**, and custom **CMS** solution for my personal portfolio and blog.
+
 ## Getting Started
 
 1. Clone the repository:
@@ -77,4 +79,12 @@ The script will continue running even if errors occur. By default, errors will c
 ## Tech Stack
 
 - [TypeScript](https://www.typescriptlang.org/)
+- [Drizzle](https://orm.drizzle.team/)
+- [tRPC](https://trpc.io/)
+- [Zod](https://zod.dev/)
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [TanStack Router](https://tanstack.com/router/latest)
+- [TanStack Query](https://tanstack.com/query/latest)
+- [Tailwind CSS](https://tailwindcss.com/)
 - [ESLint](https://eslint.org/)
