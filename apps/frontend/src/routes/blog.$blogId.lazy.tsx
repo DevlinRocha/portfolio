@@ -54,14 +54,14 @@ function BlogPost() {
                         </time>
                     </section>
 
-                    <figure
-                        className={`w-lvw max-w-prose place-self-center ${!post.image && 'hidden'}`}
-                    >
-                        <img
-                            src={post.image || undefined}
-                            className="w-full object-contain sm:rounded-2xl"
-                        />
-                    </figure>
+                    {post.image && (
+                        <figure className="w-lvw max-w-prose place-self-center">
+                            <img
+                                src={post.image}
+                                className="w-full object-contain sm:rounded-2xl"
+                            />
+                        </figure>
+                    )}
 
                     <section
                         className="2xs:text-base 2xs:leading-7 flex flex-col gap-2 text-sm leading-7"
