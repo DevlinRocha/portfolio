@@ -555,8 +555,8 @@ export async function getPosts({
                           day: 'numeric',
                       })
                     : null,
-                postCategories,
-                postTags,
+                categories: postCategories,
+                tags: postTags,
             }
         })
     } catch (error) {
