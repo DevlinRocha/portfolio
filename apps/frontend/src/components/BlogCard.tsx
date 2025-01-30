@@ -45,14 +45,12 @@ export default function BlogCard({
             <div className="flex h-full w-full select-none flex-col gap-2 p-6 text-xs font-bold text-gray-500 lg:gap-3 lg:p-8 lg:text-sm">
                 <div className="flex gap-1">
                     {Array.isArray(categories) &&
-                        categories.map((category, index) => (
-                            <span key={index}>{category}</span>
+                        categories.map((category) => (
+                            <span key={category}>{category}</span>
                         ))}
                     |
                     {Array.isArray(tags) &&
-                        tags.map((tag, index) => (
-                            <span key={index}>{tag}</span>
-                        ))}
+                        tags.map((tag) => <span key={tag}>{tag}</span>)}
                 </div>
 
                 <h2

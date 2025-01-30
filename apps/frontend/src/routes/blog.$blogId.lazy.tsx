@@ -36,15 +36,15 @@ function BlogPost() {
                         <div className="flex h-full w-full gap-1 text-xs font-bold">
                             <ul className="flex gap-1">
                                 {Array.isArray(post.categories) &&
-                                    post.categories.map((category, index) => (
-                                        <li key={index}>{category}</li>
+                                    post.categories.map((category) => (
+                                        <li key={category}>{category}</li>
                                     ))}
                             </ul>
                             |
                             <ul className="flex gap-1">
                                 {Array.isArray(post.tags) &&
-                                    post.tags.map((tag, index) => (
-                                        <li key={index}>{tag}</li>
+                                    post.tags.map((tag) => (
+                                        <li key={tag}>{tag}</li>
                                     ))}
                             </ul>
                         </div>
