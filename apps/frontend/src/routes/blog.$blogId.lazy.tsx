@@ -13,10 +13,15 @@ function BlogPost() {
         data: post,
         isLoading,
         error,
-    } = trpc.getPost.useQuery({
-        id: Number(blogId),
-        withRelations: true,
-    })
+    } = trpc.getPost.useQuery(
+        {
+            id: Number(blogId),
+            withRelations: true,
+        },
+        {
+            enabled: !isNaN(Number(blogId)),
+        }
+    )
 
     if (isLoading) return <div>Loading...</div>
     if (error) return <DefaultNotFound />
