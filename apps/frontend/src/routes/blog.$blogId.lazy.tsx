@@ -19,7 +19,7 @@ function BlogPost() {
             withRelations: true,
         },
         {
-            enabled: !isNaN(Number(blogId)),
+            enabled: !Number.isNaN(Number(blogId)),
         }
     )
 
