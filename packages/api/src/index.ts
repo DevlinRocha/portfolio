@@ -507,7 +507,7 @@ export async function getPosts({
         }
 
         return result.map((post) => {
-            const categories = Array.isArray(post.postsToCategories)
+            const postCategories = Array.isArray(post.postsToCategories)
                 ? post.postsToCategories
                       .map((rel) =>
                           'category' in rel && rel.category
@@ -517,7 +517,7 @@ export async function getPosts({
                       .filter((name): name is string => Boolean(name))
                 : false
 
-            const tags = Array.isArray(post.postsToTags)
+            const postTags = Array.isArray(post.postsToTags)
                 ? post.postsToTags
                       .map((rel) =>
                           'tag' in rel && rel.tag ? rel.tag.name : false
@@ -527,8 +527,8 @@ export async function getPosts({
 
             return {
                 ...post,
-                categories,
-                tags,
+                postCategories,
+                postTags,
             }
         })
     } catch (error) {
