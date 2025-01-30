@@ -50,14 +50,7 @@ function BlogPost() {
                         </div>
 
                         <time className="flex flex-1 items-end text-sm font-semibold leading-5">
-                            {new Date(post.created_at).toLocaleDateString(
-                                undefined,
-                                {
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric',
-                                }
-                            )}
+                            {post.created_at_formatted}
                         </time>
                     </section>
 

@@ -35,7 +35,7 @@ function Blog() {
                         image={firstPost.image}
                         categories={firstPost.categories}
                         tags={firstPost.tags}
-                        created_at={firstPost.created_at}
+                        created_at={firstPost.created_at_formatted}
                         featured
                     />
                 </li>
@@ -52,7 +52,7 @@ function Blog() {
                                 image={post.image}
                                 categories={post.categories}
                                 tags={post.tags}
-                                created_at={post.created_at}
+                                created_at={post.created_at_formatted}
                             />
                         </li>
                     )
