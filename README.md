@@ -1,4 +1,4 @@
-# portfolio
+# Portfolio
 
 ## Getting Started
 
@@ -74,7 +74,7 @@ The script will continue running even if errors occur. By default, errors will c
     pnpm build --typecheck-projects=packages/api --ignore-projects=apps/frontend
     ```
 
-## Development
+## Tech Stack
 
 - [TypeScript](https://www.typescriptlang.org/)
 - [ESLint](https://eslint.org/)

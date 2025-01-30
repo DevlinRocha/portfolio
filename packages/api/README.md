@@ -1,6 +1,8 @@
-# api
+# API
 
-## Development
+The backend API for the portfolio website blog.
+
+## Tech Stack
 
 - [TypeScript](https://www.typescriptlang.org/)
 - [Drizzle](https://orm.drizzle.team/)

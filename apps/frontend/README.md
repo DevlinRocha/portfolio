@@ -1,6 +1,8 @@
-# frontend
+# Frontend
 
-## Development
+Frontend for portfolio website and blog.
+
+## Tech Stack
 
 - [TypeScript](https://www.typescriptlang.org/)
 - [React](https://reactjs.org/)
