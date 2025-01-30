@@ -62,11 +62,7 @@ export default function BlogCard({
                 </h2>
 
                 <time className="mt-1 flex flex-1 items-end text-sm font-semibold leading-5 lg:text-base lg:leading-5">
-                    {new Date(created_at).toLocaleDateString(undefined, {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                    })}
+                    {created_at}
                 </time>
             </div>
         </Link>
