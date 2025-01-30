@@ -440,6 +440,20 @@ export async function getPost({
 
         return {
             ...result,
+            created_at_formatted: new Date(
+                result.created_at
+            ).toLocaleDateString(undefined, {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            }),
+            updated_at_formatted: result.updated_at
+                ? new Date(result.updated_at).toLocaleDateString(undefined, {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                  })
+                : null,
             categories: postCategories,
             tags: postTags,
         }
@@ -527,6 +541,20 @@ export async function getPosts({
 
             return {
                 ...post,
+                created_at_formatted: new Date(
+                    post.created_at
+                ).toLocaleDateString(undefined, {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                }),
+                updated_at_formatted: post.updated_at
+                    ? new Date(post.updated_at).toLocaleDateString(undefined, {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                      })
+                    : null,
                 postCategories,
                 postTags,
             }
