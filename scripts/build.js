@@ -1,6 +1,6 @@
-import { execSync } from 'child_process'
 import { existsSync, readdirSync } from 'fs'
-import { join, resolve, basename } from 'path'
+import { basename, join, resolve } from 'path'
+import { execSync } from 'child_process'
 import { argv, cwd, exit } from 'process'
 
 const directories = ['packages', 'apps']
@@ -17,7 +17,7 @@ const ignoreProjects = parseFlag('--ignore-projects').map((project) =>
     resolve(join(cwd(), project))
 )
 
-if (ignoreErrors) console.log('Ignoring errors...')
+if (ignoreErrors) console.warn('⛔️ Ignoring errors...')
 
 function parseFlag(flagName) {
     const flag = flags.find((flag) => flag.startsWith(`${flagName}=`))
@@ -39,14 +39,15 @@ function buildProject(projectPath) {
         return console.log(`Skipping ${projectPath} (ignored)`)
 
     const typecheckOnly = typecheckProjects.includes(projectPath)
+    const projectName = basename(projectPath)
 
     if (!typecheckOnly) {
         try {
-            console.log(`Building ${projectPath}...`)
+            console.log(`Building ${projectName}...`)
             execSync('pnpm build', { stdio: 'inherit', cwd: projectPath })
-            console.log(`✅ Successfully built ${projectPath}`)
+            console.log(`✅ Successfully built ${projectName}`)
         } catch (error) {
-            console.error(`❌ Error building ${projectPath}: ${error.message}`)
+            console.error(`❌ Error building ${projectName}: ${error.message}`)
             if (!ignoreErrors) exit(1)
         }
     } else if (typecheckOnly) {
@@ -81,11 +82,13 @@ if (!projects.length) {
     console.log('\n✅ All projects processed successfully!')
 } else {
     const projectPaths = directories.flatMap(getProjects)
+    console.log(`Found ${projectPaths.length} total projects`)
 
     const projectMap = Object.fromEntries(
         projectPaths.map((projectPath) => [basename(projectPath), projectPath])
     )
 
+    console.log(`Building ${projects.length} selected projects...`)
     projects.forEach((name) => {
         const projectPath = projectMap[name]
         if (projectPath) {
@@ -95,4 +98,5 @@ if (!projects.length) {
             if (!ignoreErrors) exit(1)
         }
     })
+    console.log('\nSelected projects processed successfully!')
 }
