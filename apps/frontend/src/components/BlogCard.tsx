@@ -26,6 +26,9 @@ export default function BlogCard({
 }: BlogCardProps) {
     const [loading, setLoading] = useState(true)
 
+    const hasCategories = Array.isArray(categories) && categories.length > 0
+    const hasTags = Array.isArray(tags) && tags.length > 0
+
     function handleLoad() {
         setLoading(false)
     }
@@ -52,13 +55,12 @@ export default function BlogCard({
 
             <div className="flex h-full w-full select-none flex-col gap-2 p-6 text-xs font-bold text-gray-500 lg:gap-3 lg:p-8 lg:text-sm">
                 <div className="flex gap-1">
-                    {Array.isArray(categories) &&
+                    {hasCategories &&
                         categories.map((category) => (
                             <span key={category}>{category}</span>
                         ))}
-                    |
-                    {Array.isArray(tags) &&
-                        tags.map((tag) => <span key={tag}>{tag}</span>)}
+                    {hasCategories && hasTags && <span>|</span>}
+                    {hasTags && tags.map((tag) => <span key={tag}>{tag}</span>)}
                 </div>
 
                 <h2
