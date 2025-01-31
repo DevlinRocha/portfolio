@@ -14,7 +14,7 @@ function Blog() {
 
     if (isLoading) return <div>Loading...</div>
     if (error) return <DefaultNotFound />
-    if (!data || !data.length) return <div>No data found</div>
+    if (!data || !data.length) return <DefaultNotFound />
 
     const firstPost = data[0]
 

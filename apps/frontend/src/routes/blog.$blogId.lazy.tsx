@@ -25,7 +25,7 @@ function BlogPost() {
 
     if (isLoading) return <div>Loading...</div>
     if (error) return <DefaultNotFound />
-    if (!post) return
+    if (!post) return <DefaultNotFound />
 
     return (
         <main className="flex flex-col">
