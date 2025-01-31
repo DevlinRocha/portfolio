@@ -67,7 +67,18 @@ function buildProject(projectPath) {
 }
 
 if (!projects.length) {
-    directories.flatMap(getProjects).forEach(buildProject)
+    const allProjects = directories.flatMap(getProjects)
+
+    console.log(`Building ${allProjects.length} projects...`)
+
+    allProjects.forEach((projectPath, index) => {
+        console.log(
+            `\n[${index + 1}/${allProjects.length}] Processing ${basename(projectPath)}`
+        )
+        buildProject(projectPath)
+    })
+
+    console.log('\n✅ All projects processed successfully!')
 } else {
     const projectPaths = directories.flatMap(getProjects)
 
