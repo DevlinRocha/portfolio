@@ -21,7 +21,8 @@ if (ignoreErrors) console.log('Ignoring errors...')
 
 function parseFlag(flagName) {
     const flag = flags.find((flag) => flag.startsWith(`${flagName}=`))
-    return flag ? flag.replace(`${flagName}=`, '').split(',') : []
+    if (!flag) return []
+    return flag.replace(`${flagName}=`, '').split(',')
 }
 
 function getProjects(directory) {
