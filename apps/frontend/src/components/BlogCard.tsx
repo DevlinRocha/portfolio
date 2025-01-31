@@ -32,8 +32,6 @@ export default function BlogCard({
 
     return (
         <Link
-            itemScope
-            itemType="https://schema.org/BlogPosting"
             className={`flex h-full w-full ${featured ? 'flex-col md:flex-row' : 'flex-col'}`}
             to={`/blog/${id}`}
             draggable={false}
