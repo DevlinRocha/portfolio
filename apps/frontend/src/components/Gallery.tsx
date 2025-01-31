@@ -14,9 +14,9 @@ interface GalleryItem {
 }
 
 export default function Gallery({ items }: GalleryProps) {
-    const [activeIndex, setActiveIndex] = useState(0)
     const captionsRef = useRef<(HTMLElement | null)[]>([])
-    const imgRef = useRef<HTMLImageElement>(null)
+    const [activeIndex, setActiveIndex] = useState(0)
+    const [loading, setLoading] = useState(true)
 
     const handleClick = useCallback(
         (e: React.MouseEvent | null, direction: 'left' | 'right') => {
@@ -74,7 +74,7 @@ export default function Gallery({ items }: GalleryProps) {
     }, [observerCallback])
 
     function handleLoad() {
-        imgRef.current?.classList.toggle('animate-loading', false)
+        setLoading(false)
     }
 
     return (
@@ -97,8 +97,7 @@ export default function Gallery({ items }: GalleryProps) {
                                             draggable={false}
                                             alt={alt}
                                             onLoad={handleLoad}
-                                            ref={imgRef}
-                                            className="max-w-[87.5lvw] animate-loading rounded-2xl bg-neutral-600 object-contain text-transparent md:max-w-[768px] lg:max-w-[896px]"
+                                            className={`max-w-[87.5lvw] rounded-2xl bg-neutral-600 object-contain text-transparent md:max-w-[768px] lg:max-w-[896px] ${loading && src ? 'animate-loading' : 'animate-none'}`}
                                         />
 
                                         <figcaption
