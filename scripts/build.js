@@ -26,11 +26,11 @@ function parseFlag(flagName) {
 }
 
 function getProjects(directory) {
-    const dirPath = join(resolve(), directory)
+    const dirPath = resolve(cwd(), directory)
     if (!existsSync(dirPath)) return []
 
     return readdirSync(dirPath)
-        .map((project) => join(dirPath, project))
+        .map((project) => resolve(dirPath, project))
         .filter((projectPath) => existsSync(join(projectPath, 'package.json')))
 }
 
