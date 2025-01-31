@@ -8,6 +8,8 @@ type BlogCardProps = {
     categories: boolean | string[]
     tags: boolean | string[]
     created_at: string
+    updated_at: string
+    created_at_formatted: string
     featured?: boolean
 }
 
@@ -18,6 +20,8 @@ export default function BlogCard({
     categories,
     tags,
     created_at,
+    updated_at,
+    created_at_formatted,
     featured,
 }: BlogCardProps) {
     const [loading, setLoading] = useState(true)
@@ -28,10 +32,16 @@ export default function BlogCard({
 
     return (
         <Link
+            itemScope
+            itemType="https://schema.org/BlogPosting"
             className={`flex h-full w-full ${featured ? 'flex-col md:flex-row' : 'flex-col'}`}
             to={`/blog/${id}`}
             draggable={false}
         >
+            <meta itemProp="datePublished" content={created_at} />
+            <meta itemProp="dateModified" content={updated_at} />
+            <meta itemProp="author" content="Devlin Rocha" />
+
             <img
                 src={image || undefined}
                 width={1920}
@@ -57,12 +67,14 @@ export default function BlogCard({
                     className={`font-serif text-xl text-black ${featured ? 'line-clamp-6 lg:text-3xl' : 'line-clamp-5 lg:text-2xl'}`}
                 >
                     {title}
-                    <meta itemProp="datePublished" content={created_at} />
-                    <meta itemProp="author" content="Devlin Rocha" />
                 </h2>
 
-                <time className="mt-1 flex flex-1 items-end text-sm font-semibold leading-5 lg:text-base lg:leading-5">
-                    {created_at}
+                <time
+                    itemProp="datePublished"
+                    dateTime={created_at}
+                    className="mt-1 flex flex-1 items-end text-sm font-semibold leading-5 lg:text-base lg:leading-5"
+                >
+                    {created_at_formatted}
                 </time>
             </div>
         </Link>

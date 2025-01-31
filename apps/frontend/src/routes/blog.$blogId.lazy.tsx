@@ -35,28 +35,20 @@ function BlogPost() {
                 className="relative flex h-full w-full flex-col items-center gap-5 pb-24 md:pb-32 lg:pb-36"
             >
                 <header className="flex w-full max-w-[2560px] justify-center bg-purple-600 py-14 text-center">
-                    <div className="flex flex-col gap-2">
-                        <h1
-                            itemProp="headline"
-                            className="font-display w-full max-w-[820px] text-pretty break-words px-8 text-3xl text-white md:text-4xl lg:text-5xl"
-                        >
-                            {post.title}
-                        </h1>
-
-                        <meta
-                            itemProp="datePublished"
-                            content={post.created_at_formatted}
-                        />
-                        <meta
-                            itemProp="dateModified"
-                            content={
-                                post.updated_at_formatted ||
-                                post.created_at_formatted
-                            }
-                        />
-                        <meta itemProp="author" content="Devlin Rocha" />
-                    </div>
+                    <h1
+                        itemProp="headline"
+                        className="font-display w-full max-w-[820px] text-pretty break-words px-8 text-3xl text-white md:text-4xl lg:text-5xl"
+                    >
+                        {post.title}
+                    </h1>
                 </header>
+
+                <meta itemProp="datePublished" content={post.created_at} />
+                <meta
+                    itemProp="dateModified"
+                    content={post.updated_at || post.created_at}
+                />
+                <meta itemProp="author" content="Devlin Rocha" />
 
                 <div className="mt-3 flex w-[87.5lvw] max-w-prose flex-col gap-8 md:mt-5 md:gap-9 lg:mt-8 lg:gap-11">
                     <section className="flex flex-col gap-1 text-xs font-bold text-gray-500">
@@ -76,7 +68,11 @@ function BlogPost() {
                             </ul>
                         </div>
 
-                        <time className="flex flex-1 items-end text-sm font-semibold leading-5">
+                        <time
+                            itemProp="datePublished"
+                            dateTime={post.created_at}
+                            className="flex flex-1 items-end text-sm font-semibold leading-5"
+                        >
                             {post.created_at_formatted}
                         </time>
                     </section>
