@@ -65,7 +65,7 @@ export default function Project({
                         )}
                     </div>
 
-                    <div className="max-w-[480px] md:max-w-[672px] lg:max-w-[720px]">
+                    <figure className="max-w-[480px] md:max-w-[672px] lg:max-w-[720px]">
                         <img
                             src={src}
                             width={1280}
@@ -76,7 +76,7 @@ export default function Project({
                             ref={imgRef}
                             className="animate-loading rounded-lg bg-neutral-600 object-contain text-transparent drop-shadow-lg"
                         />
-                    </div>
+                    </figure>
                 </div>
             </figure>
         </Link>
