@@ -52,15 +52,15 @@ function buildProject(projectPath) {
         }
     } else if (typecheckOnly) {
         try {
-            console.log(`Typechecking ${projectPath}...`)
+            console.log(`Typechecking ${projectName}...`)
             execSync('pnpm typecheck', {
                 stdio: 'inherit',
                 cwd: projectPath,
             })
-            console.log(`✅ Successfully typechecked ${projectPath}`)
+            console.log(`✅ Successfully typechecked ${projectName}`)
         } catch (error) {
             console.error(
-                `❌ Error typechecking ${projectPath}: ${error.message}`
+                `❌ Error typechecking ${projectName}: ${error.message}`
             )
             if (!ignoreErrors) exit(1)
         }
