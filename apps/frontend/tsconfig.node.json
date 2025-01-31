@@ -1,7 +1,7 @@
 {
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
-        "tsBuildInfoFile": "./.cache/tsconfig.app.tsbuildinfo",
+        "tsBuildInfoFile": "./.cache/tsconfig.node.tsbuildinfo",
         "lib": ["ESNext"],
         "skipLibCheck": true
     },
