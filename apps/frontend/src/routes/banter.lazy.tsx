@@ -68,7 +68,7 @@ function Banter() {
                     <h1 className="font-display text-5xl">Banter</h1>
                 </header>
 
-                <section className="flex w-full flex-col items-center gap-2 text-pretty pt-6 text-sm leading-7 2xs:text-base 2xs:leading-7 md:pt-12 lg:pt-14">
+                <section className="2xs:text-base 2xs:leading-7 flex w-full flex-col items-center gap-2 text-pretty pt-6 text-sm leading-7 md:pt-12 lg:pt-14">
                     <p className="w-[87.5lvw] max-w-prose">
                         Banter is a fullstack open-source Discord clone built
                         with <b title={typeScript}>TypeScript</b>,{' '}
@@ -119,7 +119,7 @@ function Banter() {
                     </aside>
 
                     <section className="flex w-full flex-col items-center gap-8 bg-sky-100 py-16">
-                        <header className="w-full px-7 2xs:px-8 xs:px-10 sm:px-12 md:order-2 md:px-[12lvw] xl:px-[calc(50%-490px)]">
+                        <header className="2xs:px-8 xs:px-10 w-full px-7 sm:px-12 md:order-2 md:px-[12lvw] xl:px-[calc(50%-490px)]">
                             <h2 className="font-serif text-xl font-semibold md:text-2xl lg:text-3xl">
                                 explore features
                             </h2>

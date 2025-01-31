@@ -79,7 +79,7 @@ export default function Gallery({ items }: GalleryProps) {
 
     return (
         <>
-            <ul className="scrollbar-hide flex h-auto w-full snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth px-7 2xs:px-8 xs:px-10 sm:px-12 md:order-2 md:px-[12lvw] xl:px-[calc(50%-490px)]">
+            <ul className="scrollbar-hide 2xs:px-8 xs:px-10 flex h-auto w-full snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth px-7 sm:px-12 md:order-2 md:px-[12lvw] xl:px-[calc(50%-490px)]">
                 {items.map(
                     ({ src, alt, caption, slug }: GalleryItem, index) => {
                         return (
@@ -117,7 +117,7 @@ export default function Gallery({ items }: GalleryProps) {
                 )}
             </ul>
 
-            <div className="flex w-full justify-end gap-4 px-7 2xs:px-8 xs:px-10 sm:px-12 md:absolute md:mt-0 md:px-[12lvw] xl:px-[calc(50%-490px)]">
+            <div className="2xs:px-8 xs:px-10 flex w-full justify-end gap-4 px-7 sm:px-12 md:absolute md:mt-0 md:px-[12lvw] xl:px-[calc(50%-490px)]">
                 <Caret
                     onClick={(e) => handleClick(e, 'left')}
                     disabled={activeIndex === 0}
