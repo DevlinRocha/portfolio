@@ -3,43 +3,27 @@
     "private": true,
     "version": "1.0.0",
     "type": "module",
+    "packageManager": "pnpm@9.15.0",
     "scripts": {
-        "dev": "vite",
-        "build": "tsc --build && vite build && node scripts/generateResourceList.js",
+        "build": "pnpm typecheck && node scripts/build --ignore-projects=packages/content",
         "typecheck": "tsc --build",
         "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
         "prettier": "prettier . --write",
         "prettier:check": "prettier . --check",
-        "cleanup": "pnpm lint --fix && pnpm prettier",
-        "preview": "vite preview"
-    },
-    "dependencies": {
-        "@tanstack/react-router": "^1.90.0",
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0"
+        "cleanup": "pnpm lint --fix && pnpm prettier"
     },
     "devDependencies": {
-        "@eslint/js": "^9.17.0",
-        "@tanstack/router-devtools": "^1.90.0",
-        "@tanstack/router-plugin": "^1.87.13",
-        "@types/node": "^22.10.2",
-        "@types/react": "^19.0.1",
-        "@types/react-dom": "^19.0.2",
-        "@typescript-eslint/eslint-plugin": "^8.18.0",
-        "@typescript-eslint/parser": "^8.18.0",
-        "@vitejs/plugin-react-swc": "^3.7.2",
-        "autoprefixer": "^10.4.20",
-        "eslint": "^9.17.0",
-        "eslint-plugin-react": "^7.37.2",
+        "@eslint/js": "^9.18.0",
+        "@types/node": "^22.10.6",
+        "@typescript-eslint/eslint-plugin": "^8.20.0",
+        "@typescript-eslint/parser": "^8.20.0",
+        "eslint": "^9.18.0",
+        "eslint-plugin-react": "^7.37.4",
         "eslint-plugin-react-hooks": "^5.1.0",
-        "eslint-plugin-react-refresh": "^0.4.16",
-        "globals": "^15.13.0",
-        "postcss": "^8.4.49",
+        "eslint-plugin-react-refresh": "^0.4.18",
+        "globals": "^15.14.0",
         "prettier": "3.4.2",
-        "prettier-plugin-tailwindcss": "^0.6.9",
-        "tailwindcss": "^3.4.16",
-        "typescript": "^5.7.2",
-        "typescript-eslint": "^8.18.0",
-        "vite": "^6.0.3"
+        "typescript": "^5.7.3",
+        "typescript-eslint": "^8.20.0"
     }
 }

@@ -24,10 +24,8 @@ jobs:
               with:
                   fetch-depth: 0
 
-            - name: Install pnpm
-              uses: pnpm/action-setup@v4
-              with:
-                  version: 9
+            - name: Enable Corepack
+              run: corepack enable
 
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v4
@@ -41,10 +39,10 @@ jobs:
                   pnpm audit
 
             - name: Prettier
-              run: pnpm prettier . --write
+              run: pnpm prettier
 
             - name: Typecheck
-              run: pnpm tsc --build --verbose
+              run: pnpm typecheck --verbose && node scripts/build --ignore-projects=packages/content
 
             - name: Lint
               run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
