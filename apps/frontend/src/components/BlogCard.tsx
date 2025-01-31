@@ -57,6 +57,8 @@ export default function BlogCard({
                     className={`font-serif text-xl text-black ${featured ? 'line-clamp-6 lg:text-3xl' : 'line-clamp-5 lg:text-2xl'}`}
                 >
                     {title}
+                    <meta itemProp="datePublished" content={created_at} />
+                    <meta itemProp="author" content="Devlin Rocha" />
                 </h2>
 
                 <time className="mt-1 flex flex-1 items-end text-sm font-semibold leading-5 lg:text-base lg:leading-5">

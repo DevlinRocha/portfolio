@@ -29,11 +29,33 @@ function BlogPost() {
 
     return (
         <main className="flex flex-col">
-            <article className="relative flex h-full w-full flex-col items-center gap-5 pb-24 md:pb-32 lg:pb-36">
+            <article
+                itemScope
+                itemType="https://schema.org/BlogPosting"
+                className="relative flex h-full w-full flex-col items-center gap-5 pb-24 md:pb-32 lg:pb-36"
+            >
                 <header className="flex w-full max-w-[2560px] justify-center bg-purple-600 py-14 text-center">
-                    <h1 className="font-display w-full max-w-[820px] text-pretty break-words px-8 text-3xl text-white md:text-4xl lg:text-5xl">
-                        {post.title}
-                    </h1>
+                    <div className="flex flex-col gap-2">
+                        <h1
+                            itemProp="headline"
+                            className="font-display w-full max-w-[820px] text-pretty break-words px-8 text-3xl text-white md:text-4xl lg:text-5xl"
+                        >
+                            {post.title}
+                        </h1>
+
+                        <meta
+                            itemProp="datePublished"
+                            content={post.created_at_formatted}
+                        />
+                        <meta
+                            itemProp="dateModified"
+                            content={
+                                post.updated_at_formatted ||
+                                post.created_at_formatted
+                            }
+                        />
+                        <meta itemProp="author" content="Devlin Rocha" />
+                    </div>
                 </header>
 
                 <div className="mt-3 flex w-[87.5lvw] max-w-prose flex-col gap-8 md:mt-5 md:gap-9 lg:mt-8 lg:gap-11">
@@ -69,6 +91,7 @@ function BlogPost() {
                     )}
 
                     <section
+                        itemProp="articleBody"
                         className="2xs:text-base 2xs:leading-7 flex flex-col gap-2 text-sm leading-7"
                         dangerouslySetInnerHTML={{ __html: post.content }}
                     />
