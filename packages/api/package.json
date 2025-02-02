@@ -11,6 +11,7 @@
     "scripts": {
         "dev": "pnpx tsx watch src/server/start-server",
         "build": "tsc --build",
+        "start": "node dist/index",
         "typecheck": "tsc --build",
         "push": "exec drizzle-kit push",
         "generate": "exec drizzle-kit generate",
