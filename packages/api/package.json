@@ -1,0 +1,30 @@
+{
+    "name": "@portfolio/api",
+    "private": true,
+    "version": "1.0.0",
+    "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "dev": "pnpx tsx watch src/server/start-server",
+        "build": "tsc --build",
+        "typecheck": "tsc --build",
+        "push": "exec drizzle-kit push",
+        "generate": "exec drizzle-kit generate",
+        "migrate": "exec drizzle-kit migrate",
+        "studio": "drizzle-kit studio"
+    },
+    "dependencies": {
+        "@trpc/server": "11.0.0-rc.700",
+        "drizzle-orm": "^0.38.3",
+        "zod": "^3.24.1"
+    },
+    "devDependencies": {
+        "@types/pg": "^8.11.10",
+        "dotenv": "^16.4.7",
+        "drizzle-kit": "^0.30.1"
+    }
+}

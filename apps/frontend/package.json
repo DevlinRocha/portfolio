@@ -1,0 +1,38 @@
+{
+    "name": "@portfolio/frontend",
+    "private": true,
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "pnpm typecheck && vite build && node scripts/generate-resource-list",
+        "typecheck": "tsc --build",
+        "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
+        "prettier": "prettier . --write",
+        "prettier:check": "prettier . --check",
+        "cleanup": "pnpm lint --fix && pnpm prettier",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@portfolio/api": "workspace:*",
+        "@tanstack/react-query": "^5.64.1",
+        "@tanstack/react-router": "^1.90.0",
+        "@trpc/client": "11.0.0-rc.700",
+        "@trpc/react-query": "11.0.0-rc.700",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0"
+    },
+    "devDependencies": {
+        "@tanstack/eslint-plugin-query": "^5.62.16",
+        "@tanstack/router-devtools": "^1.90.0",
+        "@tanstack/router-plugin": "^1.87.13",
+        "@types/react": "^19.0.1",
+        "@types/react-dom": "^19.0.2",
+        "@vitejs/plugin-react-swc": "^3.7.2",
+        "autoprefixer": "^10.4.20",
+        "postcss": "^8.4.49",
+        "prettier-plugin-tailwindcss": "^0.6.9",
+        "tailwindcss": "^3.4.16",
+        "vite": "^6.0.11"
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "tsBuildInfoFile": "./.cache/tsconfig.app.tsbuildinfo",
+        "lib": ["ESNext"],
+        "skipLibCheck": true
+    },
+    "include": ["vite.config.ts"]
+}
