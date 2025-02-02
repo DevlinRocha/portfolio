@@ -42,8 +42,11 @@ jobs:
             - name: Prettier
               run: pnpm prettier
 
-            - name: Typecheck
-              run: pnpm typecheck --verbose && node scripts/build --ignore-projects=packages/content
-
             - name: Lint
               run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
+
+            - name: Typecheck
+              run: pnpm typecheck --verbose
+
+            - name: Build
+              run: pnpm -r build
