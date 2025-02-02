@@ -33,10 +33,11 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   cache: 'pnpm'
 
-            - name: Install dependencies and audit
-              run: |
-                  pnpm install
-                  pnpm audit
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Audit dependencies
+              run: pnpm audit
 
             - name: Prettier
               run: pnpm prettier
