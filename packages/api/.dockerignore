@@ -36,6 +36,10 @@ ehthumbs.db
 .idea/
 .vscode/
 
+# Git
+.git/
+.gitignore
+
 # Project-specific files
 drizzle.config.ts
 migrations/
