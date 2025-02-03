@@ -1,0 +1,41 @@
+# Node modules & package store
+node_modules/
+.pnpm-store/
+
+# Logs & temp files
+.DS_Store
+Thumbs.db
+*.log
+.nyc_output/
+coverage/
+
+# Environment files
+.env
+.env.*
+
+# Build artifacts
+build/
+dist/
+
+# OS-specific files
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Documentation
+*.md
+
+# Temporary files
+*.swp
+*.swo
+*.tmp
+*.temp
+*~
+
+# IDE-specific directories
+.idea/
+.vscode/
+
+# Project-specific files
+drizzle.config.ts
+migrations/
