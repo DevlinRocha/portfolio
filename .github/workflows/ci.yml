@@ -16,7 +16,7 @@ jobs:
 
         strategy:
             matrix:
-                node-version: [20]
+                node-version: [22]
 
         steps:
             - name: Checkout repository
@@ -43,7 +43,7 @@ jobs:
               run: pnpm prettier
 
             - name: Lint
-              run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
+              run: pnpm eslint . --max-warnings 0
 
             - name: Typecheck
               run: pnpm typecheck --verbose
