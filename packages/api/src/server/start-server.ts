@@ -20,11 +20,6 @@ const server = createHTTPServer({
 
         // CORS headers
         const origin = req.headers.origin || ''
-
-        const NODE_ENV = process.env.NODE_ENV
-        console.log({ origin })
-        console.log({ NODE_ENV })
-
         if (allowedOrigins.includes(origin)) {
             res.setHeader('Access-Control-Allow-Origin', origin)
         }
