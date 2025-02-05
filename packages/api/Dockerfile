@@ -19,5 +19,7 @@ FROM base AS runtime
 ENV NODE_ENV=production
 
 COPY --from=build /app/packages/api/dist ./dist
+COPY --from=build /app/node_modules ./node_modules
+
 
 CMD ["node", "dist/server/start-server.js"]
