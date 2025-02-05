@@ -12,6 +12,7 @@
         "dev": "pnpx tsx watch src/server/start-server",
         "build": "tsc --build",
         "start": "node dist/server/start-server",
+        "docker:build": "docker buildx build --load -t portfolio-api:latest -f Dockerfile ../..",
         "typecheck": "tsc --build",
         "push": "exec drizzle-kit push",
         "generate": "exec drizzle-kit generate",
