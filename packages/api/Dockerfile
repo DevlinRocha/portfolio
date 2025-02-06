@@ -9,8 +9,7 @@ RUN corepack enable
 COPY pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/api/package.json ./
 
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --prod
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm --filter api build
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --prod && pnpm --filter api build
 
 COPY . .
 
@@ -20,6 +19,5 @@ ENV NODE_ENV=production
 
 COPY --from=build /app/packages/api/dist ./dist
 COPY --from=build /app/node_modules ./node_modules
-
 
 CMD ["node", "dist/server/start-server.js"]
