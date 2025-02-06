@@ -43,7 +43,7 @@ jobs:
               run: pnpm audit
 
             - name: Prettier
-              run: pnpm prettier
+              run: pnpm prettier:check
 
             - name: Lint
               run: pnpm eslint . --max-warnings 0
