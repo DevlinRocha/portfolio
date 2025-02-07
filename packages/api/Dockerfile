@@ -9,7 +9,7 @@ RUN corepack enable
 COPY pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/api/package.json ./
 
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --prod && pnpm --filter api build
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install && pnpm --filter api build
 
 COPY . .
 
