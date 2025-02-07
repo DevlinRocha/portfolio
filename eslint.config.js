@@ -1,11 +1,9 @@
 import globals from 'globals'
 import pluginJs from '@eslint/js'
-import pluginQuery from '@tanstack/eslint-plugin-query'
 import pluginReactConfig from 'eslint-plugin-react/configs/recommended.js'
 import tseslint from 'typescript-eslint'
 
 export default [
-    ...pluginQuery.configs['flat/recommended'],
     {
         settings: {
             react: { version: 'detect' },
@@ -16,7 +14,7 @@ export default [
     {
         languageOptions: {
             parserOptions: { ecmaFeatures: { jsx: true } },
-            globals: globals.browser,
+            globals: { ...globals.browser, ...globals.node },
         },
     },
     pluginJs.configs.recommended,
