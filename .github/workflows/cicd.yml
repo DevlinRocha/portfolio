@@ -57,7 +57,7 @@ jobs:
     deploy:
         name: Deploy
         needs: build
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging'
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
@@ -79,5 +79,6 @@ jobs:
                   platforms: linux/amd64
                   push: true
                   tags: |
-                      devlinrocha/portfolio-api:latest
-                      devlinrocha/portfolio-api:v1.0.0
+                      ${{ github.ref == 'refs/heads/main' && 'devlinrocha/portfolio-api:latest'}}
+                      ${{ github.ref == 'refs/heads/main' && 'devlinrocha/portfolio-api:v1.0.0' }}
+                      ${{ github.ref == 'refs/heads/staging' && 'devlinrocha/portfolio-api:staging' }}
