@@ -90,6 +90,5 @@ jobs:
                   file: ./packages/api/Dockerfile
                   platforms: linux/amd64
                   push: true
-                  tags: |
-                      ${{ env.IS_MAIN && 'devlinrocha/portfolio-api:latest,devlinrocha/portfolio-api:v1.0.0' || '' }}
-                      ${{ env.IS_STAGING && 'devlinrocha/portfolio-api:staging' || '' }}
+                  tags: >-
+                      ${{ env.IS_MAIN == 'true' && 'devlinrocha/portfolio-api:latest,devlinrocha/portfolio-api:v1.0.0' || env.IS_STAGING == 'true' && 'devlinrocha/portfolio-api:staging' || '' }}
