@@ -82,12 +82,15 @@ jobs:
 
             - name: Build and push Docker image
               uses: docker/build-push-action@v6
+              env:
+                  IS_MAIN: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.base_ref == 'main') }}
+                  IS_STAGING: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/staging') || (github.event_name == 'pull_request' && github.base_ref == 'staging') }}
               with:
                   context: .
                   file: ./packages/api/Dockerfile
                   platforms: linux/amd64
                   push: true
                   tags: |
-                      ${{ ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.base_ref == 'main')) && 'devlinrocha/portfolio-api:latest' || '' }}
-                      ${{ ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.base_ref == 'main')) && 'devlinrocha/portfolio-api:v1.0.0' || '' }}
-                      ${{ ((github.event_name == 'push' && github.ref == 'refs/heads/staging') || (github.event_name == 'pull_request' && github.base_ref == 'staging')) && 'devlinrocha/portfolio-api:staging' || '' }}
+                      ${{ env.IS_MAIN && 'devlinrocha/portfolio-api:latest' || '' }}
+                      ${{ env.IS_MAIN && 'devlinrocha/portfolio-api:v1.0.0' || '' }}
+                      ${{ env.IS_STAGING && 'devlinrocha/portfolio-api:staging' || '' }}
