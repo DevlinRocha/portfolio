@@ -63,7 +63,9 @@ jobs:
     deploy:
         name: Deploy
         needs: build
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging'
+        if: |
+            (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging')) ||
+            (github.event_name == 'pull_request' && (github.base_ref == 'main' || github.base_ref == 'staging'))
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
@@ -86,6 +88,6 @@ jobs:
                   platforms: linux/amd64
                   push: true
                   tags: |
-                      ${{ github.ref == 'refs/heads/main' && 'devlinrocha/portfolio-api:latest'}}
-                      ${{ github.ref == 'refs/heads/main' && 'devlinrocha/portfolio-api:v1.0.0' }}
-                      ${{ github.ref == 'refs/heads/staging' && 'devlinrocha/portfolio-api:staging' }}
+                      ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.base_ref == 'main') && 'devlinrocha/portfolio-api:latest' || '' }}
+                      ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.base_ref == 'main') && 'devlinrocha/portfolio-api:v1.0.0' || '' }}
+                      ${{ (github.event_name == 'push' && github.ref == 'refs/heads/staging') || (github.event_name == 'pull_request' && github.base_ref == 'staging') && 'devlinrocha/portfolio-api:staging' || '' }}
