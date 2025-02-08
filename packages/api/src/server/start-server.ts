@@ -4,11 +4,7 @@ import { appRouter } from '../index.ts'
 const allowedOrigins =
     process.env.NODE_ENV === 'production'
         ? ['https://devlinrocha.com', 'https://staging.devlinrocha.com']
-        : [
-              'http://localhost:3000',
-              'http://localhost:4173',
-              'http://localhost:5173',
-          ]
+        : ['http://localhost:4173', 'http://localhost:5173']
 
 const server = createHTTPServer({
     router: appRouter,

@@ -2,7 +2,14 @@ name: CI
 
 on:
     push:
-        branches: '**'
+        branches:
+            - main
+            - staging
+
+    pull_request:
+        branches:
+            - main
+            - staging
 
     workflow_dispatch:
 
@@ -10,19 +17,22 @@ permissions:
     contents: read
 
 jobs:
-    ci:
-        name: CI
+    build:
+        name: Build
         runs-on: ubuntu-latest
 
         strategy:
             matrix:
-                node-version: [20]
+                node-version: [22]
 
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
               with:
                   fetch-depth: 0
+
+            - name: Update Corepack
+              run: npm install -g corepack@latest
 
             - name: Enable Corepack
               run: corepack enable
@@ -33,16 +43,26 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   cache: 'pnpm'
 
-            - name: Install dependencies and audit
-              run: |
-                  pnpm install
-                  pnpm audit
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Audit dependencies
+              run: pnpm audit
 
             - name: Prettier
-              run: pnpm prettier
-
-            - name: Typecheck
-              run: pnpm typecheck --verbose && node scripts/build --ignore-projects=packages/content
+              run: pnpm prettier:check
 
             - name: Lint
-              run: DEBUG=eslint:cli-engine pnpm eslint . --max-warnings 0
+              run: pnpm eslint . --max-warnings 0
+
+            - name: Typecheck
+              run: pnpm typecheck --verbose
+
+            - name: Build
+              run: pnpm -r build
+
+            - name: Upload build artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: build-output
+                  path: packages/api/dist

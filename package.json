@@ -3,9 +3,9 @@
     "private": true,
     "version": "1.0.0",
     "type": "module",
-    "packageManager": "pnpm@9.15.0",
+    "packageManager": "pnpm@10.2.0",
     "scripts": {
-        "build": "pnpm typecheck && node scripts/build --ignore-projects=packages/content",
+        "build": "pnpm -r build",
         "typecheck": "tsc --build",
         "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
         "prettier": "prettier . --write",
