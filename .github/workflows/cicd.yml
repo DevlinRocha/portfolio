@@ -10,6 +10,7 @@ on:
         branches:
             - main
             - staging
+
     workflow_dispatch:
 
 permissions:
@@ -43,7 +44,7 @@ jobs:
                   cache: 'pnpm'
 
             - name: Install dependencies
-              run: pnpm install
+              run: pnpm install --frozen-lockfile
 
             - name: Audit dependencies
               run: pnpm audit
@@ -90,5 +91,7 @@ jobs:
                   file: ./packages/api/Dockerfile
                   platforms: linux/amd64
                   push: true
+                  cache-from: type=gha
+                  cache-to: type=gha,mode=max
                   tags: >-
                       ${{ (env.IS_MAIN == 'true' && 'devlinrocha/portfolio-api:latest,devlinrocha/portfolio-api:v1.0.0') || (env.IS_STAGING == 'true' && 'devlinrocha/portfolio-api:staging') }}
