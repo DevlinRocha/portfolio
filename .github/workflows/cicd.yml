@@ -91,6 +91,5 @@ jobs:
                   platforms: linux/amd64
                   push: true
                   tags: |
-                      ${{ env.IS_MAIN && 'devlinrocha/portfolio-api:latest' || '' }}
-                      ${{ env.IS_MAIN && 'devlinrocha/portfolio-api:v1.0.0' || '' }}
-                      ${{ env.IS_STAGING && 'devlinrocha/portfolio-api:staging' || '' }}
+                      ${{ env.IS_MAIN && 'devlinrocha/portfolio-api:latest,devlinrocha/portfolio-api:v1.0.0' }}
+                      ${{ env.IS_STAGING && 'devlinrocha/portfolio-api:staging' }}
