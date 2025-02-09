@@ -10,7 +10,6 @@ permissions:
 jobs:
     deploy:
         name: Deploy
-        if: ${{ github.event.workflow_run.conclusion == 'success' }}
         runs-on: ubuntu-latest
         steps:
             - name: Download build artifact
