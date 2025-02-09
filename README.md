@@ -79,12 +79,13 @@ The script will continue running even if errors occur. By default, errors will c
 ## Tech Stack
 
 - [TypeScript](https://www.typescriptlang.org/)
-- [Drizzle](https://orm.drizzle.team/)
-- [tRPC](https://trpc.io/)
-- [Zod](https://zod.dev/)
 - [React](https://reactjs.org/)
 - [Vite](https://vitejs.dev/)
 - [TanStack Router](https://tanstack.com/router/latest)
 - [TanStack Query](https://tanstack.com/query/latest)
 - [Tailwind CSS](https://tailwindcss.com/)
+- [Drizzle](https://orm.drizzle.team/)
+- [tRPC](https://trpc.io/)
+- [Zod](https://zod.dev/)
+- [Docker](https://www.docker.com/)
 - [ESLint](https://eslint.org/)
