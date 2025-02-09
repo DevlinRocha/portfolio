@@ -7,19 +7,15 @@ FROM base AS build
 RUN corepack enable
 
 COPY pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY packages/api/package.json packages/api/package.json
+COPY packages/api/package.json .
 
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --prod && pnpm --filter api build && pnpm --filter api --prod --legacy deploy pruned
 
-COPY . .
-
-RUN pnpm --filter @portfolio/api build
+COPY ./packages/api/dist ./dist
 
 FROM base AS runtime
 
-ENV NODE_ENV=production
-
-COPY --from=build /app/packages/api/dist ./dist
-COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/pruned .
 
 CMD ["node", "dist/server/start-server.js"]
