@@ -492,7 +492,7 @@ export async function getPosts({
     try {
         const result = await db.query.posts.findMany({
             where: (posts, { and, ilike, inArray }) => {
-                const conditions = []
+                const conditions = [eq(posts.published, true)]
                 if (ids) conditions.push(inArray(posts.id, ids))
                 if (title) conditions.push(ilike(posts.title, `%${title}%`))
                 if (content)
@@ -513,6 +513,7 @@ export async function getPosts({
             },
             limit,
             offset,
+            orderBy: (posts, { desc }) => [desc(posts.created_at)],
         })
 
         if (!result) {
