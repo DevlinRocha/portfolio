@@ -44,3 +44,5 @@ jobs:
         needs: detect-changes
         if: ${{ needs.detect-changes.outputs.api_changed == 'true' }}
         uses: ./.github/workflows/cd.yml
+        secrets:
+            DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
