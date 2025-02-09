@@ -16,7 +16,7 @@ jobs:
               uses: actions/download-artifact@v4
               with:
                   name: build-output
-                  run-id: ${{ github.event.workflow_run.id }}
+                  run-id: ${{ github.event.workflow.id }}
                   github-token: ${{ github.token }}
 
             - name: Checkout repository
