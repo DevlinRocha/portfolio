@@ -19,8 +19,8 @@ jobs:
         name: CI
         uses: ./.github/workflows/ci.yml
 
-    deploy:
-        name: Deploy API
+    detect-changes:
+        name: Detect Changes
         needs: ci
         if: ${{ needs.ci.result == 'success' }}
         runs-on: ubuntu-latest
@@ -36,9 +36,11 @@ jobs:
                       api:
                         - 'packages/api/**'
 
-            - name: Deploy API
-              if: ${{ steps.changes.outputs.api == 'true' }}
-              uses: ./.github/workflows/cd.yml
-
         outputs:
-            api_changed: ${{ steps.paths.outputs.api }}
+            api_changed: ${{ steps.changes.outputs.api }}
+
+    deploy:
+        name: Deploy API
+        needs: detect-changes
+        if: ${{ needs.detect-changes.outputs.api_changed == 'true' }}
+        uses: ./.github/workflows/cd.yml
