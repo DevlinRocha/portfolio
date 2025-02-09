@@ -106,7 +106,7 @@ export const appRouter = t.router({
             uptime: process.uptime(),
             health: `${process.env.API_URL}/health`,
             documentation:
-                'https://github.com/DevlinRocha/portfolio/packages/api/README.md',
+                'https://github.com/DevlinRocha/portfolio/tree/main/packages/api/README.md',
         }
     }),
     health: t.procedure.query(async () => {
