@@ -1,0 +1,46 @@
+name: CI/CD Pipeline
+
+on:
+    push:
+        branches:
+            - main
+            - staging
+
+    pull_request:
+        branches:
+            - main
+            - staging
+
+permissions:
+    contents: read
+
+jobs:
+    ci:
+        name: CI
+        uses: ./.github/workflows/ci.yml
+
+    detect-changes:
+        name: Detect Changes
+        needs: ci
+        if: ${{ needs.ci.result == 'success' }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Check for API changes
+              id: changes
+              uses: dorny/paths-filter@v3
+              with:
+                  filters: |
+                      api:
+                        - 'packages/api/**'
+
+        outputs:
+            api_changed: ${{ steps.changes.outputs.api }}
+
+    deploy:
+        name: Deploy API
+        needs: detect-changes
+        if: ${{ needs.detect-changes.outputs.api_changed == 'true' }}
+        uses: ./.github/workflows/cd.yml

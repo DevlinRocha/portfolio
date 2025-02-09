@@ -106,7 +106,7 @@ export const appRouter = t.router({
             uptime: process.uptime(),
             health: `${process.env.API_URL}/health`,
             documentation:
-                'https://github.com/DevlinRocha/portfolio/packages/api/README.md',
+                'https://github.com/DevlinRocha/portfolio/tree/main/packages/api/README.md',
         }
     }),
     health: t.procedure.query(async () => {
@@ -492,7 +492,7 @@ export async function getPosts({
     try {
         const result = await db.query.posts.findMany({
             where: (posts, { and, ilike, inArray }) => {
-                const conditions = []
+                const conditions = [eq(posts.published, true)]
                 if (ids) conditions.push(inArray(posts.id, ids))
                 if (title) conditions.push(ilike(posts.title, `%${title}%`))
                 if (content)
@@ -513,6 +513,7 @@ export async function getPosts({
             },
             limit,
             offset,
+            orderBy: (posts, { desc }) => [desc(posts.created_at)],
         })
 
         if (!result) {
