@@ -35,9 +35,12 @@ jobs:
                   filters: |
                       api:
                         - 'packages/api/**'
+                      content:
+                        - 'packages/content/**'
 
         outputs:
             api_changed: ${{ steps.changes.outputs.api }}
+            content_changed: ${{ steps.changes.outputs.content }}
 
     deploy:
         name: Deploy API
@@ -46,3 +49,9 @@ jobs:
         uses: ./.github/workflows/cd.yml
         secrets:
             DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    publish:
+        name: Publish content
+        needs: detect-changes
+        if: ${{ needs.detect-changes.outputs.content_changed == 'true' }}
+        uses: ./.github/workflows/publish.yml
