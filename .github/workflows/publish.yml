@@ -18,11 +18,11 @@ jobs:
               with:
                   fetch-depth: 0
 
-            # - name: Update Corepack
-            # run: npm install -g corepack@latest
+            - name: Update Corepack
+              run: npm install -g corepack@latest
 
-            # - name: Enable Corepack
-            # run: corepack enable
+            - name: Enable Corepack
+              run: corepack enable
 
             - name: Publish content
               run: pnpm compile
