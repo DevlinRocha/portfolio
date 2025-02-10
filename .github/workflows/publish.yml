@@ -24,17 +24,17 @@ jobs:
             - name: Enable Corepack
               run: corepack enable
 
-            - name: Publish content
-              run: pnpm --filter=content compile
-
             # - name: Use Node.js ${{ matrix.node-version }}
             # uses: actions/setup-node@v4
             # with:
             # node-version: ${{ matrix.node-version }}
             # cache: 'pnpm'
 
-            # - name: Install dependencies
-            # run: pnpm install --frozen-lockfile
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Publish content
+              run: pnpm --filter=content compile
 
             # - name: Audit dependencies
             # run: pnpm audit
