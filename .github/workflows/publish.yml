@@ -35,13 +35,10 @@ jobs:
                   cache: 'pnpm'
 
             - name: Install dependencies
-              run: pnpm install --frozen-lockfile
+              run: pnpm --filter api --filter content install --frozen-lockfile
+
+            - name: Build API
+              run: pnpm --filter api build
 
             - name: Publish content
               run: pnpm --filter=content compile
-
-            # - name: Upload build artifact
-            #   uses: actions/upload-artifact@v4
-            #   with:
-            #       name: build-output
-            #       path: packages/api/dist
