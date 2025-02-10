@@ -1,7 +1,6 @@
 {
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
-        "tsBuildInfoFile": "./.cache/tsconfig.node.tsbuildinfo",
         "lib": ["ESNext"]
     },
     "include": ["vite.config.ts"]

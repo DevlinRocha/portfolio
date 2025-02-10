@@ -1,7 +1,6 @@
 {
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
-        "tsBuildInfoFile": "./.cache/tsconfig.app.tsbuildinfo",
         "useDefineForClassFields": true,
         "lib": ["ESNext", "DOM", "DOM.Iterable"],
 
