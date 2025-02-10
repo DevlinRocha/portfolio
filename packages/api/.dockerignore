@@ -1,21 +1,23 @@
 # Node modules & package store
-node_modules/
-.pnpm-store/
+node_modules
+.pnpm-store
 
 # Logs & temp files
 .DS_Store
 Thumbs.db
 *.log
-.nyc_output/
-coverage/
+.nyc_output
+coverage
 
 # Environment files
 .env
 .env.*
 
 # Build artifacts
-build/
-dist/
+build
+dist
+.cache
+*.tsbuildinfo
 
 # OS-specific files
 .Spotlight-V100
@@ -33,13 +35,13 @@ ehthumbs.db
 *~
 
 # IDE-specific directories
-.idea/
-.vscode/
+.idea
+.vscode
 
 # Git
-.git/
+.git
 .gitignore
 
 # Project-specific files
 drizzle.config.ts
-migrations/
+migrations
