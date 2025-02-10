@@ -52,6 +52,4 @@ jobs:
 
     publish:
         name: Publish content
-        needs: detect-changes
-        if: ${{ needs.detect-changes.outputs.content_changed == 'true' }}
         uses: ./.github/workflows/publish.yml
