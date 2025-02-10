@@ -6,20 +6,13 @@ FROM base AS build
 
 RUN corepack enable
 
-COPY pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY packages/api/package.json packages/api/package.json
+COPY .npmrc pnpm-lock.yaml pnpm-workspace.yaml package.json tsconfig.base.json ./
+COPY packages/api ./packages/api
 
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install
-
-COPY . .
-
-RUN pnpm --filter @portfolio/api build
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm --filter=api install && pnpm --filter=api build && pnpm --filter=api --prod deploy deployment
 
 FROM base AS runtime
 
-ENV NODE_ENV=production
-
-COPY --from=build /app/packages/api/dist ./dist
-COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/deployment .
 
 CMD ["node", "dist/server/start-server.js"]
