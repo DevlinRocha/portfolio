@@ -71,7 +71,7 @@ const PORT = Number(process.env.PORT)
 const HOSTNAME = process.env.HOSTNAME
 server
     .listen(PORT, HOSTNAME, undefined, () => {
-        console.log(`tRPC server running on ${API_URL}`)
+        console.log(`Server listening on ${API_URL}`)
     })
     .on('error', (error) => {
         console.error('Server encountered an error:', error)
