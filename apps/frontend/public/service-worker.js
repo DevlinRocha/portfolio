@@ -20,7 +20,7 @@ const STATIC_ROUTES = [
     '/wheres-waldo',
     '/about',
 ]
-const DYNAMIC_ROUTES = ['/blog/']
+const DYNAMIC_ROUTES = ['/blog', '/blog/']
 
 function handleFetch(request, isStatic = false) {
     fetch(request)
