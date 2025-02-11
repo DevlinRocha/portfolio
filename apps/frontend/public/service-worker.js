@@ -37,9 +37,13 @@ addEventListener('fetch', (event) => {
     if (extensionSchemes.some((scheme) => event.request.url.startsWith(scheme)))
         return
 
+    const isBlogRoute = event.request.url.includes('/blog/')
+
     event.respondWith(
         caches.match(event.request).then((cachedResponse) => {
-            if (cachedResponse) return cachedResponse
+            if (!isBlogRoute && cachedResponse) {
+                return cachedResponse
+            }
 
             return fetch(event.request)
                 .then((networkResponse) => {
@@ -56,6 +60,7 @@ addEventListener('fetch', (event) => {
                 })
                 .catch((error) => {
                     console.error('Failed to fetch:', error)
+                    if (cachedResponse) return cachedResponse
                     return new Response('Offline', { status: 503 })
                 })
         })
