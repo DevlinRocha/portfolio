@@ -2,7 +2,25 @@
 /* eslint-disable no-undef */
 importScripts('/resource-list.js')
 
-const CACHE_NAME = 'devlin-frontend-v1'
+const CACHE_NAME = 'devlin-frontend-v0.0.1'
+const CACHE_MAX_AGE = 60 * 60 * 24
+
+const EXTENSION_SCHEMES = [
+    'chrome-extension://',
+    'moz-extension://',
+    'safari-extension://',
+    'edge-extension://',
+]
+
+const STATIC_ROUTES = [
+    '/',
+    '/banter',
+    '/vvordle',
+    '/pokemon-roulette',
+    '/wheres-waldo',
+    '/about',
+]
+const DYNAMIC_ROUTES = ['/blog/']
 
 addEventListener('install', (event) => {
     event.waitUntil(
@@ -27,28 +45,75 @@ addEventListener('activate', (event) => {
 })
 
 addEventListener('fetch', (event) => {
-    const extensionSchemes = [
-        'chrome-extension://',
-        'moz-extension://',
-        'safari-extension://',
-        'edge-extension://',
-    ]
-
-    if (extensionSchemes.some((scheme) => event.request.url.startsWith(scheme)))
+    if (
+        EXTENSION_SCHEMES.some((scheme) => event.request.url.startsWith(scheme))
+    )
         return
 
-    const isBlogRoute = event.request.url.includes('/blog/')
+    const isStaticRoute = STATIC_ROUTES.includes(event.request.url)
+    const isDynamicRoute = DYNAMIC_ROUTES.includes(event.request.url)
 
-    event.respondWith(
-        caches.match(event.request).then((cachedResponse) => {
-            if (!isBlogRoute && cachedResponse) {
-                return cachedResponse
-            }
+    if (isStaticRoute) {
+        event.respondWith(
+            caches.match(event.request).then((cachedResponse) => {
+                if (cachedResponse) {
+                    const currentTime = Date.now()
+                    const cachedTime = parseInt(
+                        cachedResponse.headers.get('X-Cache-Time') ||
+                            currentTime
+                    )
+                    const isStale = currentTime - cachedTime > CACHE_MAX_AGE
 
-            return fetch(event.request)
+                    if (!isStale) {
+                        return cachedResponse
+                    }
+                }
+
+                return fetch(event.request)
+                    .then((networkResponse) => {
+                        if (networkResponse && networkResponse.status === 200) {
+                            const clonedResponse = networkResponse.clone()
+                            const cacheTime = Date.now()
+
+                            clonedResponse.headers.set(
+                                'X-Cache-Time',
+                                cacheTime.toString()
+                            )
+                            clonedResponse.headers.set(
+                                'Cache-Control',
+                                `max-age=${CACHE_MAX_AGE}`
+                            )
+
+                            caches.open(CACHE_NAME).then((cache) => {
+                                cache.put(event.request, clonedResponse)
+                            })
+
+                            return networkResponse
+                        }
+
+                        return networkResponse
+                    })
+                    .catch(async (error) => {
+                        console.error('Failed to fetch:', error)
+                        const cachedResponse = await caches.match(event.request)
+                        return (
+                            cachedResponse ||
+                            new Response('Offline', { status: 503 })
+                        )
+                    })
+            })
+        )
+    } else if (isDynamicRoute) {
+        event.respondWith(
+            fetch(event.request)
                 .then((networkResponse) => {
                     if (networkResponse && networkResponse.status === 200) {
                         const clonedResponse = networkResponse.clone()
+
+                        clonedResponse.headers.set(
+                            'Cache-Control',
+                            'max-age=0, no-cache'
+                        )
 
                         caches.open(CACHE_NAME).then((cache) => {
                             cache.put(event.request, clonedResponse)
@@ -56,13 +121,30 @@ addEventListener('fetch', (event) => {
 
                         return networkResponse
                     }
-                    return networkResponse
+
+                    return caches.match(event.request)
                 })
-                .catch((error) => {
+                .catch(async (error) => {
                     console.error('Failed to fetch:', error)
-                    if (cachedResponse) return cachedResponse
-                    return new Response('Offline', { status: 503 })
+                    const cachedResponse = await caches.match(event.request)
+
+                    return (
+                        cachedResponse ||
+                        new Response('Offline', { status: 503 })
+                    )
                 })
-        })
-    )
+        )
+    } else {
+        event.respondWith(
+            caches.match(event.request).then((cachedResponse) => {
+                return (
+                    cachedResponse ||
+                    fetch(event.request).catch((error) => {
+                        console.error('Failed to fetch:', error)
+                        return caches.match(event.request)
+                    })
+                )
+            })
+        )
+    }
 })
