@@ -54,7 +54,7 @@ function handleFetch(request, isStatic = false) {
         })
         .catch(async (error) => {
             console.error('Failed to fetch:', error)
-            const cachedResponse = await caches.match(event.request)
+            const cachedResponse = await caches.match(request)
             return cachedResponse || new Response('Offline', { status: 503 })
         })
 }
