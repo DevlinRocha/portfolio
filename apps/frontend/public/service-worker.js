@@ -114,13 +114,7 @@ addEventListener('fetch', (event) => {
     } else {
         event.respondWith(
             caches.match(event.request).then((cachedResponse) => {
-                return (
-                    cachedResponse ||
-                    fetch(event.request).catch((error) => {
-                        console.error('Failed to fetch:', error)
-                        return caches.match(event.request)
-                    })
-                )
+                return cachedResponse || handleFetch(event.request)
             })
         )
     }
