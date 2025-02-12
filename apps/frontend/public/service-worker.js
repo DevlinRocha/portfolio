@@ -12,35 +12,20 @@ const EXTENSION_SCHEMES = [
     'edge-extension://',
 ]
 
-const STATIC_ROUTES = [
-    '/',
-    '/banter',
-    '/vvordle',
-    '/pokemon-roulette',
-    '/wheres-waldo',
-    '/about',
-]
 const DYNAMIC_ROUTES = ['/blog', '/blog/']
 
-function handleFetch(request, isStatic = false) {
+function handleFetch(request) {
     fetch(request)
         .then((networkResponse) => {
             if (networkResponse && networkResponse.status === 200) {
                 const clonedResponse = networkResponse.clone()
-                if (isStatic) {
-                    const cacheTime = Date.now()
+                const cacheTime = Date.now()
 
-                    clonedResponse.headers.set(
-                        'X-Cache-Time',
-                        cacheTime.toString()
-                    )
-                }
+                clonedResponse.headers.set('X-Cache-Time', cacheTime.toString())
 
                 clonedResponse.headers.set(
                     'Cache-Control',
-                    isStatic
-                        ? `max-age=${CACHE_MAX_AGE}`
-                        : 'max-age=0, no-cache'
+                    `max-age=${CACHE_MAX_AGE}`
                 )
 
                 caches.open(CACHE_NAME).then((cache) => {
@@ -87,35 +72,23 @@ addEventListener('fetch', (event) => {
     )
         return
 
-    const isStaticRoute = STATIC_ROUTES.includes(event.request.url)
     const isDynamicRoute = DYNAMIC_ROUTES.includes(event.request.url)
 
-    if (isStaticRoute) {
-        event.respondWith(
-            caches.match(event.request).then((cachedResponse) => {
-                if (cachedResponse) {
-                    const currentTime = Date.now()
-                    const cachedTime = parseInt(
-                        cachedResponse.headers.get('X-Cache-Time') ||
-                            currentTime
-                    )
-                    const isStale = currentTime - cachedTime > CACHE_MAX_AGE
+    event.respondWith(
+        caches.match(event.request).then((cachedResponse) => {
+            if (!isDynamicRoute && cachedResponse) {
+                const currentTime = Date.now()
+                const cachedTime = parseInt(
+                    cachedResponse.headers.get('X-Cache-Time') || currentTime
+                )
+                const isStale = currentTime - cachedTime > CACHE_MAX_AGE
 
-                    if (!isStale) {
-                        return cachedResponse
-                    }
+                if (!isStale) {
+                    return cachedResponse
                 }
+            }
 
-                return handleFetch(event.request, true)
-            })
-        )
-    } else if (isDynamicRoute) {
-        event.respondWith(handleFetch(event.request))
-    } else {
-        event.respondWith(
-            caches.match(event.request).then((cachedResponse) => {
-                return cachedResponse || handleFetch(event.request)
-            })
-        )
-    }
+            return handleFetch(event.request, true)
+        })
+    )
 })
