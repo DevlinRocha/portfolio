@@ -3,7 +3,6 @@
 importScripts('/resource-list.js')
 
 const CACHE_NAME = 'devlin-frontend-v0.0.1'
-const CACHE_MAX_AGE = 60 * 60 * 24
 
 const EXTENSION_SCHEMES = [
     'chrome-extension://',
@@ -14,19 +13,14 @@ const EXTENSION_SCHEMES = [
 
 const DYNAMIC_ROUTES = ['/blog', '/blog/']
 
-function handleFetch(request) {
-    fetch(request)
+async function handleFetch(request, isDynamic = false) {
+    const cache = await caches.open(CACHE_NAME)
+    const cachedResponse = await cache.match(request)
+
+    const result = await fetch(request)
         .then((networkResponse) => {
             if (networkResponse && networkResponse.status === 200) {
                 const clonedResponse = networkResponse.clone()
-                const cacheTime = Date.now()
-
-                clonedResponse.headers.set('X-Cache-Time', cacheTime.toString())
-
-                clonedResponse.headers.set(
-                    'Cache-Control',
-                    `max-age=${CACHE_MAX_AGE}`
-                )
 
                 caches.open(CACHE_NAME).then((cache) => {
                     cache.put(request, clonedResponse)
@@ -42,6 +36,8 @@ function handleFetch(request) {
             const cachedResponse = await caches.match(request)
             return cachedResponse || new Response('Offline', { status: 503 })
         })
+
+    return isDynamic ? result || cachedResponse : cachedResponse || result
 }
 
 addEventListener('install', (event) => {
@@ -66,29 +62,16 @@ addEventListener('activate', (event) => {
     )
 })
 
-addEventListener('fetch', (event) => {
+addEventListener('fetch', async (event) => {
     if (
         EXTENSION_SCHEMES.some((scheme) => event.request.url.startsWith(scheme))
     )
         return
 
-    const isDynamicRoute = DYNAMIC_ROUTES.includes(event.request.url)
-
     event.respondWith(
-        caches.match(event.request).then((cachedResponse) => {
-            if (!isDynamicRoute && cachedResponse) {
-                const currentTime = Date.now()
-                const cachedTime = parseInt(
-                    cachedResponse.headers.get('X-Cache-Time') || currentTime
-                )
-                const isStale = currentTime - cachedTime > CACHE_MAX_AGE
-
-                if (!isStale) {
-                    return cachedResponse
-                }
-            }
-
-            return handleFetch(event.request, true)
-        })
+        handleFetch(
+            event.request,
+            DYNAMIC_ROUTES.includes(request.url) ? false : true
+        )
     )
 })
