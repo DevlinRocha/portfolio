@@ -13,39 +13,29 @@ const EXTENSION_SCHEMES = [
 
 const DYNAMIC_ROUTES = ['/blog', '/blog/']
 
-async function handleFetch(request, isDynamic = false) {
-    const cache = await caches.open(CACHE_NAME)
+async function handleFetch(request) {
     const cachedResponse = await cache.match(request)
 
-    const result = await fetch(request)
-        .then((networkResponse) => {
-            if (networkResponse && networkResponse.status === 200) {
-                const clonedResponse = networkResponse.clone()
+    try {
+        const networkResponse = await fetch(request)
+        if (networkResponse.ok) {
+            const clonedResponse = networkResponse.clone()
+            const cache = await caches.open(CACHE_NAME)
 
-                caches.open(CACHE_NAME).then((cache) => {
-                    cache.put(request, clonedResponse)
-                })
-
-                return networkResponse
-            }
-
-            return caches.match(request)
-        })
-        .catch(async (error) => {
-            console.error('Failed to fetch:', error)
-            const cachedResponse = await caches.match(request)
-            return cachedResponse || new Response('Offline', { status: 503 })
-        })
-
-    return isDynamic ? result || cachedResponse : cachedResponse || result
+            cache.put(request, clonedResponse)
+            return networkResponse
+        }
+        throw new Error('Network response was not ok')
+    } catch (error) {
+        console.error('Failed to fetch:', error)
+        return cachedResponse || new Response('Offline', { status: 503 })
+    }
 }
 
-addEventListener('install', (event) => {
-    event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(RESOURCE_LIST)
-        })
-    )
+addEventListener('install', async (event) => {
+    const cache = await caches.open(CACHE_NAME)
+    await cache.addAll(RESOURCE_LIST)
+    event.waitUntil(cache.addAll(RESOURCE_LIST))
 })
 
 addEventListener('activate', (event) => {
@@ -68,10 +58,8 @@ addEventListener('fetch', async (event) => {
     )
         return
 
-    event.respondWith(
-        handleFetch(
-            event.request,
-            DYNAMIC_ROUTES.includes(request.url) ? false : true
-        )
+    const isDynamic = DYNAMIC_ROUTES.some((route) =>
+        event.request.url.startsWith(route)
     )
+    event.respondWith(handleFetch(event.request, isDynamic))
 })
