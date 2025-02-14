@@ -35,8 +35,8 @@ async function handleCache(request, isDynamic = false) {
         handleFetch(request, cache)
         return cachedResponse
     } catch (error) {
-        console.error('Failed to fetch:', error)
-        return cachedResponse || new Response('Offline', { status: 503 })
+        console.error('Failed to fetch new content:', error)
+        return cachedResponse
     }
 }
 
