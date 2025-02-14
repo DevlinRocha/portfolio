@@ -53,3 +53,5 @@ jobs:
     publish:
         name: Publish content
         uses: ./.github/workflows/publish.yml
+        secrets:
+            DATABASE_URL: ${{ secrets.DATABASE_URL }}
