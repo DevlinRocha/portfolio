@@ -17,10 +17,8 @@ async function handleFetch(request, cache) {
     const networkResponse = await fetch(request)
     if (!networkResponse.ok) throw new Error('Network response was not ok')
 
-    if (cache) {
-        const clonedResponse = networkResponse.clone()
-        cache.put(request, clonedResponse)
-    }
+    const clonedResponse = networkResponse.clone()
+    cache.put(request, clonedResponse)
 
     return networkResponse
 }
@@ -42,7 +40,6 @@ async function handleCache(request, isDynamic = false) {
 
 addEventListener('install', async (event) => {
     const cache = await caches.open(CACHE_NAME)
-    await cache.addAll(RESOURCE_LIST)
     event.waitUntil(cache.addAll(RESOURCE_LIST))
 })
 
