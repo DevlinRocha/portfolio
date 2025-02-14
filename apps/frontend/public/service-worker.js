@@ -11,7 +11,7 @@ const EXTENSION_SCHEMES = [
     'edge-extension://',
 ]
 
-const DYNAMIC_ROUTES = ['/blog', '/blog/']
+const DYNAMIC_ROUTES = ['/blog']
 
 async function handleFetch(request, cache) {
     const networkResponse = await fetch(request)
