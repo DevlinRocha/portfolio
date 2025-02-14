@@ -2,62 +2,69 @@
 /* eslint-disable no-undef */
 importScripts('/resource-list.js')
 
-const CACHE_NAME = 'devlin-frontend-v1'
+const CACHE_NAME = 'devlin-frontend-v0.0.1'
 
-addEventListener('install', (event) => {
+const EXTENSION_SCHEMES = [
+    'chrome-extension://',
+    'moz-extension://',
+    'safari-extension://',
+    'edge-extension://',
+]
+
+const DYNAMIC_ROUTES = ['/blog']
+
+async function handleFetch(request, cache) {
+    const networkResponse = await fetch(request)
+    if (!networkResponse.ok) throw new Error('Network response was not ok')
+
+    const clonedResponse = networkResponse.clone()
+    cache.put(request, clonedResponse)
+
+    return networkResponse
+}
+
+async function handleCache(request, isDynamic = false) {
+    const cache = await caches.open(CACHE_NAME)
+    const cachedResponse = await cache.match(request)
+
+    try {
+        if (isDynamic) return await handleFetch(request)
+
+        handleFetch(request, cache)
+        return cachedResponse
+    } catch (error) {
+        console.error('Failed to fetch new content:', error)
+        return cachedResponse
+    }
+}
+
+addEventListener('install', async (event) => {
+    const cache = await caches.open(CACHE_NAME)
+    event.waitUntil(cache.addAll(RESOURCE_LIST))
+})
+
+addEventListener('activate', async (event) => {
+    const cacheNames = await caches.keys()
+
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(RESOURCE_LIST)
-        })
+        await Promise.all(
+            cacheNames.map((cacheName) => {
+                if (cacheName !== CACHE_NAME) {
+                    return caches.delete(cacheName)
+                }
+            })
+        )
     )
 })
 
-addEventListener('activate', (event) => {
-    event.waitUntil(
-        caches.keys().then((cacheNames) => {
-            return Promise.all(
-                cacheNames.map((cacheName) => {
-                    if (cacheName !== CACHE_NAME) {
-                        return caches.delete(cacheName)
-                    }
-                })
-            )
-        })
+addEventListener('fetch', async (event) => {
+    if (
+        EXTENSION_SCHEMES.some((scheme) => event.request.url.startsWith(scheme))
     )
-})
-
-addEventListener('fetch', (event) => {
-    const extensionSchemes = [
-        'chrome-extension://',
-        'moz-extension://',
-        'safari-extension://',
-        'edge-extension://',
-    ]
-
-    if (extensionSchemes.some((scheme) => event.request.url.startsWith(scheme)))
         return
 
-    event.respondWith(
-        caches.match(event.request).then((cachedResponse) => {
-            if (cachedResponse) return cachedResponse
-
-            return fetch(event.request)
-                .then((networkResponse) => {
-                    if (networkResponse && networkResponse.status === 200) {
-                        const clonedResponse = networkResponse.clone()
-
-                        caches.open(CACHE_NAME).then((cache) => {
-                            cache.put(event.request, clonedResponse)
-                        })
-
-                        return networkResponse
-                    }
-                    return networkResponse
-                })
-                .catch((error) => {
-                    console.error('Failed to fetch:', error)
-                    return new Response('Offline', { status: 503 })
-                })
-        })
+    const isDynamic = DYNAMIC_ROUTES.some((route) =>
+        event.request.url.startsWith(route)
     )
+    event.respondWith(handleCache(event.request, isDynamic))
 })
