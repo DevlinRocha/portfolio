@@ -13,19 +13,27 @@ const EXTENSION_SCHEMES = [
 
 const DYNAMIC_ROUTES = ['/blog', '/blog/']
 
-async function handleFetch(request) {
+async function handleFetch(request, cache) {
+    const networkResponse = await fetch(request)
+    if (!networkResponse.ok) throw new Error('Network response was not ok')
+
+    if (cache) {
+        const clonedResponse = networkResponse.clone()
+        cache.put(request, clonedResponse)
+    }
+
+    return networkResponse
+}
+
+async function handleCache(request, isDynamic = false) {
+    const cache = await caches.open(CACHE_NAME)
     const cachedResponse = await cache.match(request)
 
     try {
-        const networkResponse = await fetch(request)
-        if (networkResponse.ok) {
-            const clonedResponse = networkResponse.clone()
-            const cache = await caches.open(CACHE_NAME)
+        if (isDynamic) return await handleFetch(request)
 
-            cache.put(request, clonedResponse)
-            return networkResponse
-        }
-        throw new Error('Network response was not ok')
+        handleFetch(request, cache)
+        return cachedResponse
     } catch (error) {
         console.error('Failed to fetch:', error)
         return cachedResponse || new Response('Offline', { status: 503 })
@@ -61,5 +69,5 @@ addEventListener('fetch', async (event) => {
     const isDynamic = DYNAMIC_ROUTES.some((route) =>
         event.request.url.startsWith(route)
     )
-    event.respondWith(handleFetch(event.request, isDynamic))
+    event.respondWith(handleCache(event.request, isDynamic))
 })
