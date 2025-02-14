@@ -43,17 +43,17 @@ addEventListener('install', async (event) => {
     event.waitUntil(cache.addAll(RESOURCE_LIST))
 })
 
-addEventListener('activate', (event) => {
+addEventListener('activate', async (event) => {
+    const cacheNames = await caches.keys()
+
     event.waitUntil(
-        caches.keys().then((cacheNames) => {
-            return Promise.all(
-                cacheNames.map((cacheName) => {
-                    if (cacheName !== CACHE_NAME) {
-                        return caches.delete(cacheName)
-                    }
-                })
-            )
-        })
+        await Promise.all(
+            cacheNames.map((cacheName) => {
+                if (cacheName !== CACHE_NAME) {
+                    return caches.delete(cacheName)
+                }
+            })
+        )
     )
 })
 
