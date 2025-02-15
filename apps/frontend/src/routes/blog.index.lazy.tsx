@@ -22,11 +22,11 @@ function Blog() {
         <main
             itemScope
             itemType="https://schema.org/Blog"
-            className="flex h-full w-full flex-col items-center gap-[52px] bg-neutral-100 pb-24 md:pb-32 lg:pb-36"
+            className="flex h-full w-full flex-col items-center gap-6 bg-neutral-100 pb-24 md:pb-32 lg:pb-36"
         >
-            <header className="w-full max-w-[2560px] bg-purple-600 py-14 text-center">
+            <header className="mt-[52px] w-[87.5lvw] max-w-[992px] text-left">
                 <h1
-                    className="font-display text-5xl text-white"
+                    className="font-display text-3xl font-bold"
                     itemProp="headline"
                 >
                     Blog
