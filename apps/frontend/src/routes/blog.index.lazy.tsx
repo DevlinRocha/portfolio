@@ -24,7 +24,7 @@ function Blog() {
             itemType="https://schema.org/Blog"
             className="flex h-full w-full flex-col items-center gap-4 bg-neutral-100 pb-24 md:pb-32 lg:gap-6 lg:pb-36"
         >
-            <header className="mt-[32px] w-[87.5lvw] max-w-[992px] text-left md:mt-[40px] lg:mt-[52px]">
+            <header className="mt-8 w-[87.5lvw] max-w-[992px] text-left md:mt-10 lg:mt-[52px]">
                 <h1
                     className="font-display text-2xl font-bold md:text-3xl lg:text-4xl"
                     itemProp="headline"
