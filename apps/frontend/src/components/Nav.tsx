@@ -2,7 +2,11 @@ import { useRef } from 'react'
 import { Link } from '@tanstack/react-router'
 import { projects } from '@/data/glossary'
 
-export default function Nav() {
+type NavProps = {
+    disableMenu?: boolean
+}
+
+export default function Nav({ disableMenu = false }: NavProps) {
     const menu = useRef<HTMLInputElement>(null)
 
     function handleClick() {
@@ -51,7 +55,7 @@ export default function Nav() {
                         </Link>
                     </li>
 
-                    <li className="xs:h-full group">
+                    <li className={`xs:h-full ${disableMenu ? '' : 'group'}`}>
                         <Link
                             to="/"
                             hash="projects"
