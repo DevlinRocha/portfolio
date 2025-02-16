@@ -35,7 +35,7 @@ export default function Nav({ disableMenu = false }: NavProps) {
                 <label
                     htmlFor="menu-toggle"
                     aria-controls="menu"
-                    className="xs:hidden z-20 flex h-full w-12 cursor-pointer flex-col items-center justify-center peer-checked/menu:*:absolute peer-checked/menu:*:mb-0 peer-checked/menu:[&>*:first-child]:rotate-[135deg] peer-checked/menu:[&>*:last-child]:-rotate-[135deg]"
+                    className="xs:hidden flex h-full w-12 cursor-pointer flex-col items-center justify-center peer-checked/menu:*:absolute peer-checked/menu:*:mb-0 peer-checked/menu:[&>*:first-child]:rotate-[135deg] peer-checked/menu:[&>*:last-child]:-rotate-[135deg]"
                 >
                     <span className="transition-layout-transform mb-1.5 h-[1.6px] w-4 bg-black duration-500" />
                     <span className="transition-layout-transform h-[1.6px] w-4 bg-black duration-500" />

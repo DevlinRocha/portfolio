@@ -52,7 +52,7 @@ export default function BlogNav() {
                 <label
                     htmlFor="search-toggle"
                     aria-controls="search"
-                    className="z-20 flex cursor-pointer items-center"
+                    className="flex cursor-pointer items-center"
                 >
                     <span>Search Blog</span>
                 </label>
