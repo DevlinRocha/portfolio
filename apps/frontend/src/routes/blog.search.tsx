@@ -29,7 +29,12 @@ function BlogSearch() {
         withRelations: true,
     })
 
-    if (isLoading) return <div>Loading...</div>
+    if (isLoading)
+        return (
+            <h2 className="py-14 pb-24 text-center md:pb-32 lg:pb-36">
+                Loading...
+            </h2>
+        )
     if (error) return <DefaultNotFound />
     if (!posts) return <DefaultNotFound />
 
