@@ -27,7 +27,7 @@ export const Route = createRootRoute({
 
         return (
             <>
-                <Nav />
+                <Nav disableMenu={blogRoute} />
                 {blogRoute && <BlogNav />}
                 <ScrollRestoration />
                 <Outlet />
