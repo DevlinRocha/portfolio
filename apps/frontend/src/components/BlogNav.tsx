@@ -3,7 +3,8 @@ import { Link, useNavigate } from '@tanstack/react-router'
 
 export default function BlogNav() {
     const input = useRef<HTMLInputElement>(null)
-    const navigate = useNavigate({ from: '/blog' })
+    const search = useRef<HTMLInputElement>(null)
+    const navigate = useNavigate()
 
     function handleSubmit(event: FormEvent) {
         event.preventDefault()
@@ -17,23 +18,59 @@ export default function BlogNav() {
         })
     }
 
+    function handleChange() {
+        if (!input.current || !search.current) return
+
+        const label = search.current.labels
+            ? search.current.labels[0]
+            : search.current
+
+        if (!search.current.checked) return (label.textContent = 'Search Blog')
+
+        input.current.focus()
+        label.textContent = 'Close'
+    }
+
     return (
         <header className="sticky top-0 z-10 flex h-12 select-none justify-center bg-white/80 text-black/80 backdrop-blur">
-            <nav className="flex h-full w-full max-w-[1152px] items-center justify-between">
+            <nav className="flex h-full w-full max-w-[1152px] items-center justify-between pl-4 pr-2">
                 <Link
                     to="/blog"
-                    className="transition-text flex h-full items-center text-nowrap px-4 hover:text-black"
+                    className="transition-text flex h-full items-center text-nowrap text-xl font-semibold hover:text-black"
                 >
                     Blog
                 </Link>
 
-                <form onSubmit={(event) => handleSubmit(event)}>
-                    <input
-                        ref={input}
-                        placeholder="Search Blog"
-                        className="focus:outline-none"
-                    />
-                </form>
+                <input
+                    type="checkbox"
+                    onChange={handleChange}
+                    id="search-toggle"
+                    ref={search}
+                    aria-expanded={search?.current?.checked || false}
+                    className="peer/search hidden"
+                />
+                <label
+                    htmlFor="search-toggle"
+                    aria-controls="search"
+                    className="z-20 flex cursor-pointer items-center"
+                >
+                    <span>Search Blog</span>
+                </label>
+
+                <div className="transition-layout absolute left-0 top-12 mx-4 flex h-lvh max-h-0 w-full flex-col items-center overflow-hidden bg-white px-4 duration-500 ease-in peer-checked/search:max-h-lvh peer-checked/search:pt-8">
+                    <form
+                        id="search"
+                        onSubmit={(event) => handleSubmit(event)}
+                        className="transition-text w-full max-w-[1152px] text-2xl"
+                    >
+                        <input
+                            ref={input}
+                            autoFocus
+                            placeholder="Search Blog"
+                            className="w-full placeholder:text-neutral-500 focus:outline-none"
+                        />
+                    </form>
+                </div>
             </nav>
         </header>
     )
