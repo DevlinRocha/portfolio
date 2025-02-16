@@ -51,8 +51,9 @@ export default function BlogNav() {
                 />
                 <label
                     htmlFor="search-toggle"
+                    role="button"
                     aria-controls="search"
-                    className="flex cursor-pointer items-center"
+                    className="flex cursor-pointer items-center rounded-xl bg-gray-200 px-3 py-1 text-xs"
                 >
                     <span>Search Blog</span>
                 </label>
