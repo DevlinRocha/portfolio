@@ -75,11 +75,11 @@ export default function BlogNav() {
                     <span>Search Blog</span>
                 </label>
 
-                <div className="transition-layout absolute left-0 top-12 mx-4 flex h-lvh max-h-0 w-full flex-col items-center overflow-hidden bg-white px-4 duration-500 ease-in peer-checked/search:max-h-lvh peer-checked/search:pt-8">
+                <div className="transition-layout absolute left-0 top-12 flex h-lvh max-h-0 w-full flex-col items-center overflow-hidden bg-white duration-500 ease-in peer-checked/search:max-h-lvh peer-checked/search:pt-8">
                     <form
                         id="search"
                         onSubmit={(event) => handleSubmit(event)}
-                        className="transition-text w-full max-w-[1152px] text-2xl"
+                        className="transition-text w-full max-w-[1152px] px-4 text-2xl"
                     >
                         <input
                             ref={input}
