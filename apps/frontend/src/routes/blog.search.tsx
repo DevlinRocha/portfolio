@@ -3,12 +3,12 @@ import BlogCard from '@/components/BlogCard'
 import DefaultNotFound from '@/components/DefaultNotFound'
 import { createFileRoute } from '@tanstack/react-router'
 
-type ProductSearch = {
+type BlogSearch = {
     query: string
 }
 
 export const Route = createFileRoute('/blog/search')({
-    validateSearch: (search): ProductSearch => {
+    validateSearch: (search): BlogSearch => {
         return {
             query: String(search.query),
         }
@@ -78,7 +78,7 @@ function BlogSearch() {
                                 created_at={post.created_at}
                                 updated_at={post.updated_at || post.created_at}
                                 created_at_formatted={post.created_at_formatted}
-                                featured
+                                variant="search"
                             />
                         </li>
                     )
