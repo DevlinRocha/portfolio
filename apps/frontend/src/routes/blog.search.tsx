@@ -41,16 +41,17 @@ function BlogSearch() {
         >
             <header className="mt-8 w-[87.5lvw] max-w-[992px] text-left md:mt-10 lg:mt-[52px]">
                 <h1
-                    className="font-display text-2xl font-bold md:text-3xl lg:text-4xl"
+                    className="font-display text-2xl md:text-3xl"
                     itemProp="headline"
                 >
                     Search Blog
                 </h1>
             </header>
 
-            <p className="w-[87.5lvw] max-w-[992px] text-left">
-                {posts.length} results found for {query}
-            </p>
+            <h2 className="w-[87.5lvw] max-w-[992px] text-left text-xs font-semibold text-neutral-500">
+                {posts.length} results found for{' '}
+                <span className="text-zinc-900">{query}</span>
+            </h2>
 
             <ul
                 itemProp="mainEntity"
