@@ -66,7 +66,7 @@ function BlogSearch() {
                     return (
                         <li
                             itemType="https://schema.org/BlogPosting"
-                            className="group overflow-clip rounded-2xl bg-white md:w-[calc(50%-16px)] lg:max-h-[538px]"
+                            className="group overflow-clip rounded-2xl bg-white lg:max-h-[538px]"
                             key={post.id}
                         >
                             <BlogCard
@@ -78,6 +78,7 @@ function BlogSearch() {
                                 created_at={post.created_at}
                                 updated_at={post.updated_at || post.created_at}
                                 created_at_formatted={post.created_at_formatted}
+                                featured
                             />
                         </li>
                     )
