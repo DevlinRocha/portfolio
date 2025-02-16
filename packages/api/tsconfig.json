@@ -6,7 +6,8 @@
         "outDir": "./dist",
         "rewriteRelativeImportExtensions": true,
         "noEmit": false,
-        "declaration": true
+        "declaration": true,
+        "tsBuildInfoFile": "./.cache/tsconfig.tsbuildinfo"
     },
     "include": ["src/**/*"]
 }
