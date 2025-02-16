@@ -31,7 +31,7 @@ function BlogSearch() {
 
     if (isLoading)
         return (
-            <h2 className="py-14 pb-24 text-center md:pb-32 lg:pb-36">
+            <h2 className="animate-pulse py-14 pb-24 text-center italic text-neutral-500 md:pb-32 lg:pb-36">
                 Loading...
             </h2>
         )

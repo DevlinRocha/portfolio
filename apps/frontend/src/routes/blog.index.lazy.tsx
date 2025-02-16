@@ -14,7 +14,7 @@ function Blog() {
 
     if (isLoading)
         return (
-            <h2 className="py-14 pb-24 text-center md:pb-32 lg:pb-36">
+            <h2 className="animate-pulse py-14 pb-24 text-center italic text-neutral-500 md:pb-32 lg:pb-36">
                 Loading...
             </h2>
         )
@@ -59,7 +59,7 @@ function Blog() {
                             firstPost.updated_at || firstPost.created_at
                         }
                         created_at_formatted={firstPost.created_at_formatted}
-                        featured
+                        variant="featured"
                     />
                 </li>
 
