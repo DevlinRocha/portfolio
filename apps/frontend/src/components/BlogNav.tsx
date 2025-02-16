@@ -1,18 +1,20 @@
 import { FormEvent, useRef } from 'react'
-import { Link } from '@tanstack/react-router'
-import { trpc } from '@/api/trpcClient'
+import { Link, useNavigate } from '@tanstack/react-router'
 
 export default function BlogNav() {
     const input = useRef<HTMLInputElement>(null)
+    const navigate = useNavigate({ from: '/blog' })
 
     function handleSubmit(event: FormEvent) {
         event.preventDefault()
 
-        const inputValue = input.current?.value
-        if (!inputValue) return
+        const query = input.current?.value
+        if (!query) return
 
-        const results = trpc.getPosts.useQuery({ title: inputValue })
-        console.log(results)
+        navigate({
+            to: '/blog/search',
+            search: { query },
+        })
     }
 
     return (
@@ -26,7 +28,11 @@ export default function BlogNav() {
                 </Link>
 
                 <form onSubmit={(event) => handleSubmit(event)}>
-                    <input ref={input} placeholder="Search Blog" />
+                    <input
+                        ref={input}
+                        placeholder="Search Blog"
+                        className="focus:outline-none"
+                    />
                 </form>
             </nav>
         </header>
