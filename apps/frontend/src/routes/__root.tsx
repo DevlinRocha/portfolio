@@ -3,8 +3,10 @@ import {
     createRootRoute,
     Outlet,
     ScrollRestoration,
+    useLocation,
 } from '@tanstack/react-router'
 import Nav from '@/components/Nav'
+import BlogNav from '@/components/BlogNav'
 import Footer from '@/components/Footer'
 
 const TanStackRouterDevtools =
@@ -18,15 +20,22 @@ const TanStackRouterDevtools =
           )
 
 export const Route = createRootRoute({
-    component: () => (
-        <>
-            <Nav />
-            <ScrollRestoration />
-            <Outlet />
-            <Suspense>
-                <TanStackRouterDevtools />
-            </Suspense>
-            <Footer />
-        </>
-    ),
+    component: () => {
+        const { pathname } = useLocation()
+
+        const blogRoute = ['/blog'].some((route) => pathname.startsWith(route))
+
+        return (
+            <>
+                <Nav />
+                {blogRoute && <BlogNav />}
+                <ScrollRestoration />
+                <Outlet />
+                <Suspense>
+                    <TanStackRouterDevtools />
+                </Suspense>
+                <Footer />
+            </>
+        )
+    },
 })
