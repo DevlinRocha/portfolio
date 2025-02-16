@@ -26,7 +26,7 @@ function Blog() {
         >
             <header className="mt-8 w-[87.5lvw] max-w-[992px] text-left md:mt-10 lg:mt-[52px]">
                 <h1
-                    className="font-display text-2xl font-bold md:text-3xl lg:text-4xl"
+                    className="font-display text-2xl md:text-3xl"
                     itemProp="headline"
                 >
                     Latest Posts
