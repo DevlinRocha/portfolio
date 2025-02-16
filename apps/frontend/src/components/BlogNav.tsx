@@ -16,6 +16,11 @@ export default function BlogNav() {
             to: '/blog/search',
             search: { query },
         })
+
+        if (!search.current) return
+
+        search.current.checked = false
+        handleChange()
     }
 
     function handleChange() {
