@@ -6,16 +6,10 @@ export default function BlogNav() {
     const search = useRef<HTMLInputElement>(null)
     const navigate = useNavigate()
 
-    function handleSubmit(event: FormEvent) {
-        event.preventDefault()
+    function handleClick() {
+        if (!input.current) return
 
-        const query = input.current?.value
-        if (!query) return
-
-        navigate({
-            to: '/blog/search',
-            search: { query },
-        })
+        input.current.value = ''
 
         if (!search.current) return
 
@@ -36,11 +30,29 @@ export default function BlogNav() {
         label.textContent = 'Close'
     }
 
+    function handleSubmit(event: FormEvent) {
+        event.preventDefault()
+
+        const query = input.current?.value
+        if (!query) return
+
+        navigate({
+            to: '/blog/search',
+            search: { query },
+        })
+
+        if (!search.current) return
+
+        search.current.checked = false
+        handleChange()
+    }
+
     return (
         <header className="sticky top-0 z-10 flex h-12 select-none justify-center bg-white/80 text-black/80 backdrop-blur">
             <nav className="flex h-full w-full max-w-[1152px] items-center justify-between pl-4 pr-2">
                 <Link
                     to="/blog"
+                    onClick={handleClick}
                     className="transition-text flex h-full items-center text-nowrap text-xl font-semibold hover:text-black"
                 >
                     Blog
