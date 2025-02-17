@@ -33,7 +33,7 @@ export default function BlogNav() {
     function handleSubmit(event: FormEvent) {
         event.preventDefault()
 
-        const query = input.current?.value
+        const query = String(input.current?.value).trim()
         if (!query) return
 
         navigate({

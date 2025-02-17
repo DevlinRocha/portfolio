@@ -9,8 +9,10 @@ type BlogSearchParams = {
 
 export const Route = createFileRoute('/blog/search')({
     validateSearch: (search): BlogSearchParams => {
+        const query = String(search.query).trim()
+
         return {
-            query: String(search.query),
+            query,
         }
     },
     component: BlogSearch,
