@@ -40,6 +40,8 @@ type GetPostsArgs = {
     tags?: true
     limit?: number
     offset?: number
+    filterCategory?: string
+    filterTag?: string
 }
 
 type UpdatePostArgs = {
@@ -151,6 +153,8 @@ export const appRouter = t.router({
                 tags: trueOrUndefined.optional(),
                 limit: z.number().default(10),
                 offset: z.number().default(0),
+                filterCategory: z.string().optional(),
+                filterTag: z.string().optional(),
             })
         )
         .query(async ({ input }) => {
@@ -488,12 +492,51 @@ export async function getPosts({
     tags,
     limit = 10,
     offset = 0,
+    filterCategory,
+    filterTag,
 }: GetPostsArgs = {}) {
     try {
         const result = await db.query.posts.findMany({
-            where: (posts, { and, ilike, inArray, or }) => {
+            where: (posts, { and, exists, ilike, inArray, or }) => {
                 const andConditions = [eq(posts.published, true)]
                 if (ids) andConditions.push(inArray(posts.id, ids))
+
+                if (filterCategory?.length) {
+                    const categorySubquery = db
+                        .select()
+                        .from(schema.postsToCategories)
+                        .innerJoin(
+                            schema.categories,
+                            eq(
+                                schema.postsToCategories.categoryId,
+                                schema.categories.id
+                            )
+                        )
+                        .where(
+                            and(
+                                eq(schema.postsToCategories.postId, posts.id),
+                                eq(schema.categories.name, filterCategory)
+                            )
+                        )
+                    andConditions.push(exists(categorySubquery))
+                }
+
+                if (filterTag?.length) {
+                    const tagSubquery = db
+                        .select()
+                        .from(schema.postsToTags)
+                        .innerJoin(
+                            schema.tags,
+                            eq(schema.postsToTags.tagId, schema.tags.id)
+                        )
+                        .where(
+                            and(
+                                eq(schema.postsToTags.postId, posts.id),
+                                eq(schema.tags.name, filterTag)
+                            )
+                        )
+                    andConditions.push(exists(tagSubquery))
+                }
 
                 const orConditions = []
                 if (title) orConditions.push(ilike(posts.title, `%${title}%`))
