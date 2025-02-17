@@ -500,7 +500,7 @@ export async function getPosts({
                 if (content)
                     orConditions.push(ilike(posts.content, `%${content}%`))
 
-                return and(...andConditions), or(...orConditions)
+                return and(...andConditions, or(...orConditions))
             },
             with: {
                 postsToCategories: (withRelations || categories) && {
