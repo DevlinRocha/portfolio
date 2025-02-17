@@ -20,7 +20,7 @@ export default function Nav({ disableMenu = false }: NavProps) {
             <nav className="flex h-full w-full max-w-[1152px] items-center justify-between">
                 <Link
                     to="/"
-                    className="transition-text flex h-full items-center text-nowrap px-4 hover:text-black"
+                    className="transition-text flex h-full items-center text-nowrap px-5 hover:text-black"
                 >
                     Devlin Rocha
                 </Link>
@@ -43,7 +43,7 @@ export default function Nav({ disableMenu = false }: NavProps) {
 
                 <ul
                     id="menu"
-                    className="transition-layout xs:static xs:h-full xs:max-h-none xs:w-auto xs:flex-row xs:items-center xs:bg-inherit xs:pt-0 xs:text-sm xs:transition-none peer-checked/menu:xs:max-h-none peer-checked/menu:xs:pt-0 absolute top-0 flex h-lvh max-h-0 w-full flex-col overflow-hidden bg-white text-2xl duration-500 ease-in peer-checked/menu:max-h-lvh peer-checked/menu:pt-12"
+                    className="transition-layout xs:static xs:h-full xs:max-h-none xs:w-auto xs:flex-row xs:items-center xs:bg-inherit xs:pt-0 xs:text-sm xs:transition-none peer-checked/menu:xs:max-h-none peer-checked/menu:xs:pt-0 absolute top-0 flex h-lvh max-h-0 w-full flex-col overflow-hidden bg-white pr-3 text-2xl duration-500 ease-in peer-checked/menu:max-h-lvh peer-checked/menu:pt-12"
                 >
                     <li className="xs:h-full">
                         <Link
