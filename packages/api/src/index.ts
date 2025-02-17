@@ -491,13 +491,16 @@ export async function getPosts({
 }: GetPostsArgs = {}) {
     try {
         const result = await db.query.posts.findMany({
-            where: (posts, { and, ilike, inArray }) => {
-                const conditions = [eq(posts.published, true)]
-                if (ids) conditions.push(inArray(posts.id, ids))
-                if (title) conditions.push(ilike(posts.title, `%${title}%`))
+            where: (posts, { and, ilike, inArray, or }) => {
+                const andConditions = [eq(posts.published, true)]
+                if (ids) andConditions.push(inArray(posts.id, ids))
+
+                const orConditions = []
+                if (title) orConditions.push(ilike(posts.title, `%${title}%`))
                 if (content)
-                    conditions.push(ilike(posts.content, `%${content}%`))
-                return conditions.length ? and(...conditions) : undefined
+                    orConditions.push(ilike(posts.content, `%${content}%`))
+
+                return and(...andConditions, or(...orConditions))
             },
             with: {
                 postsToCategories: (withRelations || categories) && {
