@@ -80,7 +80,7 @@ function BlogSearch() {
                                 created_at={post.created_at}
                                 updated_at={post.updated_at || post.created_at}
                                 created_at_formatted={post.created_at_formatted}
-                                variant="search"
+                                featured
                             />
                         </li>
                     )

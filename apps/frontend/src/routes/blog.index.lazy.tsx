@@ -59,7 +59,7 @@ function Blog() {
                             firstPost.updated_at || firstPost.created_at
                         }
                         created_at_formatted={firstPost.created_at_formatted}
-                        variant="featured"
+                        featured
                     />
                 </li>
 
