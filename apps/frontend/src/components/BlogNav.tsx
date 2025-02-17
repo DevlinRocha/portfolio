@@ -69,6 +69,13 @@ export default function BlogNav() {
                 <label
                     htmlFor="search-toggle"
                     role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault()
+                            search.current?.click()
+                        }
+                    }}
                     aria-controls="search"
                     className="flex cursor-pointer items-center rounded-xl bg-gray-200 px-3 py-1 text-xs"
                 >
@@ -83,8 +90,9 @@ export default function BlogNav() {
                     >
                         <input
                             ref={input}
-                            autoFocus
+                            type="search"
                             placeholder="Search Blog"
+                            aria-label="Search blog posts"
                             className="w-full placeholder:text-neutral-500 focus:outline-none"
                         />
                     </form>
