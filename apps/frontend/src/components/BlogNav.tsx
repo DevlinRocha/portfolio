@@ -111,6 +111,25 @@ export default function BlogNav() {
                                 className="w-full pr-8 text-2xl font-semibold text-zinc-900 placeholder:text-neutral-500 focus:outline-none"
                             />
                         </form>
+
+                        <section className="w-full max-w-[1032px] px-5 pb-16 pt-10">
+                            <h2 className="mb-5 text-xs font-bold text-neutral-500">
+                                Quick Links
+                            </h2>
+                            <ul className="flex flex-col gap-4 text-lg font-semibold">
+                                <li>
+                                    <Link
+                                        to="/blog/search"
+                                        search={{
+                                            tag: '100 Days Of Code',
+                                        }}
+                                        onClick={handleClick}
+                                    >
+                                        100 Days Of Code
+                                    </Link>
+                                </li>
+                            </ul>
+                        </section>
                     </div>
                 </section>
             </nav>
