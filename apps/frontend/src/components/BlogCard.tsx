@@ -35,7 +35,7 @@ export default function BlogCard({
 
     return (
         <Link
-            className={`flex h-full w-full ${featured ? 'flex-col md:flex-row' : 'flex-col'}`}
+            className={`flex h-full w-full overflow-hidden ${featured ? 'flex-col md:flex-row' : 'flex-col'}`}
             to={`/blog/${id}`}
             draggable={false}
         >

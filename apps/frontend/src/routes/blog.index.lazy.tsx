@@ -45,7 +45,7 @@ function Blog() {
                 <li
                     itemScope
                     itemType="https://schema.org/BlogPosting"
-                    className="group overflow-clip rounded-2xl bg-white lg:max-h-[538px]"
+                    className="group rounded-2xl bg-white lg:max-h-[538px]"
                     key={firstPost.id}
                 >
                     <BlogCard
@@ -67,7 +67,7 @@ function Blog() {
                     return (
                         <li
                             itemType="https://schema.org/BlogPosting"
-                            className="group overflow-clip rounded-2xl bg-white md:w-[calc(50%-16px)] lg:max-h-[538px]"
+                            className="group rounded-2xl bg-white md:w-[calc(50%-16px)] lg:max-h-[538px]"
                             key={post.id}
                         >
                             <BlogCard
