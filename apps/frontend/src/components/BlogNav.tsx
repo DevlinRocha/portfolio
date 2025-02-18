@@ -49,7 +49,7 @@ export default function BlogNav() {
 
     return (
         <header className="sticky top-0 z-10 flex h-12 select-none justify-center bg-white/80 text-black/80 backdrop-blur">
-            <nav className="flex h-full w-full max-w-[1152px] items-center justify-between px-5">
+            <nav className="flex h-full w-full max-w-[1032px] items-center justify-between px-5">
                 <Link
                     to="/blog"
                     onClick={handleClick}
@@ -82,11 +82,11 @@ export default function BlogNav() {
                     Search Blog
                 </label>
 
-                <div className="transition-layout absolute left-0 top-12 flex h-lvh max-h-0 w-full flex-col overflow-hidden bg-white px-5 duration-500 ease-in peer-checked/search:max-h-lvh peer-checked/search:pt-8">
+                <div className="transition-layout absolute left-0 top-12 flex h-lvh max-h-0 w-full flex-col items-center overflow-hidden bg-white duration-500 ease-in peer-checked/search:max-h-lvh">
                     <form
                         id="search"
                         onSubmit={(event) => handleSubmit(event)}
-                        className="transition-text w-full max-w-[1152px]"
+                        className="transition-text w-full max-w-[1032px] px-5 pt-8"
                     >
                         <input
                             ref={input}

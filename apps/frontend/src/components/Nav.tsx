@@ -17,7 +17,7 @@ export default function Nav({ disableMenu = false }: NavProps) {
 
     return (
         <header className="sticky top-0 z-10 flex h-12 select-none justify-center bg-white/80 text-black/80 backdrop-blur">
-            <nav className="flex h-full w-full max-w-[1152px] items-center justify-between">
+            <nav className="flex h-full w-full max-w-[1032px] items-center justify-between">
                 <Link
                     to="/"
                     className="transition-text flex h-full items-center text-nowrap px-5 hover:text-black"
@@ -35,7 +35,7 @@ export default function Nav({ disableMenu = false }: NavProps) {
                 <label
                     htmlFor="menu-toggle"
                     aria-controls="menu"
-                    className="xs:hidden flex h-full w-12 cursor-pointer flex-col items-center justify-center peer-checked/menu:*:absolute peer-checked/menu:*:mb-0 peer-checked/menu:[&>*:first-child]:rotate-[135deg] peer-checked/menu:[&>*:last-child]:-rotate-[135deg]"
+                    className="xs:hidden z-20 flex h-full w-12 cursor-pointer flex-col items-center justify-center peer-checked/menu:*:absolute peer-checked/menu:*:mb-0 peer-checked/menu:[&>*:first-child]:rotate-[135deg] peer-checked/menu:[&>*:last-child]:-rotate-[135deg]"
                 >
                     <span className="transition-layout-transform mb-1.5 h-[1.6px] w-4 bg-black duration-500" />
                     <span className="transition-layout-transform h-[1.6px] w-4 bg-black duration-500" />
