@@ -60,7 +60,7 @@ export default function Nav({ disableMenu = false }: NavProps) {
                             to="/"
                             hash="projects"
                             onClick={handleClick}
-                            className="transition-text xs:h-full xs:px-2 xs:py-0 group-hover:xs:text-black relative flex items-center px-12 py-2 hover:text-black"
+                            className="transition-text xs:h-full xs:px-2 xs:py-0 group-hover:xs:text-black flex items-center px-12 py-2 hover:text-black"
                         >
                             projects
                         </Link>
