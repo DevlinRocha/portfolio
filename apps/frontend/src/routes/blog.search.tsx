@@ -4,22 +4,27 @@ import DefaultNotFound from '@/components/DefaultNotFound'
 import { createFileRoute } from '@tanstack/react-router'
 
 type BlogSearchParams = {
-    query: string
+    query?: string
+    category?: string
 }
 
 export const Route = createFileRoute('/blog/search')({
     validateSearch: (search): BlogSearchParams => {
-        const query = String(search.query).trim()
+        const query = search.query ? String(search.query).trim() : undefined
+        const category = search.category
+            ? String(search.category).trim()
+            : undefined
 
         return {
             query,
+            category,
         }
     },
     component: BlogSearch,
 })
 
 function BlogSearch() {
-    const { query } = Route.useSearch({})
+    const { query, category } = Route.useSearch({})
 
     const {
         data: posts,
@@ -28,6 +33,7 @@ function BlogSearch() {
     } = trpc.getPosts.useQuery({
         title: query,
         content: query,
+        filterCategory: category,
         withRelations: true,
     })
 
