@@ -58,45 +58,61 @@ export default function BlogNav() {
                     Blog
                 </Link>
 
-                <input
-                    type="checkbox"
-                    onChange={handleChange}
-                    id="search-toggle"
-                    ref={search}
-                    aria-expanded={search?.current?.checked || false}
-                    className="peer/search hidden"
-                />
-                <label
-                    htmlFor="search-toggle"
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault()
-                            search.current?.click()
-                        }
-                    }}
-                    aria-controls="search"
-                    className="flex cursor-pointer items-center rounded-xl bg-gray-200 px-3 py-1 text-xs"
-                >
-                    Search Blog
-                </label>
+                <section className="flex gap-6">
+                    <ul className="flex items-center gap-10 text-xs">
+                        <li>
+                            <Link
+                                to="/blog/search"
+                                search={{
+                                    category: 'Software',
+                                }}
+                                onClick={handleClick}
+                            >
+                                Software
+                            </Link>
+                        </li>
+                    </ul>
 
-                <div className="transition-layout absolute left-0 top-12 flex h-lvh max-h-0 w-full flex-col items-center overflow-hidden bg-white duration-500 ease-in peer-checked/search:max-h-lvh">
-                    <form
-                        id="search"
-                        onSubmit={(event) => handleSubmit(event)}
-                        className="transition-text w-full max-w-[1032px] px-5 pt-8"
+                    <input
+                        type="checkbox"
+                        onChange={handleChange}
+                        id="search-toggle"
+                        ref={search}
+                        aria-expanded={search?.current?.checked || false}
+                        className="peer/search hidden"
+                    />
+                    <label
+                        htmlFor="search-toggle"
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault()
+                                search.current?.click()
+                            }
+                        }}
+                        aria-controls="search"
+                        className="flex cursor-pointer items-center rounded-xl bg-gray-200 px-3 py-1 text-xs"
                     >
-                        <input
-                            ref={input}
-                            type="search"
-                            placeholder="Search Blog"
-                            aria-label="Search blog posts"
-                            className="w-full pr-8 text-2xl font-semibold text-zinc-900 placeholder:text-neutral-500 focus:outline-none"
-                        />
-                    </form>
-                </div>
+                        Search Blog
+                    </label>
+
+                    <div className="transition-layout absolute left-0 top-12 flex h-lvh max-h-0 w-full flex-col items-center overflow-hidden bg-white duration-500 ease-in peer-checked/search:max-h-lvh">
+                        <form
+                            id="search"
+                            onSubmit={(event) => handleSubmit(event)}
+                            className="transition-text w-full max-w-[1032px] px-5 pt-8"
+                        >
+                            <input
+                                ref={input}
+                                type="search"
+                                placeholder="Search Blog"
+                                aria-label="Search blog posts"
+                                className="w-full pr-8 text-2xl font-semibold text-zinc-900 placeholder:text-neutral-500 focus:outline-none"
+                            />
+                        </form>
+                    </div>
+                </section>
             </nav>
         </header>
     )
