@@ -1,5 +1,6 @@
 import { FormEvent, useRef } from 'react'
 import { Link, useNavigate } from '@tanstack/react-router'
+import { tags } from '@/data/glossary'
 
 export default function BlogNav() {
     const input = useRef<HTMLInputElement>(null)
@@ -117,17 +118,21 @@ export default function BlogNav() {
                                 Quick Links
                             </h2>
                             <ul className="flex flex-col gap-4 text-lg font-semibold">
-                                <li>
-                                    <Link
-                                        to="/blog/search"
-                                        search={{
-                                            tag: '100 Days Of Code',
-                                        }}
-                                        onClick={handleClick}
-                                    >
-                                        100 Days Of Code
-                                    </Link>
-                                </li>
+                                {tags.map((tag) => {
+                                    return (
+                                        <li key={tag}>
+                                            <Link
+                                                to="/blog/search"
+                                                search={{
+                                                    tag,
+                                                }}
+                                                onClick={handleClick}
+                                            >
+                                                {tag}
+                                            </Link>
+                                        </li>
+                                    )
+                                })}
                             </ul>
                         </section>
                     </div>
