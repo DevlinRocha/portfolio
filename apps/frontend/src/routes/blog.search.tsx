@@ -1,14 +1,43 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
 import { trpc } from '@/api/trpcClient'
 import BlogCard from '@/components/BlogCard'
 import DefaultNotFound from '@/components/DefaultNotFound'
+import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createLazyFileRoute('/blog/')({
-    component: Blog,
+type BlogSearchParams = {
+    query?: string
+    category?: string
+    tag?: string
+}
+
+export const Route = createFileRoute('/blog/search')({
+    validateSearch: (search): BlogSearchParams => {
+        const query = search.query ? String(search.query).trim() : undefined
+        const category = search.category
+            ? String(search.category).trim()
+            : undefined
+        const tag = search.tag ? String(search.tag).trim() : undefined
+
+        return {
+            query,
+            category,
+            tag,
+        }
+    },
+    component: BlogSearch,
 })
 
-function Blog() {
-    const { data, isLoading, error } = trpc.getPosts.useQuery({
+function BlogSearch() {
+    const { query, category, tag } = Route.useSearch({})
+
+    const {
+        data: posts,
+        isLoading,
+        error,
+    } = trpc.getPosts.useQuery({
+        title: query,
+        content: query,
+        filterCategory: category,
+        filterTag: tag,
         withRelations: true,
     })
 
@@ -19,9 +48,7 @@ function Blog() {
             </h2>
         )
     if (error) return <DefaultNotFound />
-    if (!data || !data.length) return <DefaultNotFound />
-
-    const firstPost = data[0]
+    if (!posts) return <DefaultNotFound />
 
     return (
         <main
@@ -31,43 +58,29 @@ function Blog() {
         >
             <header className="mt-8 w-[87.5lvw] max-w-[992px] text-left md:mt-10 lg:mt-[52px]">
                 <h1
-                    className="text-3xl font-bold md:text-3xl"
+                    className="text-2xl font-bold md:text-3xl"
                     itemProp="headline"
                 >
-                    Latest Posts
+                    Search Blog
                 </h1>
             </header>
+
+            <h2 className="w-[87.5lvw] max-w-[992px] text-left text-xs font-semibold text-neutral-500">
+                {posts.length} results found for{' '}
+                <span className="text-zinc-900">
+                    {query || category || tag}
+                </span>
+            </h2>
 
             <ul
                 itemProp="mainEntity"
                 className="flex w-[87.5lvw] max-w-[992px] flex-col flex-wrap gap-8 sm:flex-row"
             >
-                <li
-                    itemScope
-                    itemType="https://schema.org/BlogPosting"
-                    className="group rounded-2xl bg-white lg:max-h-[538px]"
-                    key={firstPost.id}
-                >
-                    <BlogCard
-                        id={firstPost.id}
-                        title={firstPost.title}
-                        image={firstPost.image}
-                        categories={firstPost.categories}
-                        tags={firstPost.tags}
-                        created_at={firstPost.created_at}
-                        updated_at={
-                            firstPost.updated_at || firstPost.created_at
-                        }
-                        created_at_formatted={firstPost.created_at_formatted}
-                        featured
-                    />
-                </li>
-
-                {data.slice(1).map((post) => {
+                {posts.map((post) => {
                     return (
                         <li
                             itemType="https://schema.org/BlogPosting"
-                            className="group rounded-2xl bg-white md:w-[calc(50%-16px)] lg:max-h-[538px]"
+                            className="group rounded-2xl bg-white lg:max-h-[538px]"
                             key={post.id}
                         >
                             <BlogCard
@@ -79,6 +92,7 @@ function Blog() {
                                 created_at={post.created_at}
                                 updated_at={post.updated_at || post.created_at}
                                 created_at_formatted={post.created_at_formatted}
+                                featured
                             />
                         </li>
                     )

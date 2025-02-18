@@ -35,7 +35,7 @@ export default function BlogCard({
 
     return (
         <Link
-            className={`flex h-full w-full ${featured ? 'flex-col md:flex-row' : 'flex-col'}`}
+            className={`flex h-full w-full overflow-hidden ${featured ? 'flex-col md:flex-row' : 'flex-col'}`}
             to={`/blog/${id}`}
             draggable={false}
         >
@@ -50,7 +50,7 @@ export default function BlogCard({
                 draggable={false}
                 // alt={image.alt}
                 onLoad={handleLoad}
-                className={`group-hover:scale-101 h-40 rounded-t-2xl bg-neutral-600 object-contain transition-transform duration-500 sm:h-[188px] ${loading && image ? 'animate-loading' : 'animate-none'} ${featured ? 'md:h-[255px] lg:h-[362px]' : 'lg:h-[270px]'}`}
+                className={`group-hover:scale-101 h-40 bg-neutral-50 object-contain transition-transform duration-500 sm:h-[188px] ${loading && image ? 'animate-pulse' : 'animate-none'} ${featured ? 'md:h-[255px] lg:h-[362px]' : 'lg:h-[270px]'}`}
             />
 
             <div className="flex h-full w-full select-none flex-col gap-2 p-6 text-xs font-bold text-gray-500 lg:gap-3 lg:p-8 lg:text-sm">

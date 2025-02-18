@@ -97,7 +97,7 @@ export default function Gallery({ items }: GalleryProps) {
                                             draggable={false}
                                             alt={alt}
                                             onLoad={handleLoad}
-                                            className={`max-w-[87.5lvw] rounded-2xl bg-neutral-600 object-contain text-transparent md:max-w-[768px] lg:max-w-[896px] ${loading && src ? 'animate-loading' : 'animate-none'}`}
+                                            className={`max-w-[87.5lvw] rounded-2xl bg-neutral-600 object-contain text-transparent md:max-w-[768px] lg:max-w-[896px] ${loading && src ? 'animate-pulse' : 'animate-none'}`}
                                         />
 
                                         <figcaption

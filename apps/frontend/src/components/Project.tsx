@@ -23,7 +23,7 @@ export default function Project({
     const imgRef = useRef<HTMLImageElement>(null)
 
     function handleLoad() {
-        imgRef.current?.classList.toggle('animate-loading', false)
+        imgRef.current?.classList.toggle('animate-pulse', false)
     }
 
     return (
@@ -74,7 +74,7 @@ export default function Project({
                             alt={alt}
                             onLoad={handleLoad}
                             ref={imgRef}
-                            className="animate-loading rounded-lg bg-neutral-600 object-contain text-transparent drop-shadow-lg"
+                            className="animate-pulse rounded-lg bg-neutral-600 object-contain text-transparent drop-shadow-lg"
                         />
                     </figure>
                 </div>

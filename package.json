@@ -4,6 +4,11 @@
     "version": "1.0.0",
     "type": "module",
     "packageManager": "pnpm@10.2.0",
+    "pnpm": {
+        "overrides": {
+            "esbuild": "latest"
+        }
+    },
     "scripts": {
         "build": "pnpm -r build",
         "typecheck": "tsc --build",
@@ -17,7 +22,7 @@
         "@types/node": "^22.10.6",
         "@typescript-eslint/eslint-plugin": "^8.20.0",
         "@typescript-eslint/parser": "^8.20.0",
-        "eslint": "^9.18.0",
+        "eslint": "^9.20.1",
         "eslint-plugin-react": "^7.37.4",
         "eslint-plugin-react-hooks": "^5.1.0",
         "eslint-plugin-react-refresh": "^0.4.18",
