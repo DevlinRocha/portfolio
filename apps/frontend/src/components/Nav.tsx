@@ -16,7 +16,7 @@ export default function Nav({ disableMenu = false }: NavProps) {
     }
 
     return (
-        <header className="sticky top-0 z-10 flex h-12 select-none justify-center bg-white/80 text-black/80 backdrop-blur">
+        <header className="sticky top-0 z-10 flex h-12 select-none justify-center bg-white/80 text-black/80 backdrop-blur has-[:checked]:z-20">
             <nav className="flex h-full w-full max-w-[1032px] items-center justify-between">
                 <Link
                     to="/"
