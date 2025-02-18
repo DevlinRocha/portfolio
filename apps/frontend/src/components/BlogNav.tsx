@@ -84,7 +84,7 @@ export default function BlogNav() {
                     />
                     <label
                         htmlFor="search-toggle"
-                        role="button"
+                        role="checkbox"
                         tabIndex={0}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {
