@@ -6,6 +6,7 @@ import { createFileRoute } from '@tanstack/react-router'
 type BlogSearchParams = {
     query?: string
     category?: string
+    tag?: string
 }
 
 export const Route = createFileRoute('/blog/search')({
@@ -14,17 +15,19 @@ export const Route = createFileRoute('/blog/search')({
         const category = search.category
             ? String(search.category).trim()
             : undefined
+        const tag = search.tag ? String(search.tag).trim() : undefined
 
         return {
             query,
             category,
+            tag,
         }
     },
     component: BlogSearch,
 })
 
 function BlogSearch() {
-    const { query, category } = Route.useSearch({})
+    const { query, category, tag } = Route.useSearch({})
 
     const {
         data: posts,
@@ -34,6 +37,7 @@ function BlogSearch() {
         title: query,
         content: query,
         filterCategory: category,
+        filterTag: tag,
         withRelations: true,
     })
 
