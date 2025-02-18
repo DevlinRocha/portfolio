@@ -23,14 +23,15 @@ async function handleFetch(request, cache) {
     return networkResponse
 }
 
-async function handleCache(request, isDynamic = false) {
+async function handleCache(event, isDynamic = false) {
+    const request = event.request
     const cache = await caches.open(CACHE_NAME)
     const cachedResponse = await cache.match(request)
 
     try {
         if (isDynamic) return await handleFetch(request)
 
-        handleFetch(request, cache)
+        event.waitUntil(handleFetch(request, cache))
         return cachedResponse
     } catch (error) {
         console.error('Failed to fetch new content:', error)
@@ -66,5 +67,5 @@ addEventListener('fetch', async (event) => {
     const isDynamic = DYNAMIC_ROUTES.some((route) =>
         event.request.url.startsWith(route)
     )
-    event.respondWith(handleCache(event.request, isDynamic))
+    event.respondWith(handleCache(event, isDynamic))
 })
