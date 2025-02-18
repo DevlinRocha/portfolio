@@ -4,22 +4,30 @@ import DefaultNotFound from '@/components/DefaultNotFound'
 import { createFileRoute } from '@tanstack/react-router'
 
 type BlogSearchParams = {
-    query: string
+    query?: string
+    category?: string
+    tag?: string
 }
 
 export const Route = createFileRoute('/blog/search')({
     validateSearch: (search): BlogSearchParams => {
-        const query = String(search.query).trim()
+        const query = search.query ? String(search.query).trim() : undefined
+        const category = search.category
+            ? String(search.category).trim()
+            : undefined
+        const tag = search.tag ? String(search.tag).trim() : undefined
 
         return {
             query,
+            category,
+            tag,
         }
     },
     component: BlogSearch,
 })
 
 function BlogSearch() {
-    const { query } = Route.useSearch({})
+    const { query, category, tag } = Route.useSearch({})
 
     const {
         data: posts,
@@ -28,6 +36,8 @@ function BlogSearch() {
     } = trpc.getPosts.useQuery({
         title: query,
         content: query,
+        filterCategory: category,
+        filterTag: tag,
         withRelations: true,
     })
 
@@ -48,7 +58,7 @@ function BlogSearch() {
         >
             <header className="mt-8 w-[87.5lvw] max-w-[992px] text-left md:mt-10 lg:mt-[52px]">
                 <h1
-                    className="font-display text-2xl md:text-3xl"
+                    className="text-2xl font-bold md:text-3xl"
                     itemProp="headline"
                 >
                     Search Blog
@@ -57,7 +67,9 @@ function BlogSearch() {
 
             <h2 className="w-[87.5lvw] max-w-[992px] text-left text-xs font-semibold text-neutral-500">
                 {posts.length} results found for{' '}
-                <span className="text-zinc-900">{query}</span>
+                <span className="text-zinc-900">
+                    {query || category || tag}
+                </span>
             </h2>
 
             <ul
@@ -68,7 +80,7 @@ function BlogSearch() {
                     return (
                         <li
                             itemType="https://schema.org/BlogPosting"
-                            className="group overflow-clip rounded-2xl bg-white lg:max-h-[538px]"
+                            className="group rounded-2xl bg-white lg:max-h-[538px]"
                             key={post.id}
                         >
                             <BlogCard

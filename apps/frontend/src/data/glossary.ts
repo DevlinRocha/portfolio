@@ -80,3 +80,11 @@ export const vite =
     'local development server with support for TypeScript and JSX' as const
 export const vue =
     'open-source model–view–viewmodel frontend JavaScript framework for building user interfaces and single-page applications' as const
+
+export const tags = [
+    '100 Days Of Code',
+    'Python',
+    'Git',
+    'HTML',
+    'Beginner',
+] as const

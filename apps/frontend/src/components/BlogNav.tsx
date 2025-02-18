@@ -1,5 +1,6 @@
 import { FormEvent, useRef } from 'react'
 import { Link, useNavigate } from '@tanstack/react-router'
+import { tags } from '@/data/glossary'
 
 export default function BlogNav() {
     const input = useRef<HTMLInputElement>(null)
@@ -49,7 +50,7 @@ export default function BlogNav() {
 
     return (
         <header className="sticky top-0 z-10 flex h-12 select-none justify-center bg-white/80 text-black/80 backdrop-blur">
-            <nav className="flex h-full w-full max-w-[1152px] items-center justify-between pl-4 pr-2">
+            <nav className="flex h-full w-full max-w-[1032px] items-center justify-between px-5">
                 <Link
                     to="/blog"
                     onClick={handleClick}
@@ -58,45 +59,84 @@ export default function BlogNav() {
                     Blog
                 </Link>
 
-                <input
-                    type="checkbox"
-                    onChange={handleChange}
-                    id="search-toggle"
-                    ref={search}
-                    aria-expanded={search?.current?.checked || false}
-                    className="peer/search hidden"
-                />
-                <label
-                    htmlFor="search-toggle"
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault()
-                            search.current?.click()
-                        }
-                    }}
-                    aria-controls="search"
-                    className="flex cursor-pointer items-center rounded-xl bg-gray-200 px-3 py-1 text-xs"
-                >
-                    <span>Search Blog</span>
-                </label>
+                <section className="flex gap-6">
+                    <ul className="flex items-center gap-10 text-xs">
+                        <li>
+                            <Link
+                                to="/blog/search"
+                                search={{
+                                    category: 'Software',
+                                }}
+                                onClick={handleClick}
+                            >
+                                Software
+                            </Link>
+                        </li>
+                    </ul>
 
-                <div className="transition-layout absolute left-0 top-12 flex h-lvh max-h-0 w-full flex-col items-center overflow-hidden bg-white duration-500 ease-in peer-checked/search:max-h-lvh peer-checked/search:pt-8">
-                    <form
-                        id="search"
-                        onSubmit={(event) => handleSubmit(event)}
-                        className="transition-text w-full max-w-[1152px] px-4 text-2xl"
+                    <input
+                        type="checkbox"
+                        onChange={handleChange}
+                        id="search-toggle"
+                        ref={search}
+                        aria-expanded={search?.current?.checked || false}
+                        className="peer/search hidden"
+                    />
+                    <label
+                        htmlFor="search-toggle"
+                        role="checkbox"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault()
+                                search.current?.click()
+                            }
+                        }}
+                        aria-controls="search"
+                        className="flex cursor-pointer items-center rounded-xl bg-gray-200 px-3 py-1 text-xs"
                     >
-                        <input
-                            ref={input}
-                            type="search"
-                            placeholder="Search Blog"
-                            aria-label="Search blog posts"
-                            className="w-full placeholder:text-neutral-500 focus:outline-none"
-                        />
-                    </form>
-                </div>
+                        Search Blog
+                    </label>
+
+                    <div className="transition-layout absolute left-0 top-12 flex h-lvh max-h-0 w-full flex-col items-center overflow-hidden bg-white duration-500 ease-in peer-checked/search:max-h-lvh">
+                        <form
+                            id="search"
+                            onSubmit={(event) => handleSubmit(event)}
+                            className="transition-text w-full max-w-[1032px] px-5 pt-8"
+                        >
+                            <input
+                                ref={input}
+                                type="search"
+                                placeholder="Search Blog"
+                                aria-label="Search blog posts"
+                                className="w-full pr-8 text-2xl font-semibold text-zinc-900 placeholder:text-neutral-500 focus:outline-none"
+                            />
+                        </form>
+
+                        <section className="w-full max-w-[1032px] px-5 pb-16 pt-10">
+                            <h2 className="mb-5 text-xs font-bold text-neutral-500">
+                                Quick Links
+                            </h2>
+                            <ul className="flex flex-col gap-4 text-lg font-semibold">
+                                {tags.map((tag) => {
+                                    return (
+                                        <li key={tag}>
+                                            <Link
+                                                to="/blog/search"
+                                                search={{
+                                                    tag,
+                                                }}
+                                                onClick={handleClick}
+                                            >
+                                                {tag}
+                                            </Link>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </section>
+                    </div>
+                </section>
             </nav>
         </header>
     )
