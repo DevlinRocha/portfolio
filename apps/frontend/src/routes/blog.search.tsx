@@ -63,7 +63,7 @@ function BlogSearch() {
 
             <h2 className="w-[87.5lvw] max-w-[992px] text-left text-xs font-semibold text-neutral-500">
                 {posts.length} results found for{' '}
-                <span className="text-zinc-900">{query}</span>
+                <span className="text-zinc-900">{query || category}</span>
             </h2>
 
             <ul
