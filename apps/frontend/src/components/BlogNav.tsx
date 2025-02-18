@@ -82,18 +82,18 @@ export default function BlogNav() {
                     Search Blog
                 </label>
 
-                <div className="transition-layout absolute left-0 top-12 flex h-lvh max-h-0 w-full flex-col items-center overflow-hidden bg-white duration-500 ease-in peer-checked/search:max-h-lvh peer-checked/search:pt-8">
+                <div className="transition-layout absolute left-0 top-12 flex h-lvh max-h-0 w-full flex-col overflow-hidden bg-white px-5 duration-500 ease-in peer-checked/search:max-h-lvh peer-checked/search:pt-8">
                     <form
                         id="search"
                         onSubmit={(event) => handleSubmit(event)}
-                        className="transition-text w-full max-w-[1152px] px-5 text-2xl"
+                        className="transition-text w-full max-w-[1152px]"
                     >
                         <input
                             ref={input}
                             type="search"
                             placeholder="Search Blog"
                             aria-label="Search blog posts"
-                            className="w-full pr-8 placeholder:text-neutral-500 focus:outline-none"
+                            className="w-full pr-8 text-2xl font-semibold text-zinc-900 placeholder:text-neutral-500 focus:outline-none"
                         />
                     </form>
                 </div>
