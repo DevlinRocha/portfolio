@@ -23,7 +23,13 @@ function BlogPost() {
         }
     )
 
-    if (isLoading) return <div>Loading...</div>
+    if (isLoading)
+        return (
+            <h2 className="animate-pulse py-14 pb-24 text-center italic text-neutral-500 md:pb-32 lg:pb-36">
+                Loading...
+            </h2>
+        )
+
     if (error) return <DefaultNotFound />
     if (!post) return <DefaultNotFound />
 
