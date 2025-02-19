@@ -8,13 +8,11 @@ export default function BlogNav() {
     const navigate = useNavigate()
 
     function handleClick() {
-        if (!input.current) return
+        if (!input.current || !search.current) return
 
         input.current.value = ''
-
-        if (!search.current) return
-
         search.current.checked = false
+
         handleChange()
     }
 
@@ -92,6 +90,7 @@ export default function BlogNav() {
                                 search.current?.click()
                             }
                         }}
+                        aria-label="Toggle search"
                         aria-controls="search"
                         className="flex cursor-pointer items-center rounded-xl bg-gray-200 px-3 py-1 text-xs"
                     >
