@@ -20,8 +20,6 @@ async function getCache() {
     return CACHE_INSTANCE
 }
 
-const DYNAMIC_ROUTES = ['/blog']
-
 async function handleFetch(request, cache) {
     const networkResponse = await fetch(request)
     if (!networkResponse.ok) throw new Error('Network response was not ok')
@@ -61,17 +59,12 @@ addEventListener('fetch', async (event) => {
     const cache = await getCache()
     const cachedResponse = await cache.match(request)
 
-    const isDynamic = DYNAMIC_ROUTES.some((route) =>
-        request.url.startsWith(route)
-    )
-
     try {
-        if (isDynamic || !cachedResponse) {
-            const networkResponse = await handleFetch(request, cache)
-            event.respondWith(networkResponse)
-        } else {
+        if (cachedResponse) {
             event.respondWith(cachedResponse)
             event.waitUntil(handleFetch(request, cache))
+        } else {
+            event.respondWith(await handleFetch(request, cache))
         }
     } catch (error) {
         console.error('Failed to fetch new content:', error)
