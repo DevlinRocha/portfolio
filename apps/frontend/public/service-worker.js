@@ -29,7 +29,7 @@ async function handleCache(event, isDynamic = false) {
     const cachedResponse = await cache.match(request)
 
     try {
-        if (isDynamic) return await handleFetch(request)
+        if (isDynamic || !cachedResponse) return await handleFetch(request)
 
         event.waitUntil(handleFetch(request, cache))
         return cachedResponse

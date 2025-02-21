@@ -36,9 +36,13 @@ function BlogSearch() {
     } = trpc.getPosts.useQuery({
         title: query,
         content: query,
-        filterCategory: category,
-        filterTag: tag,
-        withRelations: true,
+        filters: {
+            category: category,
+            tag: tag,
+        },
+        relations: {
+            all: true,
+        },
     })
 
     if (isLoading)

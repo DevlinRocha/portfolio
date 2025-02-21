@@ -35,13 +35,17 @@ type GetPostsArgs = {
     ids?: number[]
     title?: string
     content?: string
-    withRelations?: true
-    categories?: true
-    tags?: true
+    relations?: {
+        all?: true
+        categories?: true
+        tags?: true
+    }
+    filters?: {
+        category?: string
+        tag?: string
+    }
     limit?: number
     offset?: number
-    filterCategory?: string
-    filterTag?: string
 }
 
 type UpdatePostArgs = {
@@ -148,13 +152,21 @@ export const appRouter = t.router({
                 id: z.number().optional(),
                 title: z.string().optional(),
                 content: z.string().optional(),
-                withRelations: trueOrUndefined.optional(),
-                categories: trueOrUndefined.optional(),
-                tags: trueOrUndefined.optional(),
+                relations: z
+                    .object({
+                        all: trueOrUndefined.optional(),
+                        categories: trueOrUndefined.optional(),
+                        tags: trueOrUndefined.optional(),
+                    })
+                    .optional(),
+                filters: z
+                    .object({
+                        category: z.string().optional(),
+                        tag: z.string().optional(),
+                    })
+                    .optional(),
                 limit: z.number().default(10),
                 offset: z.number().default(0),
-                filterCategory: z.string().optional(),
-                filterTag: z.string().optional(),
             })
         )
         .query(async ({ input }) => {
@@ -487,14 +499,14 @@ export async function getPosts({
     ids,
     title,
     content,
-    withRelations,
-    categories,
-    tags,
+    relations = {},
+    filters = {},
     limit = 10,
     offset = 0,
-    filterCategory,
-    filterTag,
 }: GetPostsArgs = {}) {
+    const { all, categories, tags } = relations
+    const { category: filterCategory, tag: filterTag } = filters
+
     try {
         const result = await db.query.posts.findMany({
             where: (posts, { and, exists, ilike, inArray, or }) => {
@@ -546,12 +558,12 @@ export async function getPosts({
                 return and(...andConditions, or(...orConditions))
             },
             with: {
-                postsToCategories: (withRelations || categories) && {
+                postsToCategories: (all || categories) && {
                     with: {
                         category: true,
                     },
                 },
-                postsToTags: (withRelations || tags) && {
+                postsToTags: (all || tags) && {
                     with: {
                         tag: true,
                     },

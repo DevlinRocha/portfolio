@@ -9,7 +9,7 @@ export const Route = createLazyFileRoute('/blog/')({
 
 function Blog() {
     const { data, isLoading, error } = trpc.getPosts.useQuery({
-        withRelations: true,
+        relations: { all: true },
     })
 
     if (isLoading)
