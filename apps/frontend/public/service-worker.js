@@ -18,7 +18,7 @@ async function handleFetch(request, cache) {
     if (!networkResponse.ok) throw new Error('Network response was not ok')
 
     const clonedResponse = networkResponse.clone()
-    cache.put(request, clonedResponse)
+    await cache.put(request, clonedResponse)
 
     return networkResponse
 }
@@ -48,6 +48,7 @@ addEventListener('fetch', async (event) => {
     )
         return
 
+    const request = event.request
     const cache = await caches.open(CACHE_NAME)
     const cachedResponse = await cache.match(request)
 
@@ -57,12 +58,12 @@ addEventListener('fetch', async (event) => {
 
     try {
         if (isDynamic || !cachedResponse)
-            return event.respondWith(await handleFetch(request))
+            return event.respondWith(await handleFetch(request, cache))
 
         event.waitUntil(handleFetch(request, cache))
-        return event.respondWith(cachedResponse)
+        event.respondWith(cachedResponse)
     } catch (error) {
         console.error('Failed to fetch new content:', error)
-        return event.respondWith(cachedResponse)
+        event.respondWith(cachedResponse ?? (await handleFetch(request, cache)))
     }
 })
