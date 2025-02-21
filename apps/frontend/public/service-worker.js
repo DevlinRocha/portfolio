@@ -11,6 +11,15 @@ const EXTENSION_SCHEMES = [
     'edge-extension://',
 ]
 
+let CACHE_INSTANCE
+
+async function getCache() {
+    if (!CACHE_INSTANCE) {
+        CACHE_INSTANCE = await caches.open(CACHE_NAME)
+    }
+    return CACHE_INSTANCE
+}
+
 const DYNAMIC_ROUTES = ['/blog']
 
 async function handleFetch(request, cache) {
@@ -18,28 +27,13 @@ async function handleFetch(request, cache) {
     if (!networkResponse.ok) throw new Error('Network response was not ok')
 
     const clonedResponse = networkResponse.clone()
-    cache.put(request, clonedResponse)
+    await cache.put(request, clonedResponse)
 
     return networkResponse
 }
 
-async function handleCache(request, isDynamic = false) {
-    const cache = await caches.open(CACHE_NAME)
-    const cachedResponse = await cache.match(request)
-
-    try {
-        if (isDynamic) return await handleFetch(request)
-
-        handleFetch(request, cache)
-        return cachedResponse
-    } catch (error) {
-        console.error('Failed to fetch new content:', error)
-        return cachedResponse
-    }
-}
-
 addEventListener('install', async (event) => {
-    const cache = await caches.open(CACHE_NAME)
+    const cache = await getCache()
     event.waitUntil(cache.addAll(RESOURCE_LIST))
 })
 
@@ -63,8 +57,22 @@ addEventListener('fetch', async (event) => {
     )
         return
 
+    const request = event.request
+    const cache = await getCache()
+    const cachedResponse = await cache.match(request)
+
     const isDynamic = DYNAMIC_ROUTES.some((route) =>
         event.request.url.startsWith(route)
     )
-    event.respondWith(handleCache(event.request, isDynamic))
+
+    try {
+        if (isDynamic || !cachedResponse)
+            return event.respondWith(await handleFetch(request, cache))
+
+        event.waitUntil(handleFetch(request, cache))
+        event.respondWith(cachedResponse)
+    } catch (error) {
+        console.error('Failed to fetch new content:', error)
+        event.respondWith(cachedResponse ?? (await handleFetch(request, cache)))
+    }
 })
