@@ -23,21 +23,6 @@ async function handleFetch(request, cache) {
     return networkResponse
 }
 
-async function handleCache(request, isDynamic = false) {
-    const cache = await caches.open(CACHE_NAME)
-    const cachedResponse = await cache.match(request)
-
-    try {
-        if (isDynamic) return await handleFetch(request)
-
-        handleFetch(request, cache)
-        return cachedResponse
-    } catch (error) {
-        console.error('Failed to fetch new content:', error)
-        return cachedResponse
-    }
-}
-
 addEventListener('install', async (event) => {
     const cache = await caches.open(CACHE_NAME)
     event.waitUntil(cache.addAll(RESOURCE_LIST))
@@ -63,8 +48,21 @@ addEventListener('fetch', async (event) => {
     )
         return
 
+    const cache = await caches.open(CACHE_NAME)
+    const cachedResponse = await cache.match(request)
+
     const isDynamic = DYNAMIC_ROUTES.some((route) =>
         event.request.url.startsWith(route)
     )
-    event.respondWith(handleCache(event.request, isDynamic))
+
+    try {
+        if (isDynamic || !cachedResponse)
+            return event.respondWith(await handleFetch(request))
+
+        event.waitUntil(handleFetch(request, cache))
+        return event.respondWith(cachedResponse)
+    } catch (error) {
+        console.error('Failed to fetch new content:', error)
+        return event.respondWith(cachedResponse)
+    }
 })
