@@ -11,6 +11,15 @@ const EXTENSION_SCHEMES = [
     'edge-extension://',
 ]
 
+let CACHE_INSTANCE
+
+async function getCache() {
+    if (!CACHE_INSTANCE) {
+        CACHE_INSTANCE = await caches.open(CACHE_NAME)
+    }
+    return CACHE_INSTANCE
+}
+
 const DYNAMIC_ROUTES = ['/blog']
 
 async function handleFetch(request, cache) {
@@ -24,7 +33,7 @@ async function handleFetch(request, cache) {
 }
 
 addEventListener('install', async (event) => {
-    const cache = await caches.open(CACHE_NAME)
+    const cache = await getCache()
     event.waitUntil(cache.addAll(RESOURCE_LIST))
 })
 
@@ -49,7 +58,7 @@ addEventListener('fetch', async (event) => {
         return
 
     const request = event.request
-    const cache = await caches.open(CACHE_NAME)
+    const cache = await getCache()
     const cachedResponse = await cache.match(request)
 
     const isDynamic = DYNAMIC_ROUTES.some((route) =>
