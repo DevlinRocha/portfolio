@@ -23,7 +23,12 @@ async function getCache() {
 async function handleFetch(request, cache) {
     try {
         const networkResponse = await fetch(request)
-        if (!networkResponse.ok) throw new Error('Network response was not ok')
+        if (!networkResponse.ok) {
+            console.warn(
+                `Network response was not ok for ${request.url}: ${networkResponse.status}`
+            )
+            return networkResponse
+        }
 
         const clonedResponse = networkResponse.clone()
         await cache.put(request, clonedResponse)
@@ -84,7 +89,15 @@ addEventListener('fetch', (event) => {
             try {
                 return await handleFetch(event.request, cache)
             } catch (error) {
-                throw new Error(`Failed to fetch from network: ${error}`)
+                console.error(
+                    `Failed to fetch from network for ${event.request.url}:`,
+                    error
+                )
+
+                return new Response('Offline or network error occurred ', {
+                    status: 503,
+                    statusText: 'Service Unavailable',
+                })
             }
         })()
     )
