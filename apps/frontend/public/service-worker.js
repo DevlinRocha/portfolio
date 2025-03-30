@@ -23,7 +23,6 @@ async function getCache() {
 async function handleFetch(request, cache) {
     try {
         const networkResponse = await fetch(request)
-        if (!networkResponse.ok) throw new Error('Network response was not ok')
 
         const clonedResponse = networkResponse.clone()
         await cache.put(request, clonedResponse)
