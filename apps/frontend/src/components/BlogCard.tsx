@@ -35,10 +35,10 @@ export default function BlogCard({
 
     return (
         <Link
-            className={`flex h-full w-full overflow-hidden ${featured ? 'flex-col md:flex-row' : 'flex-col'}`}
+            className={`flex h-full w-full flex-col overflow-hidden ${featured ?? 'md:flex-row'}`}
             to={`/blog/$blogId`}
-            draggable={false}
             params={{ blogId: id.toString() }}
+            draggable={false}
         >
             <meta itemProp="datePublished" content={created_at} />
             <meta itemProp="dateModified" content={updated_at} />
