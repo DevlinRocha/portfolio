@@ -88,12 +88,7 @@ export default function Gallery({ items }: GalleryProps) {
                                 key={slug}
                                 className="shrink-0 snap-center"
                             >
-                                <Link
-                                    to="."
-                                    hash={slug}
-                                    hashScrollIntoView
-                                    draggable={false}
-                                >
+                                <Link to="." hash={slug} draggable={false}>
                                     <figure className="flex h-full w-min flex-col gap-8">
                                         <img
                                             src={src}

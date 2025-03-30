@@ -60,7 +60,6 @@ export default function Nav({ disableMenu = false }: NavProps) {
                         <Link
                             to="/"
                             hash="projects"
-                            hashScrollIntoView
                             onClick={handleClick}
                             className="transition-text xs:h-full xs:px-2 xs:py-0 group-hover:xs:text-black flex items-center px-12 py-2 hover:text-black"
                         >
