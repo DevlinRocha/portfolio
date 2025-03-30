@@ -82,23 +82,18 @@ addEventListener('fetch', (event) => {
             const cachedResponse = await cache.match(event.request)
 
             if (cachedResponse) {
-                event.waitUntil(handleFetch(event.request, cache))
+                event.waitUntil(
+                    handleFetch(event.request, cache).catch((error) => {
+                        console.error(
+                            `Background cache update failed for ${event.request.url}:`,
+                            error
+                        )
+                    })
+                )
                 return cachedResponse
             }
 
-            try {
-                return await handleFetch(event.request, cache)
-            } catch (error) {
-                console.error(
-                    `Failed to fetch from network for ${event.request.url}:`,
-                    error
-                )
-
-                return new Response('Offline or network error occurred ', {
-                    status: 503,
-                    statusText: 'Service Unavailable',
-                })
-            }
+            return await handleFetch(event.request, cache)
         })()
     )
 })
