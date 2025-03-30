@@ -20,7 +20,7 @@ function Index() {
 
                 <p className="max-w-prose text-pretty leading-7">
                     i'm a software engineer based in San Francisco, California
-                    with experience implementing robust and scalable web
+                    with expertise implementing robust and scalable fullstack
                     applications
                 </p>
             </section>
