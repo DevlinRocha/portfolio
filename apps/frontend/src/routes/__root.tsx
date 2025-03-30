@@ -1,10 +1,5 @@
 import React, { Suspense } from 'react'
-import {
-    createRootRoute,
-    Outlet,
-    ScrollRestoration,
-    useLocation,
-} from '@tanstack/react-router'
+import { createRootRoute, Outlet, useLocation } from '@tanstack/react-router'
 import Nav from '@/components/Nav'
 import BlogNav from '@/components/BlogNav'
 import Footer from '@/components/Footer'
@@ -29,7 +24,6 @@ export const Route = createRootRoute({
             <>
                 <Nav disableMenu={blogRoute} />
                 {blogRoute && <BlogNav />}
-                <ScrollRestoration />
                 <Outlet />
                 <Suspense>
                     <TanStackRouterDevtools />

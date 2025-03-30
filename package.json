@@ -18,17 +18,17 @@
         "cleanup": "pnpm lint --fix && pnpm prettier"
     },
     "devDependencies": {
-        "@eslint/js": "^9.18.0",
-        "@types/node": "^22.10.6",
-        "@typescript-eslint/eslint-plugin": "^8.20.0",
-        "@typescript-eslint/parser": "^8.20.0",
-        "eslint": "^9.20.1",
+        "@eslint/js": "^9.23.0",
+        "@types/node": "^22.13.14",
+        "@typescript-eslint/eslint-plugin": "^8.28.0",
+        "@typescript-eslint/parser": "^8.28.0",
+        "eslint": "^9.23.0",
         "eslint-plugin-react": "^7.37.4",
-        "eslint-plugin-react-hooks": "^5.1.0",
-        "eslint-plugin-react-refresh": "^0.4.18",
-        "globals": "^15.14.0",
+        "eslint-plugin-react-hooks": "^5.2.0",
+        "eslint-plugin-react-refresh": "^0.4.19",
+        "globals": "^15.15.0",
         "prettier": "3.4.2",
-        "typescript": "^5.7.3",
-        "typescript-eslint": "^8.20.0"
+        "typescript": "^5.8.2",
+        "typescript-eslint": "^8.28.0"
     }
 }

@@ -48,7 +48,6 @@ export default function Footer() {
 
             <Link
                 to="/"
-                hash="home"
                 className="transition-text text-balance text-center hover:text-black hover:underline"
             >
                 designed and developed by Devlin Rocha
