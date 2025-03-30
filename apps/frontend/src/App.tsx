@@ -29,11 +29,6 @@ export function App() {
             links: [
                 httpBatchLink({
                     url: import.meta.env.VITE_API_URL,
-                    // headers: () => {
-                    //     return {
-                    //         'Content-Type': 'application/json',
-                    //     }
-                    // },
                 }),
             ],
         })
