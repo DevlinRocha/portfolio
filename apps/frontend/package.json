@@ -16,7 +16,7 @@
     "dependencies": {
         "@portfolio/api": "workspace:*",
         "@tanstack/react-query": "^5.64.1",
-        "@tanstack/react-router": "^1.90.0",
+        "@tanstack/react-router": "^1.112.0",
         "@trpc/client": "11.0.0-rc.700",
         "@trpc/react-query": "11.0.0-rc.700",
         "react": "^19.0.0",
