@@ -21,53 +21,71 @@ async function getCache() {
 }
 
 async function handleFetch(request, cache) {
-    const networkResponse = await fetch(request)
-    if (!networkResponse.ok) throw new Error('Network response was not ok')
+    try {
+        const networkResponse = await fetch(request)
+        if (!networkResponse.ok) throw new Error('Network response was not ok')
 
-    const clonedResponse = networkResponse.clone()
-    await cache.put(request, clonedResponse)
+        const clonedResponse = networkResponse.clone()
+        await cache.put(request, clonedResponse)
 
-    return networkResponse
+        return networkResponse
+    } catch (error) {
+        console.error('Network fetch failed:', error)
+        throw error
+    }
 }
 
-addEventListener('install', async (event) => {
-    const cache = await getCache()
-    event.waitUntil(cache.addAll(RESOURCE_LIST))
-})
-
-addEventListener('activate', async (event) => {
-    const cacheNames = await caches.keys()
-
+addEventListener('install', (event) => {
     event.waitUntil(
-        await Promise.all(
-            cacheNames.map((cacheName) => {
-                if (cacheName !== CACHE_NAME) {
-                    return caches.delete(cacheName)
-                }
-            })
-        )
+        (async () => {
+            const cache = await getCache()
+            await cache.addAll(RESOURCE_LIST)
+        })()
     )
+
+    skipWaiting()
 })
 
-addEventListener('fetch', async (event) => {
+addEventListener('activate', (event) => {
+    event.waitUntil(
+        (async () => {
+            const cacheNames = await caches.keys()
+
+            await Promise.all(
+                cacheNames.map((cacheName) => {
+                    if (cacheName !== CACHE_NAME) {
+                        return caches.delete(cacheName)
+                    }
+                })
+            )
+        })()
+    )
+
+    clients.claim()
+})
+
+addEventListener('fetch', (event) => {
     if (
+        event.request.method !== 'GET' ||
         EXTENSION_SCHEMES.some((scheme) => event.request.url.startsWith(scheme))
     )
         return
 
-    const request = event.request
-    const cache = await getCache()
-    const cachedResponse = await cache.match(request)
+    event.respondWith(
+        (async () => {
+            const cache = await getCache()
+            const cachedResponse = await cache.match(event.request)
 
-    try {
-        if (cachedResponse) {
-            event.respondWith(cachedResponse)
-            event.waitUntil(handleFetch(request, cache))
-        } else {
-            event.respondWith(await handleFetch(request, cache))
-        }
-    } catch (error) {
-        console.error('Failed to fetch new content:', error)
-        event.respondWith(cachedResponse ?? (await handleFetch(request, cache)))
-    }
+            if (cachedResponse) {
+                event.waitUntil(handleFetch(event.request, cache))
+                return cachedResponse
+            }
+
+            try {
+                return await handleFetch(event.request, cache)
+            } catch (error) {
+                throw new Error(`Failed to fetch from network: ${error}`)
+            }
+        })()
+    )
 })
