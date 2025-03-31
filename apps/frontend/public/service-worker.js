@@ -93,7 +93,17 @@ addEventListener('fetch', (event) => {
                 return cachedResponse
             }
 
-            return await handleFetch(event.request, cache)
+            try {
+                return await handleFetch(event.request, cache)
+            } catch (error) {
+                console.error(
+                    `Failed to fetch from network for ${event.request.url}:`,
+                    error
+                )
+
+                const offline = await caches.match('/offline.html')
+                return offline
+            }
         })()
     )
 })
