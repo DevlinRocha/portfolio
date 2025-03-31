@@ -1,6 +1,7 @@
 /* eslint-env worker */
 /* eslint-disable no-undef */
 importScripts('/resource-list.js')
+import offlineHtml from './assets/offline.html'
 
 const CACHE_NAME = 'devlin-frontend-v0.0.1'
 
@@ -45,6 +46,12 @@ addEventListener('install', (event) => {
         (async () => {
             const cache = await getCache()
             await cache.addAll(RESOURCE_LIST)
+            await cache.put(
+                '/offline',
+                new Response(offlineHtml, {
+                    headers: { 'Content-Type': 'text/html' },
+                })
+            )
         })()
     )
 
@@ -101,7 +108,7 @@ addEventListener('fetch', (event) => {
                     error
                 )
 
-                const offlineResponse = await cache.match('/offline.html')
+                const offlineResponse = await cache.match('/offline')
                 const offlineBody = await offlineResponse.text()
 
                 return new Response(offlineBody, {
