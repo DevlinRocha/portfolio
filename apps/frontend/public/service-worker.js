@@ -101,14 +101,8 @@ addEventListener('fetch', (event) => {
                     error
                 )
 
-                return new Response(
-                    '<main style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 50lvh; font-family: system-ui;"><h1>network offline</h1><a href="/">go home</a></main>',
-                    {
-                        status: 503,
-                        statusText: 'Service Unavailable',
-                        headers: { 'Content-Type': 'text/html' },
-                    }
-                )
+                const offline = await cache.match('/offline.html')
+                return offline
             }
         })()
     )
