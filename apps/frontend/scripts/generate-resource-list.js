@@ -14,6 +14,7 @@ const routesToCache = [
     '/wheres-waldo',
     '/about',
     '/blog',
+    '/offline.html',
 ]
 
 const assetPaths = Object.values(manifest).flatMap((entry) => [
@@ -22,11 +23,8 @@ const assetPaths = Object.values(manifest).flatMap((entry) => [
 ])
 
 const favicons = ['icon.svg', 'icon-512.png', 'icon-192.png', '/favicon.ico']
-
 const resourcesToCache = [...routesToCache, ...assetPaths, ...favicons]
-
 const resourceList = `const RESOURCE_LIST = ${JSON.stringify(resourcesToCache, null, 2)};`
-
 fs.writeFileSync(outputPath, resourceList)
 
 console.log('Resource list generated:', outputPath)
