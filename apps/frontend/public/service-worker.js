@@ -101,13 +101,8 @@ addEventListener('fetch', (event) => {
                     error
                 )
 
-                const offline = await caches.match('/offline.html')
-                if (offline)
-                    return new Response(offline, {
-                        status: 503,
-                        statusText: 'Service Unavailable',
-                        headers: { 'Content-Type': 'text/html' },
-                    })
+                const offline = await cache.match('/offline.html')
+                return offline
             }
         })()
     )
