@@ -49,7 +49,7 @@ addEventListener('install', (event) => {
             await cache.put(
                 '/offline',
                 new Response(offlineHtml, {
-                    headers: { 'Content-Type': 'text/html; charset=UTF-8' },
+                    headers: { 'Content-Type': 'text/html; charset=utf-8' },
                 })
             )
         })()
@@ -114,7 +114,7 @@ addEventListener('fetch', (event) => {
                 return new Response(offlineBody, {
                     status: 503,
                     statusText: 'Service Unavailable',
-                    headers: { 'Content-Type': 'text/html; charset=UTF-8' },
+                    headers: { 'Content-Type': 'text/html; charset=utf-8' },
                 })
             }
         })()
