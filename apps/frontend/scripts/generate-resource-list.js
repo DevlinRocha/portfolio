@@ -26,8 +26,11 @@ const resourcesToCache = [...routesToCache, ...assetPaths, ...favicons]
 const resourceList = `const RESOURCE_LIST = ${JSON.stringify(resourcesToCache, null, 2)};`
 fs.writeFileSync(outputPath, resourceList)
 
-const outputPathOffline = path.resolve('src/assets/offline.html')
-const offline = fs.readFileSync(path.join(distDir, 'offline.html'), 'utf-8')
+const outputPathOffline = path.join(distDir, 'offline.html')
+const offline = fs.readFileSync(
+    path.resolve('src/assets/offline.html'),
+    'utf-8'
+)
 fs.writeFileSync(outputPathOffline, offline)
 
 console.log('Resource list generated:', outputPath)
