@@ -1,6 +1,12 @@
 import { useRouter, Link } from '@tanstack/react-router'
 
-export default function DefaultNotFound() {
+type DefaultNotFoundProps = {
+    message?: string
+}
+
+export default function DefaultNotFound({
+    message = 'page not found',
+}: DefaultNotFoundProps) {
     const router = useRouter()
 
     const faces = [
@@ -59,7 +65,7 @@ export default function DefaultNotFound() {
                 </pre>
 
                 <h1 className="text-center text-3xl font-semibold md:text-4xl lg:text-5xl">
-                    page not found
+                    {message}
                 </h1>
             </div>
 
