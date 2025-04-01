@@ -30,8 +30,8 @@ function BlogPost() {
             </h2>
         )
 
-    if (error) return <DefaultNotFound />
-    if (!post) return <DefaultNotFound />
+    if (error) return <DefaultNotFound message="error loading post" />
+    if (!post) return <DefaultNotFound message="post not found" />
 
     return (
         <main className="flex flex-col">
