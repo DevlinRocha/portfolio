@@ -45,6 +45,9 @@ addEventListener('install', (event) => {
         (async () => {
             const cache = await getCache()
             await cache.addAll(RESOURCE_LIST)
+
+            const offlineResponse = await fetch('/assets/offline.html')
+            await cache.put('/offline', offlineResponse)
         })()
     )
 
@@ -100,6 +103,15 @@ addEventListener('fetch', (event) => {
                     `Failed to fetch from network for ${event.request.url}:`,
                     error
                 )
+
+                const offlineResponse = await cache.match('/offline')
+                const offlineBody = await offlineResponse.text()
+
+                return new Response(offlineBody, {
+                    status: 503,
+                    statusText: 'Service Unavailable',
+                    headers: { 'Content-Type': 'text/html' },
+                })
             }
         })()
     )
