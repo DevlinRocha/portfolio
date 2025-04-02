@@ -101,7 +101,11 @@ addEventListener('fetch', (event) => {
                     error
                 )
 
-                throw notFound()
+                return new Response(offline, {
+                    status: 503,
+                    statusText: 'Service Unavailable',
+                    headers: { 'Content-Type': 'text/html' },
+                })
             }
         })()
     )
