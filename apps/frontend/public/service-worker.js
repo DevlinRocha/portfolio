@@ -100,6 +100,12 @@ addEventListener('fetch', (event) => {
                     `Failed to fetch from network for ${event.request.url}:`,
                     error
                 )
+
+                return new Response('network offline', {
+                    status: 503,
+                    statusText: 'Service Unavailable',
+                    headers: { 'Content-Type': 'text/html' },
+                })
             }
         })()
     )
