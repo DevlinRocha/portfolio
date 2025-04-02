@@ -45,6 +45,9 @@ addEventListener('install', (event) => {
         (async () => {
             const cache = await getCache()
             await cache.addAll(RESOURCE_LIST)
+
+            const offlineResponse = await fetch('/offline')
+            await cache.put('/offline', offlineResponse)
         })()
     )
 
