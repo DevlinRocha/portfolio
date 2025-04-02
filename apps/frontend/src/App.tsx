@@ -11,7 +11,7 @@ import './index.css'
 const router = createRouter({
     scrollRestoration: true,
     defaultHashScrollIntoView: { behavior: 'smooth' },
-    defaultNotFoundComponent: DefaultNotFound,
+    defaultNotFoundComponent: () => <DefaultNotFound />,
     routeTree,
 })
 
