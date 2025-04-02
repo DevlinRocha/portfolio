@@ -101,7 +101,7 @@ addEventListener('fetch', (event) => {
                     error
                 )
 
-                return new Response('network offline', {
+                return new Response(undefined, {
                     status: 503,
                     statusText: 'Service Unavailable',
                     headers: { 'Content-Type': 'text/html' },
