@@ -18,8 +18,9 @@ function Blog() {
                 Loading...
             </h2>
         )
-    if (error) return <DefaultNotFound />
-    if (!data || !data.length) return <DefaultNotFound />
+    if (error) return <DefaultNotFound message="error loading blog" />
+    if (!data || !data.length)
+        return <DefaultNotFound message="blog not found" />
 
     const firstPost = data[0]
 

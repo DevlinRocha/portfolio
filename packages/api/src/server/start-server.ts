@@ -7,6 +7,7 @@ const allowedOrigins =
               'https://devlinrocha.com',
               'https://www.devlinrocha.com',
               'https://staging.devlinrocha.com',
+              'https://staging.devlinrocha.pages.dev',
               'https://www.staging.devlinrocha.com',
           ]
         : ['http://localhost:4173', 'http://localhost:5173']

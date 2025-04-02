@@ -47,8 +47,8 @@ function BlogSearch() {
                 Loading...
             </h2>
         )
-    if (error) return <DefaultNotFound />
-    if (!posts) return <DefaultNotFound />
+    if (error) return <DefaultNotFound message="error searching" />
+    if (!posts) return <DefaultNotFound message="no posts found" />
 
     return (
         <main
