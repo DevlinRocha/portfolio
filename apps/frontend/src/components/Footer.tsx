@@ -5,7 +5,7 @@ export default function Footer() {
         <footer className="flex h-full flex-col items-center justify-center gap-4 p-4 text-xs text-black/80">
             <nav className="flex select-none flex-wrap justify-center gap-4 text-balance">
                 <a
-                    href="https://www.twitch.tv/DevlinRochaa"
+                    href="https://www.twitch.tv/Devliiiin"
                     target="_blank"
                     rel="noreferrer"
                     className="transition-text hover:text-black hover:underline"
@@ -13,12 +13,28 @@ export default function Footer() {
                     Twitch
                 </a>
                 <a
-                    href="https://www.youtube.com/@DevlinRochaa"
+                    href="https://www.youtube.com/@Devliiin"
                     target="_blank"
                     rel="noreferrer"
                     className="transition-text hover:text-black hover:underline"
                 >
                     YouTube
+                </a>
+                <a
+                    href="https://www.tiktok.com/@_Devliin"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="transition-text hover:text-black hover:underline"
+                >
+                    TikTok
+                </a>
+                <a
+                    href="https://bsky.app/profile/devlin.live"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="transition-text hover:text-black hover:underline"
+                >
+                    Bluesky
                 </a>
                 <a
                     href="https://twitter.com/DevlinRocha"
