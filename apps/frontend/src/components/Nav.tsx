@@ -107,7 +107,7 @@ export default function Nav({ disableMenu = false }: NavProps) {
 
                     <li className="xs:h-full">
                         <a
-                            href="https://drive.google.com/file/d/1Ja9w6xbxE4SbC6EAw0zN6I35-B-8bYzM/view?usp=sharing"
+                            href="/resume.pdf"
                             target="_blank"
                             rel="noreferrer"
                             onClick={handleClick}
